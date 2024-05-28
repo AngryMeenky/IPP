@@ -1,5 +1,6 @@
 #include "IPP.h"
 #include "fft.h"
+#include "rand.h"
 #include "buffer.h"
 
 #ifdef GDEXTENSION
@@ -900,6 +901,282 @@ ipp::IPP::Status ipp::IPP::triangle_64fc(IppBuffer *dst, int len, double mag, do
 }
 
 
+ipp::IPP::Status ipp::IPP::cos_32f_A11(const IppBuffer *src, IppBuffer *dst, int len) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_32F || dst->getType() != TYPE_32F) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsCos_32f_A11(src->as32f(), dst->as32f(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::cos_32f_A21(const IppBuffer *src, IppBuffer *dst, int len) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_32F || dst->getType() != TYPE_32F) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsCos_32f_A21(src->as32f(), dst->as32f(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::cos_32f_A24(const IppBuffer *src, IppBuffer *dst, int len) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_32F || dst->getType() != TYPE_32F) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsCos_32f_A24(src->as32f(), dst->as32f(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::cos_64f_A26(const IppBuffer *src, IppBuffer *dst, int len) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_64F || dst->getType() != TYPE_64F) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsCos_64f_A26(src->as64f(), dst->as64f(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::cos_64f_A50(const IppBuffer *src, IppBuffer *dst, int len) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_64F || dst->getType() != TYPE_64F) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsCos_64f_A50(src->as64f(), dst->as64f(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::cos_64f_A53(const IppBuffer *src, IppBuffer *dst, int len) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_64F || dst->getType() != TYPE_64F) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsCos_64f_A53(src->as64f(), dst->as64f(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::cos_32fc_A11(const IppBuffer *src, IppBuffer *dst, int len) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_32FC || dst->getType() != TYPE_32FC) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsCos_32fc_A11(src->as32fc(), dst->as32fc(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::cos_32fc_A21(const IppBuffer *src, IppBuffer *dst, int len) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_32FC || dst->getType() != TYPE_32FC) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsCos_32fc_A21(src->as32fc(), dst->as32fc(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::cos_32fc_A24(const IppBuffer *src, IppBuffer *dst, int len) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_32FC || dst->getType() != TYPE_32FC) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsCos_32fc_A24(src->as32fc(), dst->as32fc(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::cos_64fc_A26(const IppBuffer *src, IppBuffer *dst, int len) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_64FC || dst->getType() != TYPE_64FC) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsCos_64fc_A26(src->as64fc(), dst->as64fc(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::cos_64fc_A50(const IppBuffer *src, IppBuffer *dst, int len) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_64FC || dst->getType() != TYPE_64FC) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsCos_64fc_A50(src->as64fc(), dst->as64fc(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::cos_64fc_A53(const IppBuffer *src, IppBuffer *dst, int len) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_64FC || dst->getType() != TYPE_64FC) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsCos_64fc_A53(src->as64fc(), dst->as64fc(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::sin_32f_A11(const IppBuffer *src, IppBuffer *dst, int len) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_32F || dst->getType() != TYPE_32F) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSin_32f_A11(src->as32f(), dst->as32f(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::sin_32f_A21(const IppBuffer *src, IppBuffer *dst, int len) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_32F || dst->getType() != TYPE_32F) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSin_32f_A21(src->as32f(), dst->as32f(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::sin_32f_A24(const IppBuffer *src, IppBuffer *dst, int len) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_32F || dst->getType() != TYPE_32F) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSin_32f_A24(src->as32f(), dst->as32f(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::sin_64f_A26(const IppBuffer *src, IppBuffer *dst, int len) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_64F || dst->getType() != TYPE_64F) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSin_64f_A26(src->as64f(), dst->as64f(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::sin_64f_A50(const IppBuffer *src, IppBuffer *dst, int len) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_64F || dst->getType() != TYPE_64F) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSin_64f_A50(src->as64f(), dst->as64f(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::sin_64f_A53(const IppBuffer *src, IppBuffer *dst, int len) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_64F || dst->getType() != TYPE_64F) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSin_64f_A53(src->as64f(), dst->as64f(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::sin_32fc_A11(const IppBuffer *src, IppBuffer *dst, int len) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_32FC || dst->getType() != TYPE_32FC) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSin_32fc_A11(src->as32fc(), dst->as32fc(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::sin_32fc_A21(const IppBuffer *src, IppBuffer *dst, int len) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_32FC || dst->getType() != TYPE_32FC) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSin_32fc_A21(src->as32fc(), dst->as32fc(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::sin_32fc_A24(const IppBuffer *src, IppBuffer *dst, int len) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_32FC || dst->getType() != TYPE_32FC) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSin_32fc_A24(src->as32fc(), dst->as32fc(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::sin_64fc_A26(const IppBuffer *src, IppBuffer *dst, int len) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_64FC || dst->getType() != TYPE_64FC) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSin_64fc_A26(src->as64fc(), dst->as64fc(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::sin_64fc_A50(const IppBuffer *src, IppBuffer *dst, int len) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_64FC || dst->getType() != TYPE_64FC) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSin_64fc_A50(src->as64fc(), dst->as64fc(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::sin_64fc_A53(const IppBuffer *src, IppBuffer *dst, int len) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_64FC || dst->getType() != TYPE_64FC) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSin_64fc_A53(src->as64fc(), dst->as64fc(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::sin_cos_32f_A11(const IppBuffer *src, IppBuffer *s, IppBuffer *c, int len) {
+  if(src            == nullptr  || s            == nullptr  || c            == nullptr  ||
+     src->getType() != TYPE_32F || s->getType() != TYPE_32F || c->getType() != TYPE_32F) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSinCos_32f_A11(src->as32f(), s->as32f(), c->as32f(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::sin_cos_32f_A21(const IppBuffer *src, IppBuffer *s, IppBuffer *c, int len) {
+  if(src            == nullptr  || s            == nullptr  || c            == nullptr  ||
+     src->getType() != TYPE_32F || s->getType() != TYPE_32F || c->getType() != TYPE_32F) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSinCos_32f_A21(src->as32f(), s->as32f(), c->as32f(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::sin_cos_32f_A24(const IppBuffer *src, IppBuffer *s, IppBuffer *c, int len) {
+  if(src            == nullptr  || s            == nullptr  || c            == nullptr  ||
+     src->getType() != TYPE_32F || s->getType() != TYPE_32F || c->getType() != TYPE_32F) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSinCos_32f_A24(src->as32f(), s->as32f(), c->as32f(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::sin_cos_64f_A26(const IppBuffer *src, IppBuffer *s, IppBuffer *c, int len) {
+  if(src            == nullptr  || s            == nullptr  || c            == nullptr  ||
+     src->getType() != TYPE_64F || s->getType() != TYPE_64F || c->getType() != TYPE_64F) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSinCos_64f_A26(src->as64f(), s->as64f(), c->as64f(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::sin_cos_64f_A50(const IppBuffer *src, IppBuffer *s, IppBuffer *c, int len) {
+  if(src            == nullptr  || s            == nullptr  || c            == nullptr  ||
+     src->getType() != TYPE_64F || s->getType() != TYPE_64F || c->getType() != TYPE_64F) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSinCos_64f_A50(src->as64f(), s->as64f(), c->as64f(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::sin_cos_64f_A53(const IppBuffer *src, IppBuffer *s, IppBuffer *c, int len) {
+  if(src            == nullptr  || s            == nullptr  || c            == nullptr  ||
+     src->getType() != TYPE_64F || s->getType() != TYPE_64F || c->getType() != TYPE_64F) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSinCos_64f_A53(src->as64f(), s->as64f(), c->as64f(), len));
+}
+
+
 ipp::IPP::Status ipp::IPP::addC_32f(const IppBuffer *src, float val, IppBuffer *dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_32F || dst->getType() != TYPE_32F) {
     return STAT_BAD_ARG_ERR;
@@ -1050,7 +1327,6 @@ ipp::IPP::Status ipp::IPP::addC_64fc_I(Vector2 v2, IppBuffer *srcDst, int len) {
 }
 
 
-
 ipp::IPP::Status ipp::IPP::addC_8u_ISfs(int val, IppBuffer *srcDst, int len, int scale) {
   if(srcDst == nullptr || srcDst->getType() != TYPE_8U) {
     return STAT_BAD_ARG_ERR;
@@ -1104,6 +1380,234 @@ ipp::IPP::Status ipp::IPP::addC_32sc_ISfs(Vector2i v2i, IppBuffer *srcDst, int l
 
   Ipp32sc val{ static_cast<Ipp32s>(v2i.x), static_cast<Ipp32s>(v2i.y) };
   return static_cast<Status>(ippsAddC_32sc_ISfs(val, srcDst->as32sc(), len, scale));
+}
+
+
+ipp::IPP::Status ipp::IPP::subC_32f(const IppBuffer *src, float val, IppBuffer *dst, int len) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_32F || dst->getType() != TYPE_32F) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSubC_32f(src->as32f(), val, dst->as32f(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::subC_64f(const IppBuffer *src, double val, IppBuffer *dst, int len) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_64F || dst->getType() != TYPE_64F) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSubC_64f(src->as64f(), val, dst->as64f(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::subC_32fc(const IppBuffer *src, Vector2 v2, IppBuffer *dst, int len) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_32FC || dst->getType() != TYPE_32FC) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  Ipp32fc val{ static_cast<Ipp32f>(v2.x), static_cast<Ipp32f>(v2.y) };
+  return static_cast<Status>(ippsSubC_32fc(src->as32fc(), val, dst->as32fc(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::subC_64fc(const IppBuffer *src, Vector2 v2, IppBuffer *dst, int len) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_64FC || dst->getType() != TYPE_64FC) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  Ipp64fc val{ static_cast<Ipp64f>(v2.x), static_cast<Ipp64f>(v2.y) };
+  return static_cast<Status>(ippsSubC_64fc(src->as64fc(), val, dst->as64fc(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::subC_8u_Sfs(const IppBuffer *src, int val, IppBuffer *dst, int len, int scale){
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_8U || dst->getType() != TYPE_8U) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSubC_8u_Sfs(src->as8u(), val, dst->as8u(), len, scale));
+}
+
+
+ipp::IPP::Status ipp::IPP::subC_16u_Sfs(const IppBuffer *src, int val, IppBuffer *dst, int len, int scale) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_16U || dst->getType() != TYPE_16U) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSubC_16u_Sfs(src->as16u(), val, dst->as16u(), len, scale));
+}
+
+
+ipp::IPP::Status ipp::IPP::subC_16s_Sfs(const IppBuffer *src, int val, IppBuffer *dst, int len, int scale) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_16S || dst->getType() != TYPE_16S) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSubC_16s_Sfs(src->as16s(), val, dst->as16s(), len, scale));
+}
+
+
+ipp::IPP::Status ipp::IPP::subC_32s_Sfs(const IppBuffer *src, int val, IppBuffer *dst, int len, int scale) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_32S || dst->getType() != TYPE_32S) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSubC_32s_Sfs(src->as32s(), val, dst->as32s(), len, scale));
+}
+
+
+ipp::IPP::Status ipp::IPP::subC_16sc_Sfs(const IppBuffer *src, Vector2i v2i, IppBuffer *dst, int len, int scale) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_16SC || dst->getType() != TYPE_16SC) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  Ipp16sc val{ static_cast<Ipp16s>(v2i.x), static_cast<Ipp16s>(v2i.y) };
+  return static_cast<Status>(ippsSubC_16sc_Sfs(src->as16sc(), val, dst->as16sc(), len, scale));
+}
+
+
+ipp::IPP::Status ipp::IPP::subC_32sc_Sfs(const IppBuffer *src, Vector2i v2i, IppBuffer *dst, int len, int scale) {
+  if(src == nullptr || dst == nullptr || src->getType() != TYPE_32SC || dst->getType() != TYPE_32SC) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  Ipp32sc val{ static_cast<Ipp32s>(v2i.x), static_cast<Ipp32s>(v2i.y) };
+  return static_cast<Status>(ippsSubC_32sc_Sfs(src->as32sc(), val, dst->as32sc(), len, scale));
+}
+
+
+ipp::IPP::Status ipp::IPP::subC_32f_I(float val, IppBuffer *srcDst, int len) {
+  if(srcDst == nullptr || srcDst->getType() != TYPE_32F) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSubC_32f_I(val, srcDst->as32f(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::subC_64f_I(double val, IppBuffer *srcDst, int len) {
+  if(srcDst == nullptr || srcDst->getType() != TYPE_64F) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSubC_64f_I(val, srcDst->as64f(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::subC_32fc_I(Vector2 v2, IppBuffer *srcDst, int len) {
+  if(srcDst == nullptr || srcDst->getType() != TYPE_32FC) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  Ipp32fc val{ static_cast<Ipp32f>(v2.x), static_cast<Ipp32f>(v2.y) };
+  return static_cast<Status>(ippsSubC_32fc_I(val, srcDst->as32fc(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::subC_64fc_I(Vector2 v2, IppBuffer *srcDst, int len) {
+  if(srcDst == nullptr || srcDst->getType() != TYPE_64FC) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  Ipp64fc val{ static_cast<Ipp64f>(v2.x), static_cast<Ipp64f>(v2.y) };
+  return static_cast<Status>(ippsSubC_64fc_I(val, srcDst->as64fc(), len));
+}
+
+
+ipp::IPP::Status ipp::IPP::subC_8u_ISfs(int val, IppBuffer *srcDst, int len, int scale) {
+  if(srcDst == nullptr || srcDst->getType() != TYPE_8U) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSubC_8u_ISfs(val, srcDst->as8u(), len, scale));
+}
+
+
+ipp::IPP::Status ipp::IPP::subC_16u_ISfs(int val, IppBuffer *srcDst, int len, int scale) {
+  if(srcDst == nullptr || srcDst->getType() != TYPE_16U) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSubC_16u_ISfs(val, srcDst->as16u(), len, scale));
+}
+
+
+ipp::IPP::Status ipp::IPP::subC_16s_ISfs(int val, IppBuffer *srcDst, int len, int scale) {
+  if(srcDst == nullptr || srcDst->getType() != TYPE_16S) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSubC_16s_ISfs(val, srcDst->as16s(), len, scale));
+}
+
+
+ipp::IPP::Status ipp::IPP::subC_32s_ISfs(int val, IppBuffer *srcDst, int len, int scale) {
+  if(srcDst == nullptr || srcDst->getType() != TYPE_32S) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  return static_cast<Status>(ippsSubC_32s_ISfs(val, srcDst->as32s(), len, scale));
+}
+
+
+ipp::IPP::Status ipp::IPP::subC_16sc_ISfs(Vector2i v2i, IppBuffer *srcDst, int len, int scale) {
+  if(srcDst == nullptr || srcDst->getType() != TYPE_16SC) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  Ipp16sc val{ static_cast<Ipp16s>(v2i.x), static_cast<Ipp16s>(v2i.y) };
+  return static_cast<Status>(ippsSubC_16sc_ISfs(val, srcDst->as16sc(), len, scale));
+}
+
+
+ipp::IPP::Status ipp::IPP::subC_32sc_ISfs(Vector2i v2i, IppBuffer *srcDst, int len, int scale) {
+  if(srcDst == nullptr || srcDst->getType() != TYPE_32SC) {
+    return STAT_BAD_ARG_ERR;
+  }
+
+  Ipp32sc val{ static_cast<Ipp32s>(v2i.x), static_cast<Ipp32s>(v2i.y) };
+  return static_cast<Status>(ippsSubC_32sc_ISfs(val, srcDst->as32sc(), len, scale));
+}
+
+
+ipp::IppRandom *ipp::IPP::uniform_init_8u(int low, int high, int64_t seed) {
+  return new IppRandom(IPP::TYPE_8U, IppRandom::DIST_UNIFORM, low, high, static_cast<unsigned>(seed));
+}
+
+
+ipp::IppRandom *ipp::IPP::uniform_init_16s(int low, int high, int64_t seed) {
+  return new IppRandom(IPP::TYPE_16S, IppRandom::DIST_UNIFORM, low, high, static_cast<unsigned>(seed));
+}
+
+
+ipp::IppRandom *ipp::IPP::uniform_init_32f(float low, float high, int64_t seed) {
+  return new IppRandom(IPP::TYPE_32F, IppRandom::DIST_UNIFORM, low, high, static_cast<unsigned>(seed));
+}
+
+
+ipp::IppRandom *ipp::IPP::uniform_init_64f(double low, double high, int64_t seed) {
+  return new IppRandom(IPP::TYPE_64F, IppRandom::DIST_UNIFORM, low, high, static_cast<unsigned>(seed));
+}
+
+
+ipp::IppRandom *ipp::IPP::gauss_init_8u(int low, int high, int64_t seed) {
+  return new IppRandom(IPP::TYPE_8U, IppRandom::DIST_GAUSSIAN, low, high, static_cast<unsigned>(seed));
+}
+
+
+ipp::IppRandom *ipp::IPP::gauss_init_16s(int low, int high, int64_t seed) {
+  return new IppRandom(IPP::TYPE_16S, IppRandom::DIST_GAUSSIAN, low, high, static_cast<unsigned>(seed));
+}
+
+
+ipp::IppRandom *ipp::IPP::gauss_init_32f(float low, float high, int64_t seed) {
+  return new IppRandom(IPP::TYPE_32F, IppRandom::DIST_GAUSSIAN, low, high, static_cast<unsigned>(seed));
+}
+
+
+ipp::IppRandom *ipp::IPP::gauss_init_64f(double low, double high, int64_t seed) {
+  return new IppRandom(IPP::TYPE_64F, IppRandom::DIST_GAUSSIAN, low, high, static_cast<unsigned>(seed));
 }
 
 
@@ -1205,11 +1709,81 @@ void ipp::IPP::_bind_methods() {
   ClassDB::bind_static_method("IPP", D_METHOD("triangle_16sc", "len", "mag", "freq", "asym", "phase"), &IPP::tone_16sc);
   ClassDB::bind_static_method("IPP", D_METHOD("triangle_32fc", "len", "mag", "freq", "asym", "phase"), &IPP::tone_32fc);
   ClassDB::bind_static_method("IPP", D_METHOD("triangle_64fc", "len", "mag", "freq", "asym", "phase"), &IPP::tone_64fc);
+  
+  ClassDB::bind_static_method("IPP", D_METHOD("cos_32f_A11", "src", "dst", "len"), &IPP::cos_32f_A11);
+  ClassDB::bind_static_method("IPP", D_METHOD("cos_32f_A21", "src", "dst", "len"), &IPP::cos_32f_A21);
+  ClassDB::bind_static_method("IPP", D_METHOD("cos_32f_A24", "src", "dst", "len"), &IPP::cos_32f_A24);
+  ClassDB::bind_static_method("IPP", D_METHOD("cos_64f_A26", "src", "dst", "len"), &IPP::cos_64f_A26);
+  ClassDB::bind_static_method("IPP", D_METHOD("cos_64f_A50", "src", "dst", "len"), &IPP::cos_64f_A50);
+  ClassDB::bind_static_method("IPP", D_METHOD("cos_64f_A53", "src", "dst", "len"), &IPP::cos_64f_A53);
+  ClassDB::bind_static_method("IPP", D_METHOD("cos_32fc_A11", "src", "dst", "len"), &IPP::cos_32fc_A11);
+  ClassDB::bind_static_method("IPP", D_METHOD("cos_32fc_A21", "src", "dst", "len"), &IPP::cos_32fc_A21);
+  ClassDB::bind_static_method("IPP", D_METHOD("cos_32fc_A24", "src", "dst", "len"), &IPP::cos_32fc_A24);
+  ClassDB::bind_static_method("IPP", D_METHOD("cos_64fc_A26", "src", "dst", "len"), &IPP::cos_64fc_A26);
+  ClassDB::bind_static_method("IPP", D_METHOD("cos_64fc_A50", "src", "dst", "len"), &IPP::cos_64fc_A50);
+  ClassDB::bind_static_method("IPP", D_METHOD("cos_64fc_A53", "src", "dst", "len"), &IPP::cos_64fc_A53);
+  
+  ClassDB::bind_static_method("IPP", D_METHOD("sin_32f_A11", "src", "dst", "len"), &IPP::sin_32f_A11);
+  ClassDB::bind_static_method("IPP", D_METHOD("sin_32f_A21", "src", "dst", "len"), &IPP::sin_32f_A21);
+  ClassDB::bind_static_method("IPP", D_METHOD("sin_32f_A24", "src", "dst", "len"), &IPP::sin_32f_A24);
+  ClassDB::bind_static_method("IPP", D_METHOD("sin_64f_A26", "src", "dst", "len"), &IPP::sin_64f_A26);
+  ClassDB::bind_static_method("IPP", D_METHOD("sin_64f_A50", "src", "dst", "len"), &IPP::sin_64f_A50);
+  ClassDB::bind_static_method("IPP", D_METHOD("sin_64f_A53", "src", "dst", "len"), &IPP::sin_64f_A53);
+  ClassDB::bind_static_method("IPP", D_METHOD("sin_32fc_A11", "src", "dst", "len"), &IPP::sin_32fc_A11);
+  ClassDB::bind_static_method("IPP", D_METHOD("sin_32fc_A21", "src", "dst", "len"), &IPP::sin_32fc_A21);
+  ClassDB::bind_static_method("IPP", D_METHOD("sin_32fc_A24", "src", "dst", "len"), &IPP::sin_32fc_A24);
+  ClassDB::bind_static_method("IPP", D_METHOD("sin_64fc_A26", "src", "dst", "len"), &IPP::sin_64fc_A26);
+  ClassDB::bind_static_method("IPP", D_METHOD("sin_64fc_A50", "src", "dst", "len"), &IPP::sin_64fc_A50);
+  ClassDB::bind_static_method("IPP", D_METHOD("sin_64fc_A53", "src", "dst", "len"), &IPP::sin_64fc_A53);
+  
+  ClassDB::bind_static_method("IPP", D_METHOD("sin_cos_32f_A11", "src", "sine", "cosine", "len"), &IPP::sin_cos_32f_A11);
+  ClassDB::bind_static_method("IPP", D_METHOD("sin_cos_32f_A21", "src", "sine", "cosine", "len"), &IPP::sin_cos_32f_A21);
+  ClassDB::bind_static_method("IPP", D_METHOD("sin_cos_32f_A24", "src", "sine", "cosine", "len"), &IPP::sin_cos_32f_A24);
+  ClassDB::bind_static_method("IPP", D_METHOD("sin_cos_64f_A26", "src", "sine", "cosine", "len"), &IPP::sin_cos_64f_A26);
+  ClassDB::bind_static_method("IPP", D_METHOD("sin_cos_64f_A50", "src", "sine", "cosine", "len"), &IPP::sin_cos_64f_A50);
+  ClassDB::bind_static_method("IPP", D_METHOD("sin_cos_64f_A53", "src", "sine", "cosine", "len"), &IPP::sin_cos_64f_A53);
 
-  ClassDB::bind_static_method("IPP", D_METHOD("fft_init_C_32f", "len"), &IPP::fft_init_C_32f);
-  ClassDB::bind_static_method("IPP", D_METHOD("fft_init_C_64f", "len"), &IPP::fft_init_C_64f);
-  ClassDB::bind_static_method("IPP", D_METHOD("fft_init_C_32fc", "len"), &IPP::fft_init_C_32fc);
-  ClassDB::bind_static_method("IPP", D_METHOD("fft_init_C_64fc", "len"), &IPP::fft_init_C_64fc);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_32f", "src", "val", "dst", "len"), &IPP::addC_32f);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_64f", "src", "val", "dst", "len"), &IPP::addC_64f);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_32fc", "src", "val", "dst", "len"), &IPP::addC_32fc);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_64fc", "src", "val", "dst", "len"), &IPP::addC_64fc);
+  
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_8u_Sfs", "src", "val", "dst", "len"), &IPP::addC_8u_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_16u_Sfs", "src", "val", "dst", "len"), &IPP::addC_16u_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_16s_Sfs", "src", "val", "dst", "len"), &IPP::addC_16s_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_32s_Sfs", "src", "val", "dst", "len"), &IPP::addC_32s_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_64u_Sfs", "src", "val", "dst", "len"), &IPP::addC_64u_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_64s_Sfs", "src", "val", "dst", "len"), &IPP::addC_64s_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_16sc_Sfs", "src", "val", "dst", "len"), &IPP::addC_16sc_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_32sc_Sfs", "src", "val", "dst", "len"), &IPP::addC_32sc_Sfs);
+
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_32f_I", "val", "src_dst", "len"), &IPP::addC_32f_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_64f_I", "val", "src_dst", "len"), &IPP::addC_64f_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_32fc_I", "val", "src_dst", "len"), &IPP::addC_32fc_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_64fc_I", "val", "src_dst", "len"), &IPP::addC_64fc_I);
+  
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_8u_ISfs", "val", "src_dst", "len"), &IPP::addC_8u_ISfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_16u_ISfs", "val", "src_dst", "len"), &IPP::addC_16u_ISfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_16s_ISfs", "val", "src_dst", "len"), &IPP::addC_16s_ISfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_32s_ISfs", "val", "src_dst", "len"), &IPP::addC_32s_ISfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_16sc_ISfs", "val", "src_dst", "len"), &IPP::addC_16sc_ISfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_32sc_ISfs", "val", "src_dst", "len"), &IPP::addC_32sc_ISfs);
+  
+  ClassDB::bind_static_method("IPP", D_METHOD("uniform_init_8u", "low", "high", "seed"), &IPP::uniform_init_8u);
+  ClassDB::bind_static_method("IPP", D_METHOD("uniform_init_16s", "low", "high", "seed"), &IPP::uniform_init_16s);
+  ClassDB::bind_static_method("IPP", D_METHOD("uniform_init_32f", "low", "high", "seed"), &IPP::uniform_init_32f);
+  ClassDB::bind_static_method("IPP", D_METHOD("uniform_init_64f", "low", "high", "seed"), &IPP::uniform_init_64f);
+  
+  ClassDB::bind_static_method("IPP", D_METHOD("gauss_init_8u", "low", "high", "seed"), &IPP::gauss_init_8u);
+  ClassDB::bind_static_method("IPP", D_METHOD("gauss_init_16s", "low", "high", "seed"), &IPP::gauss_init_16s);
+  ClassDB::bind_static_method("IPP", D_METHOD("gauss_init_32f", "low", "high", "seed"), &IPP::gauss_init_32f);
+  ClassDB::bind_static_method("IPP", D_METHOD("gauss_init_64f", "low", "high", "seed"), &IPP::gauss_init_64f);
+
+  ClassDB::bind_static_method("IPP", D_METHOD("fft_init_C_32f", "order", "flag"), &IPP::fft_init_C_32f);
+  ClassDB::bind_static_method("IPP", D_METHOD("fft_init_C_64f", "order", "flag"), &IPP::fft_init_C_64f);
+  ClassDB::bind_static_method("IPP", D_METHOD("fft_init_C_32fc", "order", "flag"), &IPP::fft_init_C_32fc);
+  ClassDB::bind_static_method("IPP", D_METHOD("fft_init_C_64fc", "order", "flag"), &IPP::fft_init_C_64fc);
+  
 
   BIND_ENUM_CONSTANT(TYPE_8U);
   BIND_ENUM_CONSTANT(TYPE_8S);

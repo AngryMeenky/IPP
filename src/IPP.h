@@ -308,12 +308,6 @@ class IPP: public godot::Object {
     static Status sin_cos_64f_A26(const IppBuffer *, IppBuffer *, IppBuffer *, int);
     static Status sin_cos_64f_A50(const IppBuffer *, IppBuffer *, IppBuffer *, int);
     static Status sin_cos_64f_A53(const IppBuffer *, IppBuffer *, IppBuffer *, int);
-    static Status sin_cos_32fc_A11(const IppBuffer *, IppBuffer *, IppBuffer *, int);
-    static Status sin_cos_32fc_A21(const IppBuffer *, IppBuffer *, IppBuffer *, int);
-    static Status sin_cos_32fc_A24(const IppBuffer *, IppBuffer *, IppBuffer *, int);
-    static Status sin_cos_64fc_A26(const IppBuffer *, IppBuffer *, IppBuffer *, int);
-    static Status sin_cos_64fc_A50(const IppBuffer *, IppBuffer *, IppBuffer *, int);
-    static Status sin_cos_64fc_A53(const IppBuffer *, IppBuffer *, IppBuffer *, int);
 
     static Status addC_32f(const IppBuffer *, float, IppBuffer *, int);
     static Status addC_64f(const IppBuffer *, double, IppBuffer *, int);
@@ -341,15 +335,41 @@ class IPP: public godot::Object {
     static Status addC_16sc_ISfs(godot::Vector2i, IppBuffer *, int, int);
     static Status addC_32sc_ISfs(godot::Vector2i, IppBuffer *, int, int);
 
+    static Status subC_32f(const IppBuffer *, float, IppBuffer *, int);
+    static Status subC_64f(const IppBuffer *, double, IppBuffer *, int);
+    static Status subC_32fc(const IppBuffer *, godot::Vector2, IppBuffer *, int);
+    static Status subC_64fc(const IppBuffer *, godot::Vector2, IppBuffer *, int);
+
+    static Status subC_8u_Sfs(const IppBuffer *, int, IppBuffer *, int, int);
+    static Status subC_16u_Sfs(const IppBuffer *, int, IppBuffer *, int, int);
+    static Status subC_16s_Sfs(const IppBuffer *, int, IppBuffer *, int, int);
+    static Status subC_32s_Sfs(const IppBuffer *, int, IppBuffer *, int, int);
+    static Status subC_64s_Sfs(const IppBuffer *, int64_t, IppBuffer *, int, int);
+    static Status subC_64u_Sfs(const IppBuffer *, uint64_t, IppBuffer *, int, int);
+    static Status subC_16sc_Sfs(const IppBuffer *, godot::Vector2i, IppBuffer *, int, int);
+    static Status subC_32sc_Sfs(const IppBuffer *, godot::Vector2i, IppBuffer *, int, int);
+
+    static Status subC_32f_I(float, IppBuffer *, int);
+    static Status subC_64f_I(double, IppBuffer *, int);
+    static Status subC_32fc_I(godot::Vector2, IppBuffer *, int);
+    static Status subC_64fc_I(godot::Vector2, IppBuffer *, int);
+
+    static Status subC_8u_ISfs(int, IppBuffer *, int, int);
+    static Status subC_16u_ISfs(int, IppBuffer *, int, int);
+    static Status subC_16s_ISfs(int, IppBuffer *, int, int);
+    static Status subC_32s_ISfs(int, IppBuffer *, int, int);
+    static Status subC_16sc_ISfs(godot::Vector2i, IppBuffer *, int, int);
+    static Status subC_32sc_ISfs(godot::Vector2i, IppBuffer *, int, int);
+
     static IppRandom *uniform_init_8u(int, int, int64_t);
     static IppRandom *uniform_init_16s(int, int, int64_t);
     static IppRandom *uniform_init_32f(float, float, int64_t);
-    static IppRandom *uniform_init_32f(double, double, int64_t);
+    static IppRandom *uniform_init_64f(double, double, int64_t);
 
     static IppRandom *gauss_init_8u(int, int, int64_t);
     static IppRandom *gauss_init_16s(int, int, int64_t);
     static IppRandom *gauss_init_32f(float, float, int64_t);
-    static IppRandom *gauss_init_32f(double, double, int64_t);
+    static IppRandom *gauss_init_64f(double, double, int64_t);
 
     static IppFft *fft_init_C_32f(int, int);
     static IppFft *fft_init_C_64f(int, int);
