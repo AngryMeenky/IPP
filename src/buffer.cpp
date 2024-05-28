@@ -148,12 +148,12 @@ void IppBuffer::fill(Variant &val) {
   switch(type) {
     case IPP::TYPE_8U:
     case IPP::TYPE_8S:
-      ippsSet_8u(static_cast<Ipp8u>(val), ptr, len);
+      ippsSet_8u(static_cast<Ipp8u>(val.operator int32_t()), ptr, len);
     break;
  
     case IPP::TYPE_16U:
     case IPP::TYPE_16S:
-      ippsSet_16s(static_cast<Ipp16s>(val), reinterpret_cast<Ipp16s *>(ptr), len);
+      ippsSet_16s(static_cast<Ipp16s>(val.operator int32_t()), reinterpret_cast<Ipp16s *>(ptr), len);
     break;
  
     case IPP::TYPE_32U:
@@ -174,7 +174,7 @@ void IppBuffer::fill(Variant &val) {
     break;
 
     case IPP::TYPE_8SC:
-      ippsSet_8u(static_cast<Ipp8u>(val), ptr, len * sizeof(Ipp8sc));
+      ippsSet_8u(static_cast<Ipp8u>(val.operator int32_t()), ptr, len * sizeof(Ipp8sc));
     break;
 
     case IPP::TYPE_16SC:
@@ -186,7 +186,7 @@ void IppBuffer::fill(Variant &val) {
         ippsSet_16sc(cVal, reinterpret_cast<Ipp16sc *>(ptr), len);
       }
       else {
-        ippsSet_16s(static_cast<Ipp16s>(val), reinterpret_cast<Ipp16s *>(ptr), len * 2);
+        ippsSet_16s(static_cast<Ipp16s>(val.operator int32_t()), reinterpret_cast<Ipp16s *>(ptr), len * 2);
       }
     break;
 
@@ -862,7 +862,7 @@ bool IppBuffer::addC(const IppBuffer *lhs, Variant rhs, int len, int scale) {
   switch(type) {
     case IPP::TYPE_8U:
       if(rhs.get_type() == Variant::INT || rhs.get_type() == Variant::FLOAT) {
-        ippsAddC_8u_Sfs(lhs->as8u(), static_cast<Ipp8u>(rhs), ptr, len, scale);
+        ippsAddC_8u_Sfs(lhs->as8u(), static_cast<Ipp8u>(rhs.operator int32_t()), ptr, len, scale);
       }
       else {
         return false;
@@ -878,7 +878,7 @@ bool IppBuffer::addC(const IppBuffer *lhs, Variant rhs, int len, int scale) {
  
     case IPP::TYPE_16U:
       if(rhs.get_type() == Variant::INT || rhs.get_type() == Variant::FLOAT) {
-        ippsAddC_16u_Sfs(lhs->as16u(), static_cast<Ipp16u>(rhs), reinterpret_cast<Ipp16u *>(ptr), len, scale);
+        ippsAddC_16u_Sfs(lhs->as16u(), static_cast<Ipp16u>(rhs.operator int32_t()), reinterpret_cast<Ipp16u *>(ptr), len, scale);
       }
       else {
         return false;
@@ -887,7 +887,7 @@ bool IppBuffer::addC(const IppBuffer *lhs, Variant rhs, int len, int scale) {
 
     case IPP::TYPE_16S:
       if(rhs.get_type() == Variant::INT || rhs.get_type() == Variant::FLOAT) {
-        ippsAddC_16s_Sfs(lhs->as16s(), static_cast<Ipp16s>(rhs), reinterpret_cast<Ipp16s *>(ptr), len, scale);
+        ippsAddC_16s_Sfs(lhs->as16s(), static_cast<Ipp16s>(rhs.operator int32_t()), reinterpret_cast<Ipp16s *>(ptr), len, scale);
       }
       else {
         return false;
@@ -989,7 +989,7 @@ bool IppBuffer::subC(const IppBuffer *lhs, Variant rhs, int len, int scale) {
   switch(type) {
     case IPP::TYPE_8U:
       if(rhs.get_type() == Variant::INT || rhs.get_type() == Variant::FLOAT) {
-        ippsSubC_8u_Sfs(lhs->as8u(), static_cast<Ipp8u>(rhs), ptr, len, scale);
+        ippsSubC_8u_Sfs(lhs->as8u(), static_cast<Ipp8u>(rhs.operator int32_t()), ptr, len, scale);
       }
       else {
         return false;
@@ -1006,7 +1006,7 @@ bool IppBuffer::subC(const IppBuffer *lhs, Variant rhs, int len, int scale) {
  
     case IPP::TYPE_16U:
       if(rhs.get_type() == Variant::INT || rhs.get_type() == Variant::FLOAT) {
-        ippsSubC_16u_Sfs(lhs->as16u(), static_cast<Ipp16u>(rhs), reinterpret_cast<Ipp16u *>(ptr), len, scale);
+        ippsSubC_16u_Sfs(lhs->as16u(), static_cast<Ipp16u>(rhs.operator int32_t()), reinterpret_cast<Ipp16u *>(ptr), len, scale);
       }
       else {
         return false;
@@ -1015,7 +1015,7 @@ bool IppBuffer::subC(const IppBuffer *lhs, Variant rhs, int len, int scale) {
 
     case IPP::TYPE_16S:
       if(rhs.get_type() == Variant::INT || rhs.get_type() == Variant::FLOAT) {
-        ippsSubC_16s_Sfs(lhs->as16s(), static_cast<Ipp16s>(rhs), reinterpret_cast<Ipp16s *>(ptr), len, scale);
+        ippsSubC_16s_Sfs(lhs->as16s(), static_cast<Ipp16s>(rhs.operator int32_t()), reinterpret_cast<Ipp16s *>(ptr), len, scale);
       }
       else {
         return false;
@@ -1108,7 +1108,7 @@ bool IppBuffer::mulC(const IppBuffer *lhs, Variant rhs, int len, int scale) {
   switch(type) {
     case IPP::TYPE_8U:
       if(rhs.get_type() == Variant::INT || rhs.get_type() == Variant::FLOAT) {
-        ippsMulC_8u_Sfs(lhs->as8u(), static_cast<Ipp8u>(rhs), ptr, len, scale);
+        ippsMulC_8u_Sfs(lhs->as8u(), static_cast<Ipp8u>(rhs.operator int32_t()), ptr, len, scale);
       }
       else {
         return false;
@@ -1125,7 +1125,7 @@ bool IppBuffer::mulC(const IppBuffer *lhs, Variant rhs, int len, int scale) {
  
     case IPP::TYPE_16U:
       if(rhs.get_type() == Variant::INT || rhs.get_type() == Variant::FLOAT) {
-        ippsMulC_16u_Sfs(lhs->as16u(), static_cast<Ipp16u>(rhs), reinterpret_cast<Ipp16u *>(ptr), len, scale);
+        ippsMulC_16u_Sfs(lhs->as16u(), static_cast<Ipp16u>(rhs.operator int32_t()), reinterpret_cast<Ipp16u *>(ptr), len, scale);
       }
       else {
         return false;
@@ -1134,7 +1134,7 @@ bool IppBuffer::mulC(const IppBuffer *lhs, Variant rhs, int len, int scale) {
 
     case IPP::TYPE_16S:
       if(rhs.get_type() == Variant::INT || rhs.get_type() == Variant::FLOAT) {
-        ippsMulC_16s_Sfs(lhs->as16s(), static_cast<Ipp16s>(rhs), reinterpret_cast<Ipp16s *>(ptr), len, scale);
+        ippsMulC_16s_Sfs(lhs->as16s(), static_cast<Ipp16s>(rhs.operator int32_t()), reinterpret_cast<Ipp16s *>(ptr), len, scale);
       }
       else {
         return false;
@@ -1227,7 +1227,7 @@ bool IppBuffer::divC(const IppBuffer *lhs, Variant rhs, int len, int scale) {
   switch(type) {
     case IPP::TYPE_8U:
       if(rhs.get_type() == Variant::INT || rhs.get_type() == Variant::FLOAT) {
-        ippsDivC_8u_Sfs(lhs->as8u(), static_cast<Ipp8u>(rhs), ptr, len, scale);
+        ippsDivC_8u_Sfs(lhs->as8u(), static_cast<Ipp8u>(rhs.operator int32_t()), ptr, len, scale);
       }
       else {
         return false;
@@ -1246,7 +1246,7 @@ bool IppBuffer::divC(const IppBuffer *lhs, Variant rhs, int len, int scale) {
  
     case IPP::TYPE_16U:
       if(rhs.get_type() == Variant::INT || rhs.get_type() == Variant::FLOAT) {
-        ippsDivC_16u_Sfs(lhs->as16u(), static_cast<Ipp16u>(rhs), reinterpret_cast<Ipp16u *>(ptr), len, scale);
+        ippsDivC_16u_Sfs(lhs->as16u(), static_cast<Ipp16u>(rhs.operator int32_t()), reinterpret_cast<Ipp16u *>(ptr), len, scale);
       }
       else {
         return false;
@@ -1255,7 +1255,7 @@ bool IppBuffer::divC(const IppBuffer *lhs, Variant rhs, int len, int scale) {
 
     case IPP::TYPE_16S:
       if(rhs.get_type() == Variant::INT || rhs.get_type() == Variant::FLOAT) {
-        ippsDivC_16s_Sfs(lhs->as16s(), static_cast<Ipp16s>(rhs), reinterpret_cast<Ipp16s *>(ptr), len, scale);
+        ippsDivC_16s_Sfs(lhs->as16s(), static_cast<Ipp16s>(rhs.operator int32_t()), reinterpret_cast<Ipp16s *>(ptr), len, scale);
       }
       else {
         return false;
@@ -1328,7 +1328,7 @@ bool IppBuffer::subCRev(const IppBuffer *lhs, Variant rhs, int len, int scale) {
   switch(type) {
     case IPP::TYPE_8U:
       if(rhs.get_type() == Variant::INT || rhs.get_type() == Variant::FLOAT) {
-        ippsSubCRev_8u_Sfs(lhs->as8u(), static_cast<Ipp8u>(rhs), ptr, len, scale);
+        ippsSubCRev_8u_Sfs(lhs->as8u(), static_cast<Ipp8u>(rhs.operator int32_t()), ptr, len, scale);
       }
       else {
         return false;
@@ -1345,7 +1345,7 @@ bool IppBuffer::subCRev(const IppBuffer *lhs, Variant rhs, int len, int scale) {
  
     case IPP::TYPE_16U:
       if(rhs.get_type() == Variant::INT || rhs.get_type() == Variant::FLOAT) {
-        ippsSubCRev_16u_Sfs(lhs->as16u(), static_cast<Ipp16u>(rhs), reinterpret_cast<Ipp16u *>(ptr), len, scale);
+        ippsSubCRev_16u_Sfs(lhs->as16u(), static_cast<Ipp16u>(rhs.operator int32_t()), reinterpret_cast<Ipp16u *>(ptr), len, scale);
       }
       else {
         return false;
@@ -1354,7 +1354,7 @@ bool IppBuffer::subCRev(const IppBuffer *lhs, Variant rhs, int len, int scale) {
 
     case IPP::TYPE_16S:
       if(rhs.get_type() == Variant::INT || rhs.get_type() == Variant::FLOAT) {
-        ippsSubCRev_16s_Sfs(lhs->as16s(), static_cast<Ipp16s>(rhs), reinterpret_cast<Ipp16s *>(ptr), len, scale);
+        ippsSubCRev_16s_Sfs(lhs->as16s(), static_cast<Ipp16s>(rhs.operator int32_t()), reinterpret_cast<Ipp16s *>(ptr), len, scale);
       }
       else {
         return false;
@@ -1463,7 +1463,7 @@ bool IppBuffer::divCRev(const IppBuffer *lhs, Variant rhs, int len, int scale) {
  
     case IPP::TYPE_16U:
       if(rhs.get_type() == Variant::INT || rhs.get_type() == Variant::FLOAT) {
-        ippsDivCRev_16u(lhs->as16u(), static_cast<Ipp16u>(rhs), reinterpret_cast<Ipp16u *>(ptr), len);
+        ippsDivCRev_16u(lhs->as16u(), static_cast<Ipp16u>(rhs.operator int32_t()), reinterpret_cast<Ipp16u *>(ptr), len);
       }
       else {
         return false;

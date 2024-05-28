@@ -353,7 +353,7 @@ ipp::IPP::Status ipp::IPP::set_8u(Variant var, IppBuffer *dst, int len) {
     return STAT_BAD_ARG_ERR;
   }
 
-  return static_cast<Status>(ippsSet_8u(var.operator uint8_t(), dst->as8u(), len));
+  return static_cast<Status>(ippsSet_8u(static_cast<Ipp8u>(var.operator int32_t()), dst->as8u(), len));
 }
 
 
@@ -368,7 +368,7 @@ ipp::IPP::Status ipp::IPP::set_16s(Variant var, IppBuffer *dst, int len) {
     return STAT_BAD_ARG_ERR;
   }
 
-  return static_cast<Status>(ippsSet_16s(var.operator int16_t(), dst->as16s(), len));
+  return static_cast<Status>(ippsSet_16s(static_cast<Ipp16s>(var.operator int32_t()), dst->as16s(), len));
 }
 
 
