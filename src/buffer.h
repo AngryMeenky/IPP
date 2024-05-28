@@ -9,6 +9,7 @@
 #ifdef GDEXTENSION
 #include <godot_cpp/variant/variant.hpp>
 #include <godot_cpp/templates/vector.hpp>
+#include <godot_cpp/classes/file_access.hpp>
 #include <godot_cpp/classes/ref_counted.hpp>
 #else
 #include "core/templates/vector.h"
@@ -30,6 +31,12 @@ class IppBuffer: public godot::RefCounted {
     IppBuffer(const godot::PackedFloat32Array &, IPP::Type = IPP::TYPE_32F);
     IppBuffer(const godot::PackedFloat64Array &, IPP::Type = IPP::TYPE_64F);
     ~IppBuffer();
+
+    int load(const godot::FileAccess *);
+    int store(godot::FileAccess *) const;
+
+    int read(const godot::FileAccess *, int, int);
+    int write(godot::FileAccess *, int, int) const;
 
     void fill(godot::Variant &);
     void zero();

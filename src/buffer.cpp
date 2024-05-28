@@ -21,7 +21,7 @@ static std::int64_t TYPE_TO_SIZE[] = {
   0,
   // integers
   sizeof(Ipp8u), sizeof(Ipp8s), sizeof(Ipp16u), sizeof(Ipp16s),
-  sizeof(Ipp32u), sizeof(Ipp32s), sizeof(Ipp64s),
+  sizeof(Ipp32u), sizeof(Ipp32s), sizeof(Ipp64u), sizeof(Ipp64s),
   // reals
   sizeof(Ipp32f), sizeof(Ipp64f),
   // complex integers
@@ -48,6 +48,7 @@ static Ipp8u *allocate_buffer(IPP::Type type, int count) {
       return reinterpret_cast<Ipp8u *>(ippsMalloc_32u(count));
     break;
 
+    case IPP::TYPE_64U:
     case IPP::TYPE_64S:
       return reinterpret_cast<Ipp8u *>(ippsMalloc_64s(count));
     break;
@@ -82,6 +83,10 @@ static Ipp8u *allocate_buffer(IPP::Type type, int count) {
 
     case IPP::TYPE_64FC:
       return reinterpret_cast<Ipp8u *>(ippsMalloc_64fc(count));
+    break;
+
+    default:
+      // do nothing
     break;
   }
 
@@ -133,10 +138,52 @@ IppBuffer::IppBuffer(const PackedFloat64Array &arr, IPP::Type kind):
 IppBuffer::~IppBuffer() {
   if(ptr) {
     ippsFree(ptr);
+    ptr = nullptr;
   }
 
   type = IPP::TYPE_NONE;
   len = 0;
+}
+
+
+int IppBuffer::load(const FileAccess *file) {
+  if(ptr == nullptr || file == nullptr) {
+    return -1; // bail on no buffer
+  }
+
+  return file->get_buffer(as8u(), len * TYPE_TO_SIZE[type]) / TYPE_TO_SIZE[type];
+}
+
+
+int IppBuffer::store(FileAccess *file) const {
+  if(ptr == nullptr || file == nullptr) {
+    return -1; // bail on no buffer
+  }
+
+  file->store_buffer(as8u(), len * TYPE_TO_SIZE[type]);
+  return len;
+}
+
+
+int IppBuffer::read(const FileAccess *file, int offset, int count) {
+  if(ptr == nullptr || file == nullptr) {
+    return -1; // bail on no buffer
+  }
+
+  offset *= TYPE_TO_SIZE[type];
+  count *= TYPE_TO_SIZE[type];
+  return file->get_buffer(&as8u()[offset], count) / TYPE_TO_SIZE[type];
+}
+
+
+int IppBuffer::write(FileAccess *file, int offset, int count) const {
+  if(ptr == nullptr || file == nullptr) {
+    return -1; // bail on no buffer
+  }
+
+  offset *= TYPE_TO_SIZE[type];
+  file->store_buffer(&as8u()[offset], count * TYPE_TO_SIZE[type]);
+  return count;
 }
 
 
@@ -161,6 +208,7 @@ void IppBuffer::fill(Variant &val) {
       ippsSet_32s(static_cast<Ipp32s>(val), reinterpret_cast<Ipp32s *>(ptr), len);
     break;
 
+    case IPP::TYPE_64U:
     case IPP::TYPE_64S:
       ippsSet_64s(static_cast<std::uint64_t>(val), reinterpret_cast<Ipp64s *>(ptr), len);
     break;
@@ -266,6 +314,7 @@ void IppBuffer::zero() {
       ippsZero_32s(reinterpret_cast<Ipp32s *>(ptr), len);
     break;
 
+    case IPP::TYPE_64U:
     case IPP::TYPE_64S:
       ippsZero_64s(reinterpret_cast<Ipp64s *>(ptr), len);
     break;
@@ -616,6 +665,7 @@ bool IppBuffer::add(const IppBuffer *lhs, const IppBuffer *rhs, int len, int sca
 
     case IPP::TYPE_8S:
     case IPP::TYPE_8SC:
+    case IPP::TYPE_64U:
     case IPP::TYPE_64SC:
       return false;
     break;
@@ -685,8 +735,9 @@ bool IppBuffer::sub(const IppBuffer *lhs, const IppBuffer *rhs, int len, int sca
     case IPP::TYPE_8S:
     case IPP::TYPE_8SC:
     case IPP::TYPE_32U:
-    case IPP::TYPE_64SC:
+    case IPP::TYPE_64U:
     case IPP::TYPE_64S:
+    case IPP::TYPE_64SC:
       return false;
     break;
  
@@ -747,6 +798,7 @@ bool IppBuffer::mul(const IppBuffer *lhs, const IppBuffer *rhs, int len, int sca
     case IPP::TYPE_8S:
     case IPP::TYPE_8SC:
     case IPP::TYPE_32U:
+    case IPP::TYPE_64U:
     case IPP::TYPE_64S:
     case IPP::TYPE_64SC:
       return false;
@@ -809,6 +861,7 @@ bool IppBuffer::div(const IppBuffer *lhs, const IppBuffer *rhs, int len, int sca
     case IPP::TYPE_8S:
     case IPP::TYPE_8SC:
     case IPP::TYPE_32U:
+    case IPP::TYPE_64U:
     case IPP::TYPE_64S:
     case IPP::TYPE_32SC:
     case IPP::TYPE_64SC:
@@ -872,6 +925,7 @@ bool IppBuffer::addC(const IppBuffer *lhs, Variant rhs, int len, int scale) {
     case IPP::TYPE_8S:
     case IPP::TYPE_8SC:
     case IPP::TYPE_32U:
+    case IPP::TYPE_64U:
     case IPP::TYPE_64SC:
       return false;
     break;
@@ -999,6 +1053,7 @@ bool IppBuffer::subC(const IppBuffer *lhs, Variant rhs, int len, int scale) {
     case IPP::TYPE_8S:
     case IPP::TYPE_8SC:
     case IPP::TYPE_32U:
+    case IPP::TYPE_64U:
     case IPP::TYPE_64S:
     case IPP::TYPE_64SC:
       return false;
@@ -1118,6 +1173,7 @@ bool IppBuffer::mulC(const IppBuffer *lhs, Variant rhs, int len, int scale) {
     case IPP::TYPE_8S:
     case IPP::TYPE_8SC:
     case IPP::TYPE_32U:
+    case IPP::TYPE_64U:
     case IPP::TYPE_64S:
     case IPP::TYPE_64SC:
       return false;
@@ -1238,6 +1294,7 @@ bool IppBuffer::divC(const IppBuffer *lhs, Variant rhs, int len, int scale) {
     case IPP::TYPE_8SC:
     case IPP::TYPE_32U:
     case IPP::TYPE_32S:
+    case IPP::TYPE_64U:
     case IPP::TYPE_64S:
     case IPP::TYPE_32SC:
     case IPP::TYPE_64SC:
@@ -1338,6 +1395,7 @@ bool IppBuffer::subCRev(const IppBuffer *lhs, Variant rhs, int len, int scale) {
     case IPP::TYPE_8S:
     case IPP::TYPE_8SC:
     case IPP::TYPE_32U:
+    case IPP::TYPE_64U:
     case IPP::TYPE_64S:
     case IPP::TYPE_64SC:
       return false;
@@ -1451,6 +1509,7 @@ bool IppBuffer::divCRev(const IppBuffer *lhs, Variant rhs, int len, int scale) {
     case IPP::TYPE_16S:
     case IPP::TYPE_32U:
     case IPP::TYPE_32S:
+    case IPP::TYPE_64U:
     case IPP::TYPE_64S:
     case IPP::TYPE_64F:
     case IPP::TYPE_16SC:
@@ -1498,6 +1557,7 @@ bool IppBuffer::ln(const IppBuffer *src, int len, int scale) {
     case IPP::TYPE_16U:
     case IPP::TYPE_8SC:
     case IPP::TYPE_32U:
+    case IPP::TYPE_64U:
     case IPP::TYPE_64S:
     case IPP::TYPE_16SC:
     case IPP::TYPE_32SC:
@@ -1583,6 +1643,7 @@ bool IppBuffer::sqr(const IppBuffer *src, int len, int scale) {
     case IPP::TYPE_8SC:
     case IPP::TYPE_32U:
     case IPP::TYPE_32S:
+    case IPP::TYPE_64U:
     case IPP::TYPE_64S:
     case IPP::TYPE_16SC:
     case IPP::TYPE_32SC:
@@ -1635,6 +1696,7 @@ bool IppBuffer::sqrt(const IppBuffer *src, int len, int scale) {
     case IPP::TYPE_8SC:
     case IPP::TYPE_32U:
     case IPP::TYPE_32S:
+    case IPP::TYPE_64U:
     case IPP::TYPE_64S:
     case IPP::TYPE_16SC:
     case IPP::TYPE_32SC:
@@ -1688,6 +1750,7 @@ bool IppBuffer::abs(const IppBuffer *src, int len) {
     case IPP::TYPE_16U:
     case IPP::TYPE_8SC:
     case IPP::TYPE_32U:
+    case IPP::TYPE_64U:
     case IPP::TYPE_64S:
     case IPP::TYPE_16SC:
     case IPP::TYPE_32SC:
@@ -1999,6 +2062,12 @@ void IppBuffer::_bind_methods() {
   ClassDB::bind_static_method("IppBuffer", D_METHOD("create_from_int64s", "array", "kind"), create_int64, DEFVAL(IPP::TYPE_64S));
   ClassDB::bind_static_method("IppBuffer", D_METHOD("create_from_float32s", "array", "kind"), create_float32, DEFVAL(IPP::TYPE_32F));
   ClassDB::bind_static_method("IppBuffer", D_METHOD("create_from_float64s", "array", "kind"), create_float64, DEFVAL(IPP::TYPE_64F));
+
+  ClassDB::bind_method(D_METHOD("load", "file"), &IppBuffer::load);
+  ClassDB::bind_method(D_METHOD("store", "file"), &IppBuffer::store);
+
+  ClassDB::bind_method(D_METHOD("read", "file", "offset", "elems"), &IppBuffer::read);
+  ClassDB::bind_method(D_METHOD("write", "file", "offset", "elems"), &IppBuffer::write);
 
   ClassDB::bind_method(D_METHOD("get_type"), &IppBuffer::getType);
   ClassDB::bind_method(D_METHOD("size"), &IppBuffer::getLength);

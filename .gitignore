@@ -1,4 +1,6 @@
 .sconsign.dblite
+addons/ipp/bin/*.so
+addons/ipp/bin/*.dll
 libs/*.a
 src/*.os
 
