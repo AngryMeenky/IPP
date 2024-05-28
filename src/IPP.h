@@ -32,7 +32,7 @@ class IPP: public godot::Object {
     enum Type {
       TYPE_NONE,
       // simple integers
-      TYPE_8U, TYPE_8S, TYPE_16U, TYPE_16S, TYPE_32U, TYPE_32S, TYPE_64S,
+      TYPE_8U, TYPE_8S, TYPE_16U, TYPE_16S, TYPE_32U, TYPE_32S, TYPE_64U, TYPE_64S,
       // simple reals
       TYPE_32F, TYPE_64F,
       // complex integers
@@ -314,6 +314,32 @@ class IPP: public godot::Object {
     static Status sin_cos_64fc_A26(const IppBuffer *, IppBuffer *, IppBuffer *, int);
     static Status sin_cos_64fc_A50(const IppBuffer *, IppBuffer *, IppBuffer *, int);
     static Status sin_cos_64fc_A53(const IppBuffer *, IppBuffer *, IppBuffer *, int);
+
+    static Status addC_32f(const IppBuffer *, float, IppBuffer *, int);
+    static Status addC_64f(const IppBuffer *, double, IppBuffer *, int);
+    static Status addC_32fc(const IppBuffer *, godot::Vector2, IppBuffer *, int);
+    static Status addC_64fc(const IppBuffer *, godot::Vector2, IppBuffer *, int);
+
+    static Status addC_8u_Sfs(const IppBuffer *, int, IppBuffer *, int, int);
+    static Status addC_16u_Sfs(const IppBuffer *, int, IppBuffer *, int, int);
+    static Status addC_16s_Sfs(const IppBuffer *, int, IppBuffer *, int, int);
+    static Status addC_32s_Sfs(const IppBuffer *, int, IppBuffer *, int, int);
+    static Status addC_64s_Sfs(const IppBuffer *, int64_t, IppBuffer *, int, int);
+    static Status addC_64u_Sfs(const IppBuffer *, uint64_t, IppBuffer *, int, int);
+    static Status addC_16sc_Sfs(const IppBuffer *, godot::Vector2i, IppBuffer *, int, int);
+    static Status addC_32sc_Sfs(const IppBuffer *, godot::Vector2i, IppBuffer *, int, int);
+
+    static Status addC_32f_I(float, IppBuffer *, int);
+    static Status addC_64f_I(double, IppBuffer *, int);
+    static Status addC_32fc_I(godot::Vector2, IppBuffer *, int);
+    static Status addC_64fc_I(godot::Vector2, IppBuffer *, int);
+
+    static Status addC_8u_ISfs(int, IppBuffer *, int, int);
+    static Status addC_16u_ISfs(int, IppBuffer *, int, int);
+    static Status addC_16s_ISfs(int, IppBuffer *, int, int);
+    static Status addC_32s_ISfs(int, IppBuffer *, int, int);
+    static Status addC_16sc_ISfs(godot::Vector2i, IppBuffer *, int, int);
+    static Status addC_32sc_ISfs(godot::Vector2i, IppBuffer *, int, int);
 
     static IppRandom *uniform_init_8u(int, int, int64_t);
     static IppRandom *uniform_init_16s(int, int, int64_t);

@@ -87,6 +87,7 @@ class IppBuffer: public godot::RefCounted {
     Ipp16s *as16s() { return reinterpret_cast<Ipp16s *>(ptr); }
     Ipp32u *as32u() { return reinterpret_cast<Ipp32u *>(ptr); }
     Ipp32s *as32s() { return reinterpret_cast<Ipp32s *>(ptr); }
+    Ipp64u *as64u() { return reinterpret_cast<Ipp64u *>(ptr); }
     Ipp64s *as64s() { return reinterpret_cast<Ipp64s *>(ptr); }
 
     const Ipp8u  *as8u()  const { return                            ptr;  }
@@ -95,6 +96,7 @@ class IppBuffer: public godot::RefCounted {
     const Ipp16s *as16s() const { return reinterpret_cast<Ipp16s *>(ptr); }
     const Ipp32u *as32u() const { return reinterpret_cast<Ipp32u *>(ptr); }
     const Ipp32s *as32s() const { return reinterpret_cast<Ipp32s *>(ptr); }
+    const Ipp64u *as64u() const { return reinterpret_cast<Ipp64u *>(ptr); }
     const Ipp64s *as64s() const { return reinterpret_cast<Ipp64s *>(ptr); }
 
     // simple reals
