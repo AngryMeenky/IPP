@@ -361,6 +361,24 @@ class IPP: public godot::Object {
     static Status subC_16sc_ISfs(godot::Vector2i, IppBuffer *, int, int);
     static Status subC_32sc_ISfs(godot::Vector2i, IppBuffer *, int, int);
 
+    static Status sum_32f(const IppBuffer *, int, godot::Variant, Hint);
+    static Status sum_32fc(const IppBuffer *, int, godot::Variant, Hint);
+    static Status sum_64f(const IppBuffer *, int, godot::Variant);
+    static Status sum_64fc(const IppBuffer *, int, godot::Variant);
+    static Status sum_16s_Sfs(const IppBuffer *, int, godot::Variant, int);
+    static Status sum_32s_Sfs(const IppBuffer *, int, godot::Variant, int);
+    static Status sum_16s32s_Sfs(const IppBuffer *, int, godot::Variant, int);
+    static Status sum_16sc_Sfs(const IppBuffer *, int, godot::Variant, int);
+    static Status sum_16sc32sc_Sfs(const IppBuffer *, int, godot::Variant, int);
+
+    static Status mean_32f(const IppBuffer *, int, godot::Variant, Hint);
+    static Status mean_32fc(const IppBuffer *, int, godot::Variant, Hint);
+    static Status mean_64f(const IppBuffer *, int, godot::Variant);
+    static Status mean_64fc(const IppBuffer *, int, godot::Variant);
+    static Status mean_16s_Sfs(const IppBuffer *, int, godot::Variant, int);
+    static Status mean_32s_Sfs(const IppBuffer *, int, godot::Variant, int);
+    static Status mean_16sc_Sfs(const IppBuffer *, int, godot::Variant, int);
+
     static IppRandom *uniform_init_8u(int, int, int64_t);
     static IppRandom *uniform_init_16s(int, int, int64_t);
     static IppRandom *uniform_init_32f(float, float, int64_t);
@@ -378,7 +396,6 @@ class IPP: public godot::Object {
 
   protected:
     static void _bind_methods();
-
 };
 
 
