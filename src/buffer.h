@@ -7,6 +7,7 @@
 
 
 #ifdef GDEXTENSION
+#include <godot_cpp/classes/ref.hpp>
 #include <godot_cpp/variant/variant.hpp>
 #include <godot_cpp/templates/vector.hpp>
 #include <godot_cpp/classes/file_access.hpp>
@@ -32,11 +33,11 @@ class IppBuffer: public godot::RefCounted {
     IppBuffer(const godot::PackedFloat64Array &, IPP::Type = IPP::TYPE_64F);
     ~IppBuffer();
 
-    int load(const godot::FileAccess *);
-    int store(godot::FileAccess *) const;
+    int load(const godot::Ref<godot::FileAccess> &);
+    int store(const godot::Ref<godot::FileAccess> &) const;
 
-    int read(const godot::FileAccess *, int, int);
-    int write(godot::FileAccess *, int, int) const;
+    int read(const godot::Ref<godot::FileAccess> &, int, int);
+    int write(const godot::Ref<godot::FileAccess> &, int, int) const;
 
     void fill(godot::Variant &);
     void zero();
@@ -62,27 +63,27 @@ class IppBuffer: public godot::RefCounted {
     bool copyFrom(const godot::PackedFloat32Array &, int, int, int);
     bool copyFrom(const godot::PackedFloat64Array &, int, int, int);
 
-    bool add(const IppBuffer *lhs, const IppBuffer *rhs, int len, int scale);
-    bool sub(const IppBuffer *lhs, const IppBuffer *rhs, int len, int scale);
-    bool mul(const IppBuffer *lhs, const IppBuffer *rhs, int len, int scale);
-    bool div(const IppBuffer *lhs, const IppBuffer *rhs, int len, int scale);
+    bool add(const godot::Ref<IppBuffer> &lhs, const godot::Ref<IppBuffer> &rhs, int len, int scale);
+    bool sub(const godot::Ref<IppBuffer> &lhs, const godot::Ref<IppBuffer> &rhs, int len, int scale);
+    bool mul(const godot::Ref<IppBuffer> &lhs, const godot::Ref<IppBuffer> &rhs, int len, int scale);
+    bool div(const godot::Ref<IppBuffer> &lhs, const godot::Ref<IppBuffer> &rhs, int len, int scale);
 
-    bool addC(const IppBuffer *lhs, godot::Variant rhs, int len, int scale);
-    bool subC(const IppBuffer *lhs, godot::Variant rhs, int len, int scale);
-    bool mulC(const IppBuffer *lhs, godot::Variant rhs, int len, int scale);
-    bool divC(const IppBuffer *lhs, godot::Variant rhs, int len, int scale);
+    bool addC(const godot::Ref<IppBuffer> &lhs, godot::Variant rhs, int len, int scale);
+    bool subC(const godot::Ref<IppBuffer> &lhs, godot::Variant rhs, int len, int scale);
+    bool mulC(const godot::Ref<IppBuffer> &lhs, godot::Variant rhs, int len, int scale);
+    bool divC(const godot::Ref<IppBuffer> &lhs, godot::Variant rhs, int len, int scale);
 
-    bool subCRev(const IppBuffer *lhs, godot::Variant rhs, int len, int scale);
-    bool divCRev(const IppBuffer *lhs, godot::Variant rhs, int len, int scale);
+    bool subCRev(const godot::Ref<IppBuffer> &lhs, godot::Variant rhs, int len, int scale);
+    bool divCRev(const godot::Ref<IppBuffer> &lhs, godot::Variant rhs, int len, int scale);
 
-    bool ln(const IppBuffer *src, int len, int scale);
-    bool exp(const IppBuffer *src, int len, int scale);
-    bool sqr(const IppBuffer *src, int len, int scale);
-    bool sqrt(const IppBuffer *src, int len, int scale);
-    bool abs(const IppBuffer *src, int len);
+    bool ln(const godot::Ref<IppBuffer> &src, int len, int scale);
+    bool exp(const godot::Ref<IppBuffer> &src, int len, int scale);
+    bool sqr(const godot::Ref<IppBuffer> &src, int len, int scale);
+    bool sqrt(const godot::Ref<IppBuffer> &src, int len, int scale);
+    bool abs(const godot::Ref<IppBuffer> &src, int len);
 
-    bool cos(const IppBuffer *src, int len, int hint);
-    bool sin(const IppBuffer *src, int len, int hint);
+    bool cos(const godot::Ref<IppBuffer> &src, int len, int hint);
+    bool sin(const godot::Ref<IppBuffer> &src, int len, int hint);
 
     godot::Variant sum(int len, int scale);
     godot::Variant mean(int len, int scale);

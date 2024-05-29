@@ -146,8 +146,8 @@ IppBuffer::~IppBuffer() {
 }
 
 
-int IppBuffer::load(const FileAccess *file) {
-  if(ptr == nullptr || file == nullptr) {
+int IppBuffer::load(const Ref<FileAccess> &file) {
+  if(ptr == nullptr || file.is_null()) {
     return -1; // bail on no buffer
   }
 
@@ -155,8 +155,8 @@ int IppBuffer::load(const FileAccess *file) {
 }
 
 
-int IppBuffer::store(FileAccess *file) const {
-  if(ptr == nullptr || file == nullptr) {
+int IppBuffer::store(const Ref<FileAccess> &file) const {
+  if(ptr == nullptr || file.is_null()) {
     return -1; // bail on no buffer
   }
 
@@ -165,8 +165,8 @@ int IppBuffer::store(FileAccess *file) const {
 }
 
 
-int IppBuffer::read(const FileAccess *file, int offset, int count) {
-  if(ptr == nullptr || file == nullptr) {
+int IppBuffer::read(const Ref<FileAccess> &file, int offset, int count) {
+  if(ptr == nullptr || file.is_null()) {
     return -1; // bail on no buffer
   }
 
@@ -176,8 +176,8 @@ int IppBuffer::read(const FileAccess *file, int offset, int count) {
 }
 
 
-int IppBuffer::write(FileAccess *file, int offset, int count) const {
-  if(ptr == nullptr || file == nullptr) {
+int IppBuffer::write(const Ref<FileAccess> &file, int offset, int count) const {
+  if(ptr == nullptr || file.is_null()) {
     return -1; // bail on no buffer
   }
 
@@ -650,10 +650,10 @@ bool IppBuffer::copy_from(Variant arr, int base, int count, int offset) {
 }
 
 
-bool IppBuffer::add(const IppBuffer *lhs, const IppBuffer *rhs, int len, int scale) {
-  if(ptr              == nullptr || this-> len       <  len     ||
-     lhs              == nullptr || rhs              == nullptr ||
-     lhs->getType()   != type    || rhs->getType()   != type    ||
+bool IppBuffer::add(const Ref<IppBuffer> &lhs, const Ref<IppBuffer> &rhs, int len, int scale) {
+  if(ptr              == nullptr || this-> len       <  len  ||
+     lhs.is_null()               || rhs.is_null()            ||
+     lhs->getType()   != type    || rhs->getType()   != type ||
      lhs->getLength() <  len     || rhs->getLength() <  len) {
     return false; // bail on validation fail
   }
@@ -719,10 +719,10 @@ bool IppBuffer::add(const IppBuffer *lhs, const IppBuffer *rhs, int len, int sca
 }
 
 
-bool IppBuffer::sub(const IppBuffer *lhs, const IppBuffer *rhs, int len, int scale) {
-  if(ptr              == nullptr || this-> len       <  len     ||
-     lhs              == nullptr || rhs              == nullptr ||
-     lhs->getType()   != type    || rhs->getType()   != type    ||
+bool IppBuffer::sub(const Ref<IppBuffer> &lhs, const Ref<IppBuffer> &rhs, int len, int scale) {
+  if(ptr              == nullptr || this-> len       <  len  ||
+     lhs.is_null()               || rhs.is_null()            ||
+     lhs->getType()   != type    || rhs->getType()   != type ||
      lhs->getLength() <  len     || rhs->getLength() <  len) {
     return false; // bail on validation fail
   }
@@ -782,10 +782,10 @@ bool IppBuffer::sub(const IppBuffer *lhs, const IppBuffer *rhs, int len, int sca
 }
 
 
-bool IppBuffer::mul(const IppBuffer *lhs, const IppBuffer *rhs, int len, int scale) {
-  if(ptr              == nullptr || this-> len       <  len     ||
-     lhs              == nullptr || rhs              == nullptr ||
-     lhs->getType()   != type    || rhs->getType()   != type    ||
+bool IppBuffer::mul(const Ref<IppBuffer> &lhs, const Ref<IppBuffer> &rhs, int len, int scale) {
+  if(ptr              == nullptr || this-> len       <  len  ||
+     lhs.is_null()               || rhs.is_null()            ||
+     lhs->getType()   != type    || rhs->getType()   != type ||
      lhs->getLength() <  len     || rhs->getLength() <  len) {
     return false; // bail on validation fail
   }
@@ -845,10 +845,10 @@ bool IppBuffer::mul(const IppBuffer *lhs, const IppBuffer *rhs, int len, int sca
 }
 
 
-bool IppBuffer::div(const IppBuffer *lhs, const IppBuffer *rhs, int len, int scale) {
-  if(ptr              == nullptr || this-> len       <  len     ||
-     lhs              == nullptr || rhs              == nullptr ||
-     lhs->getType()   != type    || rhs->getType()   != type    ||
+bool IppBuffer::div(const Ref<IppBuffer> &lhs, const Ref<IppBuffer> &rhs, int len, int scale) {
+  if(ptr              == nullptr || this-> len       <  len  ||
+     lhs.is_null()               || rhs.is_null()            ||
+     lhs->getType()   != type    || rhs->getType()   != type ||
      lhs->getLength() <  len     || rhs->getLength() <  len) {
     return false; // bail on validation fail
   }
@@ -905,10 +905,10 @@ bool IppBuffer::div(const IppBuffer *lhs, const IppBuffer *rhs, int len, int sca
 }
 
 
-bool IppBuffer::addC(const IppBuffer *lhs, Variant rhs, int len, int scale) {
-  if(ptr              == nullptr || this-> len       <  len          ||
-     lhs              == nullptr || rhs.get_type()   == Variant::NIL ||
-     lhs->getType()   != type    || lhs->getLength() <  len) {
+bool IppBuffer::addC(const Ref<IppBuffer> &lhs, Variant rhs, int len, int scale) {
+  if(ptr            == nullptr || this-> len       <  len          ||
+     lhs.is_null()             || rhs.get_type()   == Variant::NIL ||
+     lhs->getType() != type    || lhs->getLength() <  len) {
     return false; // bail on validation fail
   }
 
@@ -1033,10 +1033,10 @@ bool IppBuffer::addC(const IppBuffer *lhs, Variant rhs, int len, int scale) {
 }
 
 
-bool IppBuffer::subC(const IppBuffer *lhs, Variant rhs, int len, int scale) {
-  if(ptr              == nullptr || this-> len       <  len          ||
-     lhs              == nullptr || rhs.get_type()   == Variant::NIL ||
-     lhs->getType()   != type    || lhs->getLength() <  len) {
+bool IppBuffer::subC(const Ref<IppBuffer> &lhs, Variant rhs, int len, int scale) {
+  if(ptr            == nullptr || this-> len       <  len          ||
+     lhs.is_null()             || rhs.get_type()   == Variant::NIL ||
+     lhs->getType() != type    || lhs->getLength() <  len) {
     return false; // bail on validation fail
   }
 
@@ -1153,10 +1153,10 @@ bool IppBuffer::subC(const IppBuffer *lhs, Variant rhs, int len, int scale) {
 }
 
 
-bool IppBuffer::mulC(const IppBuffer *lhs, Variant rhs, int len, int scale) {
-  if(ptr              == nullptr || this-> len       <  len          ||
-     lhs              == nullptr || rhs.get_type()   == Variant::NIL ||
-     lhs->getType()   != type    || lhs->getLength() <  len) {
+bool IppBuffer::mulC(const Ref<IppBuffer> &lhs, Variant rhs, int len, int scale) {
+  if(ptr            == nullptr || this-> len       <  len          ||
+     lhs.is_null()             || rhs.get_type()   == Variant::NIL ||
+     lhs->getType() != type    || lhs->getLength() <  len) {
     return false; // bail on validation fail
   }
 
@@ -1273,10 +1273,10 @@ bool IppBuffer::mulC(const IppBuffer *lhs, Variant rhs, int len, int scale) {
 }
 
 
-bool IppBuffer::divC(const IppBuffer *lhs, Variant rhs, int len, int scale) {
-  if(ptr              == nullptr || this-> len       <  len          ||
-     lhs              == nullptr || rhs.get_type()   == Variant::NIL ||
-     lhs->getType()   != type    || lhs->getLength() <  len) {
+bool IppBuffer::divC(const Ref<IppBuffer> &lhs, Variant rhs, int len, int scale) {
+  if(ptr            == nullptr || this-> len       <  len          ||
+     lhs.is_null()             || rhs.get_type()   == Variant::NIL ||
+     lhs->getType() != type    || lhs->getLength() <  len) {
     return false; // bail on validation fail
   }
 
@@ -1375,10 +1375,10 @@ bool IppBuffer::divC(const IppBuffer *lhs, Variant rhs, int len, int scale) {
 }
 
 
-bool IppBuffer::subCRev(const IppBuffer *lhs, Variant rhs, int len, int scale) {
-  if(ptr              == nullptr || this-> len       <  len          ||
-     lhs              == nullptr || rhs.get_type()   == Variant::NIL ||
-     lhs->getType()   != type    || lhs->getLength() <  len) {
+bool IppBuffer::subCRev(const Ref<IppBuffer> &lhs, Variant rhs, int len, int scale) {
+  if(ptr            == nullptr || this-> len       <  len          ||
+     lhs.is_null()             || rhs.get_type()   == Variant::NIL ||
+     lhs->getType() != type    || lhs->getLength() <  len) {
     return false; // bail on validation fail
   }
 
@@ -1495,10 +1495,10 @@ bool IppBuffer::subCRev(const IppBuffer *lhs, Variant rhs, int len, int scale) {
 }
 
 
-bool IppBuffer::divCRev(const IppBuffer *lhs, Variant rhs, int len, int scale) {
-  if(ptr              == nullptr || this-> len       <  len          ||
-     lhs              == nullptr || rhs.get_type()   == Variant::NIL ||
-     lhs->getType()   != type    || lhs->getLength() <  len) {
+bool IppBuffer::divCRev(const Ref<IppBuffer> &lhs, Variant rhs, int len, int scale) {
+  if(ptr            == nullptr || this-> len       <  len          ||
+     lhs.is_null()             || rhs.get_type()   == Variant::NIL ||
+     lhs->getType() != type    || lhs->getLength() <  len) {
     return false; // bail on validation fail
   }
 
@@ -1544,10 +1544,10 @@ bool IppBuffer::divCRev(const IppBuffer *lhs, Variant rhs, int len, int scale) {
 }
 
 
-bool IppBuffer::ln(const IppBuffer *src, int len, int scale) {
-  if(ptr              == nullptr || this-> len       <  len ||
-     src              == nullptr || src->getLength() <  len ||
-     src->getType()   != type) {
+bool IppBuffer::ln(const Ref<IppBuffer> &src, int len, int scale) {
+  if(ptr            == nullptr || this-> len       <  len ||
+     src.is_null()             || src->getLength() <  len ||
+     src->getType() != type) {
     return false; // bail on validation fail
   }
 
@@ -1588,10 +1588,10 @@ bool IppBuffer::ln(const IppBuffer *src, int len, int scale) {
 }
 
 
-bool IppBuffer::exp(const IppBuffer *src, int len, int scale) {
-  if(ptr              == nullptr || this-> len       <  len ||
-     src              == nullptr || src->getLength() <  len ||
-     src->getType()   != type) {
+bool IppBuffer::exp(const Ref<IppBuffer> &src, int len, int scale) {
+  if(ptr            == nullptr || this-> len       <  len ||
+     src.is_null()             || src->getLength() <  len ||
+     src->getType() != type) {
     return false; // bail on validation fail
   }
 
@@ -1631,10 +1631,10 @@ bool IppBuffer::exp(const IppBuffer *src, int len, int scale) {
 }
 
 
-bool IppBuffer::sqr(const IppBuffer *src, int len, int scale) {
-  if(ptr              == nullptr || this-> len       <  len ||
-     src              == nullptr || src->getLength() <  len ||
-     src->getType()   != type) {
+bool IppBuffer::sqr(const Ref<IppBuffer> &src, int len, int scale) {
+  if(ptr            == nullptr || this-> len       <  len ||
+     src.is_null()             || src->getLength() <  len ||
+     src->getType() != type) {
     return false; // bail on validation fail
   }
 
@@ -1684,10 +1684,10 @@ bool IppBuffer::sqr(const IppBuffer *src, int len, int scale) {
 }
 
 
-bool IppBuffer::sqrt(const IppBuffer *src, int len, int scale) {
-  if(ptr              == nullptr || this-> len       <  len ||
-     src              == nullptr || src->getLength() <  len ||
-     src->getType()   != type) {
+bool IppBuffer::sqrt(const Ref<IppBuffer> &src, int len, int scale) {
+  if(ptr            == nullptr || this-> len       <  len ||
+     src.is_null()             || src->getLength() <  len ||
+     src->getType() != type) {
     return false; // bail on validation fail
   }
 
@@ -1737,10 +1737,10 @@ bool IppBuffer::sqrt(const IppBuffer *src, int len, int scale) {
 }
 
 
-bool IppBuffer::abs(const IppBuffer *src, int len) {
-  if(ptr              == nullptr || this-> len       <  len ||
-     src              == nullptr || src->getLength() <  len ||
-     src->getType()   != type) {
+bool IppBuffer::abs(const Ref<IppBuffer> &src, int len) {
+  if(ptr            == nullptr || this-> len       <  len ||
+     src.is_null()             || src->getLength() <  len ||
+     src->getType() != type) {
     return false; // bail on validation fail
   }
 
@@ -1781,10 +1781,10 @@ bool IppBuffer::abs(const IppBuffer *src, int len) {
 }
 
 
-bool IppBuffer::cos(const IppBuffer *src, int len, int hint) {
-  if(ptr              == nullptr || this-> len       <  len ||
-     src              == nullptr || src->getLength() <  len ||
-     src->getType()   != type) {
+bool IppBuffer::cos(const Ref<IppBuffer> &src, int len, int hint) {
+  if(ptr            == nullptr || this-> len       <  len ||
+     src.is_null()             || src->getLength() <  len ||
+     src->getType() != type) {
     return false; // bail on validation fail
   }
 
@@ -1846,10 +1846,10 @@ bool IppBuffer::cos(const IppBuffer *src, int len, int hint) {
 }
 
 
-bool IppBuffer::sin(const IppBuffer *src, int len, int hint) {
-  if(ptr              == nullptr || this-> len       <  len ||
-     src              == nullptr || src->getLength() <  len ||
-     src->getType()   != type) {
+bool IppBuffer::sin(const Ref<IppBuffer> &src, int len, int hint) {
+  if(ptr            == nullptr || this-> len       <  len ||
+     src.is_null()             || src->getLength() <  len ||
+     src->getType() != type) {
     return false; // bail on validation fail
   }
 
@@ -2025,32 +2025,32 @@ Variant IppBuffer::mean(int len, int scale) {
 }
 
 
-static IppBuffer *create_empty(int count, IPP::Type type) {
+static Ref<IppBuffer> create_empty(int count, IPP::Type type) {
   return new IppBuffer(count, type);
 }
 
 
-static IppBuffer *create_byte(const PackedByteArray &arr, IPP::Type type) {
+static Ref<IppBuffer> create_byte(const PackedByteArray &arr, IPP::Type type) {
   return new IppBuffer(arr, type);
 }
 
 
-static IppBuffer *create_int32(const PackedInt32Array &arr, IPP::Type type) {
+static Ref<IppBuffer> create_int32(const PackedInt32Array &arr, IPP::Type type) {
   return new IppBuffer(arr, type);
 }
 
 
-static IppBuffer *create_int64(const PackedInt64Array &arr, IPP::Type type) {
+static Ref<IppBuffer> create_int64(const PackedInt64Array &arr, IPP::Type type) {
   return new IppBuffer(arr, type);
 }
 
 
-static IppBuffer *create_float32(const PackedFloat32Array &arr, IPP::Type type) {
+static Ref<IppBuffer> create_float32(const PackedFloat32Array &arr, IPP::Type type) {
   return new IppBuffer(arr, type);
 }
 
 
-static IppBuffer *create_float64(const PackedFloat64Array &arr, IPP::Type type) {
+static Ref<IppBuffer> create_float64(const PackedFloat64Array &arr, IPP::Type type) {
   return new IppBuffer(arr, type);
 }
 

@@ -13,6 +13,7 @@
 #endif
 
 
+using namespace ipp;
 using namespace godot;
 
 
@@ -30,7 +31,7 @@ static const char *TYPE_TO_STRING[] = {
 };
 
 
-const char *ipp::IPP::typeString(Type t) {
+const char *IPP::typeString(Type t) {
   return TYPE_TO_STRING[(0 >= t || t > TYPE_64FC) ? 0 : t];
 }
 
@@ -40,87 +41,92 @@ static const char *HINT_TO_STRING[] = {
 };
 
 
-const char *ipp::IPP::hintString(Hint h) {
+const char *IPP::hintString(Hint h) {
   return HINT_TO_STRING[(0 >= h || h > HINT_ACC) ? 0 : h];
 }
 
 
-ipp::IppBuffer *ipp::IPP::malloc_8u(int len) {
-  return len > 0 ? new ipp::IppBuffer(len, ipp::IPP::TYPE_8U) : nullptr;
+Ref<IppBuffer> IPP::malloc_8u(int len) {
+  return len > 0 ? new IppBuffer(len, IPP::TYPE_8U) : nullptr;
 }
 
 
-ipp::IppBuffer *ipp::IPP::malloc_16u(int len) {
-  return len > 0 ? new ipp::IppBuffer(len, ipp::IPP::TYPE_16U) : nullptr;
+Ref<IppBuffer> IPP::malloc_16u(int len) {
+  return len > 0 ? new IppBuffer(len, IPP::TYPE_16U) : nullptr;
 }
 
 
-ipp::IppBuffer *ipp::IPP::malloc_32u(int len) {
-  return len > 0 ? new ipp::IppBuffer(len, ipp::IPP::TYPE_32U) : nullptr;
+Ref<IppBuffer> IPP::malloc_32u(int len) {
+  return len > 0 ? new IppBuffer(len, IPP::TYPE_32U) : nullptr;
 }
 
 
-ipp::IppBuffer *ipp::IPP::malloc_8s(int len) {
-  return len > 0 ? new ipp::IppBuffer(len, ipp::IPP::TYPE_8S) : nullptr;
+Ref<IppBuffer> IPP::malloc_64u(int len) {
+  return len > 0 ? new IppBuffer(len, IPP::TYPE_64U) : nullptr;
 }
 
 
-ipp::IppBuffer *ipp::IPP::malloc_16s(int len) {
-  return len > 0 ? new ipp::IppBuffer(len, ipp::IPP::TYPE_16S) : nullptr;
+Ref<IppBuffer> IPP::malloc_8s(int len) {
+  return len > 0 ? new IppBuffer(len, IPP::TYPE_8S) : nullptr;
 }
 
 
-ipp::IppBuffer *ipp::IPP::malloc_32s(int len) {
-  return len > 0 ? new ipp::IppBuffer(len, ipp::IPP::TYPE_32S) : nullptr;
+Ref<IppBuffer> IPP::malloc_16s(int len) {
+  return len > 0 ? new IppBuffer(len, IPP::TYPE_16S) : nullptr;
 }
 
 
-ipp::IppBuffer *ipp::IPP::malloc_64s(int len) {
-  return len > 0 ? new ipp::IppBuffer(len, ipp::IPP::TYPE_64S) : nullptr;
+Ref<IppBuffer> IPP::malloc_32s(int len) {
+  return len > 0 ? new IppBuffer(len, IPP::TYPE_32S) : nullptr;
 }
 
 
-ipp::IppBuffer *ipp::IPP::malloc_32f(int len) {
-  return len > 0 ? new ipp::IppBuffer(len, ipp::IPP::TYPE_32F) : nullptr;
+Ref<IppBuffer> IPP::malloc_64s(int len) {
+  return len > 0 ? new IppBuffer(len, IPP::TYPE_64S) : nullptr;
 }
 
 
-ipp::IppBuffer *ipp::IPP::malloc_64f(int len) {
-  return len > 0 ? new ipp::IppBuffer(len, ipp::IPP::TYPE_64F) : nullptr;
+Ref<IppBuffer> IPP::malloc_32f(int len) {
+  return len > 0 ? new IppBuffer(len, IPP::TYPE_32F) : nullptr;
 }
 
 
-ipp::IppBuffer *ipp::IPP::malloc_8sc(int len) {
-  return len > 0 ? new ipp::IppBuffer(len, ipp::IPP::TYPE_8SC) : nullptr;
+Ref<IppBuffer> IPP::malloc_64f(int len) {
+  return len > 0 ? new IppBuffer(len, IPP::TYPE_64F) : nullptr;
 }
 
 
-ipp::IppBuffer *ipp::IPP::malloc_16sc(int len) {
-  return len > 0 ? new ipp::IppBuffer(len, ipp::IPP::TYPE_16SC) : nullptr;
+Ref<IppBuffer> IPP::malloc_8sc(int len) {
+  return len > 0 ? new IppBuffer(len, IPP::TYPE_8SC) : nullptr;
 }
 
 
-ipp::IppBuffer *ipp::IPP::malloc_32sc(int len) {
-  return len > 0 ? new ipp::IppBuffer(len, ipp::IPP::TYPE_32SC) : nullptr;
+Ref<IppBuffer> IPP::malloc_16sc(int len) {
+  return len > 0 ? new IppBuffer(len, IPP::TYPE_16SC) : nullptr;
 }
 
 
-ipp::IppBuffer *ipp::IPP::malloc_64sc(int len) {
-  return len > 0 ? new ipp::IppBuffer(len, ipp::IPP::TYPE_64SC) : nullptr;
+Ref<IppBuffer> IPP::malloc_32sc(int len) {
+  return len > 0 ? new IppBuffer(len, IPP::TYPE_32SC) : nullptr;
 }
 
 
-ipp::IppBuffer *ipp::IPP::malloc_32fc(int len) {
-  return len > 0 ? new ipp::IppBuffer(len, ipp::IPP::TYPE_32FC) : nullptr;
+Ref<IppBuffer> IPP::malloc_64sc(int len) {
+  return len > 0 ? new IppBuffer(len, IPP::TYPE_64SC) : nullptr;
 }
 
 
-ipp::IppBuffer *ipp::IPP::malloc_64fc(int len) {
-  return len > 0 ? new ipp::IppBuffer(len, ipp::IPP::TYPE_64FC) : nullptr;
+Ref<IppBuffer> IPP::malloc_32fc(int len) {
+  return len > 0 ? new IppBuffer(len, IPP::TYPE_32FC) : nullptr;
 }
 
 
-ipp::IPP::Status ipp::IPP::copy_8u(const IppBuffer *src, IppBuffer *dst, int len) {
+Ref<IppBuffer> IPP::malloc_64fc(int len) {
+  return len > 0 ? new IppBuffer(len, IPP::TYPE_64FC) : nullptr;
+}
+
+
+IPP::Status IPP::copy_8u(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr) {
     return STAT_BAD_ARG_ERR;
   }
@@ -133,7 +139,7 @@ ipp::IPP::Status ipp::IPP::copy_8u(const IppBuffer *src, IppBuffer *dst, int len
 }
 
 
-ipp::IPP::Status ipp::IPP::copy_16s(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::copy_16s(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr) {
     return STAT_BAD_ARG_ERR;
   }
@@ -146,7 +152,7 @@ ipp::IPP::Status ipp::IPP::copy_16s(const IppBuffer *src, IppBuffer *dst, int le
 }
 
 
-ipp::IPP::Status ipp::IPP::copy_32s(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::copy_32s(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr) {
     return STAT_BAD_ARG_ERR;
   }
@@ -159,7 +165,7 @@ ipp::IPP::Status ipp::IPP::copy_32s(const IppBuffer *src, IppBuffer *dst, int le
 }
 
 
-ipp::IPP::Status ipp::IPP::copy_64s(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::copy_64s(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || dst->getType() != TYPE_64S || dst->getType() != TYPE_64S) {
     return STAT_BAD_ARG_ERR;
   }
@@ -168,7 +174,7 @@ ipp::IPP::Status ipp::IPP::copy_64s(const IppBuffer *src, IppBuffer *dst, int le
 }
 
 
-ipp::IPP::Status ipp::IPP::copy_32f(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::copy_32f(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_32F || dst->getType() != TYPE_32F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -177,7 +183,7 @@ ipp::IPP::Status ipp::IPP::copy_32f(const IppBuffer *src, IppBuffer *dst, int le
 }
 
 
-ipp::IPP::Status ipp::IPP::copy_64f(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::copy_64f(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_64F || dst->getType() != TYPE_64F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -186,7 +192,7 @@ ipp::IPP::Status ipp::IPP::copy_64f(const IppBuffer *src, IppBuffer *dst, int le
 }
 
 
-ipp::IPP::Status ipp::IPP::copy_16sc(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::copy_16sc(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_16SC || dst->getType() != TYPE_16SC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -195,7 +201,7 @@ ipp::IPP::Status ipp::IPP::copy_16sc(const IppBuffer *src, IppBuffer *dst, int l
 }
 
 
-ipp::IPP::Status ipp::IPP::copy_32sc(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::copy_32sc(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_32SC || dst->getType() != TYPE_32SC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -204,7 +210,7 @@ ipp::IPP::Status ipp::IPP::copy_32sc(const IppBuffer *src, IppBuffer *dst, int l
 }
 
 
-ipp::IPP::Status ipp::IPP::copy_64sc(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::copy_64sc(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_64SC || dst->getType() != TYPE_64SC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -213,7 +219,7 @@ ipp::IPP::Status ipp::IPP::copy_64sc(const IppBuffer *src, IppBuffer *dst, int l
 }
 
 
-ipp::IPP::Status ipp::IPP::copy_32fc(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::copy_32fc(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_32FC || dst->getType() != TYPE_32FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -222,7 +228,7 @@ ipp::IPP::Status ipp::IPP::copy_32fc(const IppBuffer *src, IppBuffer *dst, int l
 }
 
 
-ipp::IPP::Status ipp::IPP::copy_64fc(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::copy_64fc(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_64FC || dst->getType() != TYPE_64FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -231,7 +237,7 @@ ipp::IPP::Status ipp::IPP::copy_64fc(const IppBuffer *src, IppBuffer *dst, int l
 }
 
 
-ipp::IPP::Status ipp::IPP::move_8u(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::move_8u(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr) {
     return STAT_BAD_ARG_ERR;
   }
@@ -244,7 +250,7 @@ ipp::IPP::Status ipp::IPP::move_8u(const IppBuffer *src, IppBuffer *dst, int len
 }
 
 
-ipp::IPP::Status ipp::IPP::move_16s(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::move_16s(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr) {
     return STAT_BAD_ARG_ERR;
   }
@@ -257,7 +263,7 @@ ipp::IPP::Status ipp::IPP::move_16s(const IppBuffer *src, IppBuffer *dst, int le
 }
 
 
-ipp::IPP::Status ipp::IPP::move_32s(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::move_32s(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr) {
     return STAT_BAD_ARG_ERR;
   }
@@ -270,7 +276,7 @@ ipp::IPP::Status ipp::IPP::move_32s(const IppBuffer *src, IppBuffer *dst, int le
 }
 
 
-ipp::IPP::Status ipp::IPP::move_64s(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::move_64s(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || dst->getType() != TYPE_64S || dst->getType() != TYPE_64S) {
     return STAT_BAD_ARG_ERR;
   }
@@ -279,7 +285,7 @@ ipp::IPP::Status ipp::IPP::move_64s(const IppBuffer *src, IppBuffer *dst, int le
 }
 
 
-ipp::IPP::Status ipp::IPP::move_32f(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::move_32f(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_32F || dst->getType() != TYPE_32F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -288,7 +294,7 @@ ipp::IPP::Status ipp::IPP::move_32f(const IppBuffer *src, IppBuffer *dst, int le
 }
 
 
-ipp::IPP::Status ipp::IPP::move_64f(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::move_64f(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_64F || dst->getType() != TYPE_64F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -297,7 +303,7 @@ ipp::IPP::Status ipp::IPP::move_64f(const IppBuffer *src, IppBuffer *dst, int le
 }
 
 
-ipp::IPP::Status ipp::IPP::move_16sc(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::move_16sc(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_16SC || dst->getType() != TYPE_16SC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -306,7 +312,7 @@ ipp::IPP::Status ipp::IPP::move_16sc(const IppBuffer *src, IppBuffer *dst, int l
 }
 
 
-ipp::IPP::Status ipp::IPP::move_32sc(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::move_32sc(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_32SC || dst->getType() != TYPE_32SC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -315,7 +321,7 @@ ipp::IPP::Status ipp::IPP::move_32sc(const IppBuffer *src, IppBuffer *dst, int l
 }
 
 
-ipp::IPP::Status ipp::IPP::move_64sc(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::move_64sc(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_64SC || dst->getType() != TYPE_64SC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -324,7 +330,7 @@ ipp::IPP::Status ipp::IPP::move_64sc(const IppBuffer *src, IppBuffer *dst, int l
 }
 
 
-ipp::IPP::Status ipp::IPP::move_32fc(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::move_32fc(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_32FC || dst->getType() != TYPE_32FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -333,7 +339,7 @@ ipp::IPP::Status ipp::IPP::move_32fc(const IppBuffer *src, IppBuffer *dst, int l
 }
 
 
-ipp::IPP::Status ipp::IPP::move_64fc(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::move_64fc(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_64FC || dst->getType() != TYPE_64FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -342,7 +348,7 @@ ipp::IPP::Status ipp::IPP::move_64fc(const IppBuffer *src, IppBuffer *dst, int l
 }
 
 
-ipp::IPP::Status ipp::IPP::set_8u(Variant var, IppBuffer *dst, int len) {
+IPP::Status IPP::set_8u(Variant var, const godot::Ref<IppBuffer> &dst, int len) {
   if(dst == nullptr || var.get_type() == Variant::NIL) {
     return STAT_BAD_ARG_ERR;
   }
@@ -357,7 +363,7 @@ ipp::IPP::Status ipp::IPP::set_8u(Variant var, IppBuffer *dst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::set_16s(Variant var, IppBuffer *dst, int len) {
+IPP::Status IPP::set_16s(Variant var, const godot::Ref<IppBuffer> &dst, int len) {
   if(dst == nullptr || var.get_type() == Variant::NIL) {
     return STAT_BAD_ARG_ERR;
   }
@@ -372,7 +378,7 @@ ipp::IPP::Status ipp::IPP::set_16s(Variant var, IppBuffer *dst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::set_32s(Variant var, IppBuffer *dst, int len) {
+IPP::Status IPP::set_32s(Variant var, const godot::Ref<IppBuffer> &dst, int len) {
   if(dst == nullptr || var.get_type() == Variant::NIL) {
     return STAT_BAD_ARG_ERR;
   }
@@ -387,7 +393,7 @@ ipp::IPP::Status ipp::IPP::set_32s(Variant var, IppBuffer *dst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::set_64s(Variant var, IppBuffer *dst, int len) {
+IPP::Status IPP::set_64s(Variant var, const godot::Ref<IppBuffer> &dst, int len) {
   if(dst == nullptr || var.get_type() == Variant::NIL || dst->getType() != TYPE_64S) {
     return STAT_BAD_ARG_ERR;
   }
@@ -399,7 +405,7 @@ ipp::IPP::Status ipp::IPP::set_64s(Variant var, IppBuffer *dst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::set_32f(Variant var, IppBuffer *dst, int len) {
+IPP::Status IPP::set_32f(Variant var, const godot::Ref<IppBuffer> &dst, int len) {
   if(dst == nullptr || var.get_type() == Variant::NIL || dst->getType() != TYPE_32F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -411,7 +417,7 @@ ipp::IPP::Status ipp::IPP::set_32f(Variant var, IppBuffer *dst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::set_64f(Variant var, IppBuffer *dst, int len) {
+IPP::Status IPP::set_64f(Variant var, const godot::Ref<IppBuffer> &dst, int len) {
   if(dst == nullptr || var.get_type() == Variant::NIL || dst->getType() != TYPE_64F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -423,7 +429,7 @@ ipp::IPP::Status ipp::IPP::set_64f(Variant var, IppBuffer *dst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::set_16sc(Variant var, IppBuffer *dst, int len) {
+IPP::Status IPP::set_16sc(Variant var, const godot::Ref<IppBuffer> &dst, int len) {
   if(dst == nullptr || var.get_type() != Variant::VECTOR2I || dst->getType() != TYPE_16SC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -434,7 +440,7 @@ ipp::IPP::Status ipp::IPP::set_16sc(Variant var, IppBuffer *dst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::set_32sc(Variant var, IppBuffer *dst, int len) {
+IPP::Status IPP::set_32sc(Variant var, const godot::Ref<IppBuffer> &dst, int len) {
   if(dst == nullptr || var.get_type() != Variant::VECTOR2I || dst->getType() != TYPE_32SC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -445,7 +451,7 @@ ipp::IPP::Status ipp::IPP::set_32sc(Variant var, IppBuffer *dst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::set_64sc(Variant var, IppBuffer *dst, int len) {
+IPP::Status IPP::set_64sc(Variant var, const godot::Ref<IppBuffer> &dst, int len) {
   if(dst == nullptr || var.get_type() != Variant::VECTOR2I || dst->getType() != TYPE_64SC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -456,7 +462,7 @@ ipp::IPP::Status ipp::IPP::set_64sc(Variant var, IppBuffer *dst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::set_32fc(Variant var, IppBuffer *dst, int len) {
+IPP::Status IPP::set_32fc(Variant var, const godot::Ref<IppBuffer> &dst, int len) {
   if(dst == nullptr || var.get_type() != Variant::VECTOR2 || dst->getType() != TYPE_32FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -467,7 +473,7 @@ ipp::IPP::Status ipp::IPP::set_32fc(Variant var, IppBuffer *dst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::set_64fc(Variant var, IppBuffer *dst, int len) {
+IPP::Status IPP::set_64fc(Variant var, const godot::Ref<IppBuffer> &dst, int len) {
   if(dst == nullptr || var.get_type() != Variant::VECTOR2 || dst->getType() != TYPE_64FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -478,7 +484,7 @@ ipp::IPP::Status ipp::IPP::set_64fc(Variant var, IppBuffer *dst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::zero_8u(IppBuffer *dst, int len) {
+IPP::Status IPP::zero_8u(const godot::Ref<IppBuffer> &dst, int len) {
   if(dst == nullptr || (dst->getType() != TYPE_8S && dst->getType() != TYPE_8U)) {
     return STAT_BAD_ARG_ERR;
   }
@@ -487,7 +493,7 @@ ipp::IPP::Status ipp::IPP::zero_8u(IppBuffer *dst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::zero_16s(IppBuffer *dst, int len) {
+IPP::Status IPP::zero_16s(const godot::Ref<IppBuffer> &dst, int len) {
   if(dst == nullptr || (dst->getType() != TYPE_16S && dst->getType() != TYPE_16U)) {
     return STAT_BAD_ARG_ERR;
   }
@@ -496,7 +502,7 @@ ipp::IPP::Status ipp::IPP::zero_16s(IppBuffer *dst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::zero_32s(IppBuffer *dst, int len) {
+IPP::Status IPP::zero_32s(const godot::Ref<IppBuffer> &dst, int len) {
   if(dst == nullptr || (dst->getType() != TYPE_32S && dst->getType() != TYPE_32U)) {
     return STAT_BAD_ARG_ERR;
   }
@@ -505,7 +511,7 @@ ipp::IPP::Status ipp::IPP::zero_32s(IppBuffer *dst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::zero_64s(IppBuffer *dst, int len) {
+IPP::Status IPP::zero_64s(const godot::Ref<IppBuffer> &dst, int len) {
   if(dst == nullptr || dst->getType() != TYPE_64S) {
     return STAT_BAD_ARG_ERR;
   }
@@ -514,7 +520,7 @@ ipp::IPP::Status ipp::IPP::zero_64s(IppBuffer *dst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::zero_32f(IppBuffer *dst, int len) {
+IPP::Status IPP::zero_32f(const godot::Ref<IppBuffer> &dst, int len) {
   if(dst == nullptr || dst->getType() != TYPE_32F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -523,7 +529,7 @@ ipp::IPP::Status ipp::IPP::zero_32f(IppBuffer *dst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::zero_64f(IppBuffer *dst, int len) {
+IPP::Status IPP::zero_64f(const godot::Ref<IppBuffer> &dst, int len) {
   if(dst == nullptr || dst->getType() != TYPE_64F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -532,7 +538,7 @@ ipp::IPP::Status ipp::IPP::zero_64f(IppBuffer *dst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::zero_16sc(IppBuffer *dst, int len) {
+IPP::Status IPP::zero_16sc(const godot::Ref<IppBuffer> &dst, int len) {
   if(dst == nullptr || dst->getType() != TYPE_16SC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -541,7 +547,7 @@ ipp::IPP::Status ipp::IPP::zero_16sc(IppBuffer *dst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::zero_32sc(IppBuffer *dst, int len) {
+IPP::Status IPP::zero_32sc(const godot::Ref<IppBuffer> &dst, int len) {
   if(dst == nullptr || dst->getType() != TYPE_32SC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -550,7 +556,7 @@ ipp::IPP::Status ipp::IPP::zero_32sc(IppBuffer *dst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::zero_64sc(IppBuffer *dst, int len) {
+IPP::Status IPP::zero_64sc(const godot::Ref<IppBuffer> &dst, int len) {
   if(dst == nullptr || dst->getType() != TYPE_64SC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -559,7 +565,7 @@ ipp::IPP::Status ipp::IPP::zero_64sc(IppBuffer *dst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::zero_32fc(IppBuffer *dst, int len) {
+IPP::Status IPP::zero_32fc(const godot::Ref<IppBuffer> &dst, int len) {
   if(dst == nullptr || dst->getType() != TYPE_32FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -568,7 +574,7 @@ ipp::IPP::Status ipp::IPP::zero_32fc(IppBuffer *dst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::zero_64fc(IppBuffer *dst, int len) {
+IPP::Status IPP::zero_64fc(const godot::Ref<IppBuffer> &dst, int len) {
   if(dst == nullptr || dst->getType() != TYPE_64FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -577,7 +583,7 @@ ipp::IPP::Status ipp::IPP::zero_64fc(IppBuffer *dst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::tone_16s(IppBuffer *dst, int len, int mag, float freq, Variant phase, Hint hint) {
+IPP::Status IPP::tone_16s(const godot::Ref<IppBuffer> &dst, int len, int mag, float freq, Variant phase, Hint hint) {
   if(dst == nullptr || dst->getType() != TYPE_16S) {
     return STAT_BAD_ARG_ERR;
   }
@@ -601,7 +607,7 @@ ipp::IPP::Status ipp::IPP::tone_16s(IppBuffer *dst, int len, int mag, float freq
 }
 
 
-ipp::IPP::Status ipp::IPP::tone_32f(IppBuffer *dst, int len, float mag, float freq, Variant phase, Hint hint) {
+IPP::Status IPP::tone_32f(const godot::Ref<IppBuffer> &dst, int len, float mag, float freq, Variant phase, Hint hint) {
   if(dst == nullptr || dst->getType() != TYPE_32F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -625,7 +631,7 @@ ipp::IPP::Status ipp::IPP::tone_32f(IppBuffer *dst, int len, float mag, float fr
 }
 
 
-ipp::IPP::Status ipp::IPP::tone_64f(IppBuffer *dst, int len, double mag, double freq, Variant phase, Hint hint) {
+IPP::Status IPP::tone_64f(const godot::Ref<IppBuffer> &dst, int len, double mag, double freq, Variant phase, Hint hint) {
   if(dst == nullptr || dst->getType() != TYPE_64F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -658,7 +664,7 @@ ipp::IPP::Status ipp::IPP::tone_64f(IppBuffer *dst, int len, double mag, double 
 }
 
 
-ipp::IPP::Status ipp::IPP::tone_16sc(IppBuffer *dst, int len, int mag, float freq, Variant phase, Hint hint) {
+IPP::Status IPP::tone_16sc(const godot::Ref<IppBuffer> &dst, int len, int mag, float freq, Variant phase, Hint hint) {
   if(dst == nullptr || dst->getType() != TYPE_16SC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -682,7 +688,7 @@ ipp::IPP::Status ipp::IPP::tone_16sc(IppBuffer *dst, int len, int mag, float fre
 }
 
 
-ipp::IPP::Status ipp::IPP::tone_32fc(IppBuffer *dst, int len, float mag, float freq, Variant phase, Hint hint) {
+IPP::Status IPP::tone_32fc(const godot::Ref<IppBuffer> &dst, int len, float mag, float freq, Variant phase, Hint hint) {
   if(dst == nullptr || dst->getType() != TYPE_32FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -706,7 +712,7 @@ ipp::IPP::Status ipp::IPP::tone_32fc(IppBuffer *dst, int len, float mag, float f
 }
 
 
-ipp::IPP::Status ipp::IPP::tone_64fc(IppBuffer *dst, int len, double mag, double freq, Variant phase, Hint hint) {
+IPP::Status IPP::tone_64fc(const godot::Ref<IppBuffer> &dst, int len, double mag, double freq, Variant phase, Hint hint) {
   if(dst == nullptr || dst->getType() != TYPE_64FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -739,7 +745,7 @@ ipp::IPP::Status ipp::IPP::tone_64fc(IppBuffer *dst, int len, double mag, double
 }
 
 
-ipp::IPP::Status ipp::IPP::triangle_16s(IppBuffer *dst, int len, int mag, float freq, float asym, Variant phase) {
+IPP::Status IPP::triangle_16s(const godot::Ref<IppBuffer> &dst, int len, int mag, float freq, float asym, Variant phase) {
   if(dst == nullptr || dst->getType() != TYPE_16S) {
     return STAT_BAD_ARG_ERR;
   }
@@ -763,7 +769,7 @@ ipp::IPP::Status ipp::IPP::triangle_16s(IppBuffer *dst, int len, int mag, float 
 }
 
 
-ipp::IPP::Status ipp::IPP::triangle_32f(IppBuffer *dst, int len, float mag, float freq, float asym, Variant phase) {
+IPP::Status IPP::triangle_32f(const godot::Ref<IppBuffer> &dst, int len, float mag, float freq, float asym, Variant phase) {
   if(dst == nullptr || dst->getType() != TYPE_32F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -787,7 +793,7 @@ ipp::IPP::Status ipp::IPP::triangle_32f(IppBuffer *dst, int len, float mag, floa
 }
 
 
-ipp::IPP::Status ipp::IPP::triangle_64f(IppBuffer *dst, int len, double mag, double freq, double asym, Variant phase) {
+IPP::Status IPP::triangle_64f(const godot::Ref<IppBuffer> &dst, int len, double mag, double freq, double asym, Variant phase) {
   if(dst == nullptr || dst->getType() != TYPE_64F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -820,7 +826,7 @@ ipp::IPP::Status ipp::IPP::triangle_64f(IppBuffer *dst, int len, double mag, dou
 }
 
 
-ipp::IPP::Status ipp::IPP::triangle_16sc(IppBuffer *dst, int len, int mag, float freq, float asym, Variant phase) {
+IPP::Status IPP::triangle_16sc(const godot::Ref<IppBuffer> &dst, int len, int mag, float freq, float asym, Variant phase) {
   if(dst == nullptr || dst->getType() != TYPE_16SC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -844,7 +850,7 @@ ipp::IPP::Status ipp::IPP::triangle_16sc(IppBuffer *dst, int len, int mag, float
 }
 
 
-ipp::IPP::Status ipp::IPP::triangle_32fc(IppBuffer *dst, int len, float mag, float freq, float asym, Variant phase) {
+IPP::Status IPP::triangle_32fc(const godot::Ref<IppBuffer> &dst, int len, float mag, float freq, float asym, Variant phase) {
   if(dst == nullptr || dst->getType() != TYPE_32FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -868,7 +874,7 @@ ipp::IPP::Status ipp::IPP::triangle_32fc(IppBuffer *dst, int len, float mag, flo
 }
 
 
-ipp::IPP::Status ipp::IPP::triangle_64fc(IppBuffer *dst, int len, double mag, double freq, double asym, Variant phase) {
+IPP::Status IPP::triangle_64fc(const godot::Ref<IppBuffer> &dst, int len, double mag, double freq, double asym, Variant phase) {
   if(dst == nullptr || dst->getType() != TYPE_64FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -901,7 +907,7 @@ ipp::IPP::Status ipp::IPP::triangle_64fc(IppBuffer *dst, int len, double mag, do
 }
 
 
-ipp::IPP::Status ipp::IPP::cos_32f_A11(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::cos_32f_A11(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_32F || dst->getType() != TYPE_32F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -910,7 +916,7 @@ ipp::IPP::Status ipp::IPP::cos_32f_A11(const IppBuffer *src, IppBuffer *dst, int
 }
 
 
-ipp::IPP::Status ipp::IPP::cos_32f_A21(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::cos_32f_A21(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_32F || dst->getType() != TYPE_32F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -919,7 +925,7 @@ ipp::IPP::Status ipp::IPP::cos_32f_A21(const IppBuffer *src, IppBuffer *dst, int
 }
 
 
-ipp::IPP::Status ipp::IPP::cos_32f_A24(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::cos_32f_A24(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_32F || dst->getType() != TYPE_32F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -928,7 +934,7 @@ ipp::IPP::Status ipp::IPP::cos_32f_A24(const IppBuffer *src, IppBuffer *dst, int
 }
 
 
-ipp::IPP::Status ipp::IPP::cos_64f_A26(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::cos_64f_A26(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_64F || dst->getType() != TYPE_64F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -937,7 +943,7 @@ ipp::IPP::Status ipp::IPP::cos_64f_A26(const IppBuffer *src, IppBuffer *dst, int
 }
 
 
-ipp::IPP::Status ipp::IPP::cos_64f_A50(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::cos_64f_A50(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_64F || dst->getType() != TYPE_64F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -946,7 +952,7 @@ ipp::IPP::Status ipp::IPP::cos_64f_A50(const IppBuffer *src, IppBuffer *dst, int
 }
 
 
-ipp::IPP::Status ipp::IPP::cos_64f_A53(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::cos_64f_A53(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_64F || dst->getType() != TYPE_64F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -955,7 +961,7 @@ ipp::IPP::Status ipp::IPP::cos_64f_A53(const IppBuffer *src, IppBuffer *dst, int
 }
 
 
-ipp::IPP::Status ipp::IPP::cos_32fc_A11(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::cos_32fc_A11(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_32FC || dst->getType() != TYPE_32FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -964,7 +970,7 @@ ipp::IPP::Status ipp::IPP::cos_32fc_A11(const IppBuffer *src, IppBuffer *dst, in
 }
 
 
-ipp::IPP::Status ipp::IPP::cos_32fc_A21(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::cos_32fc_A21(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_32FC || dst->getType() != TYPE_32FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -973,7 +979,7 @@ ipp::IPP::Status ipp::IPP::cos_32fc_A21(const IppBuffer *src, IppBuffer *dst, in
 }
 
 
-ipp::IPP::Status ipp::IPP::cos_32fc_A24(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::cos_32fc_A24(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_32FC || dst->getType() != TYPE_32FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -982,7 +988,7 @@ ipp::IPP::Status ipp::IPP::cos_32fc_A24(const IppBuffer *src, IppBuffer *dst, in
 }
 
 
-ipp::IPP::Status ipp::IPP::cos_64fc_A26(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::cos_64fc_A26(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_64FC || dst->getType() != TYPE_64FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -991,7 +997,7 @@ ipp::IPP::Status ipp::IPP::cos_64fc_A26(const IppBuffer *src, IppBuffer *dst, in
 }
 
 
-ipp::IPP::Status ipp::IPP::cos_64fc_A50(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::cos_64fc_A50(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_64FC || dst->getType() != TYPE_64FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1000,7 +1006,7 @@ ipp::IPP::Status ipp::IPP::cos_64fc_A50(const IppBuffer *src, IppBuffer *dst, in
 }
 
 
-ipp::IPP::Status ipp::IPP::cos_64fc_A53(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::cos_64fc_A53(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_64FC || dst->getType() != TYPE_64FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1009,7 +1015,7 @@ ipp::IPP::Status ipp::IPP::cos_64fc_A53(const IppBuffer *src, IppBuffer *dst, in
 }
 
 
-ipp::IPP::Status ipp::IPP::sin_32f_A11(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::sin_32f_A11(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_32F || dst->getType() != TYPE_32F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1018,7 +1024,7 @@ ipp::IPP::Status ipp::IPP::sin_32f_A11(const IppBuffer *src, IppBuffer *dst, int
 }
 
 
-ipp::IPP::Status ipp::IPP::sin_32f_A21(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::sin_32f_A21(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_32F || dst->getType() != TYPE_32F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1027,7 +1033,7 @@ ipp::IPP::Status ipp::IPP::sin_32f_A21(const IppBuffer *src, IppBuffer *dst, int
 }
 
 
-ipp::IPP::Status ipp::IPP::sin_32f_A24(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::sin_32f_A24(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_32F || dst->getType() != TYPE_32F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1036,7 +1042,7 @@ ipp::IPP::Status ipp::IPP::sin_32f_A24(const IppBuffer *src, IppBuffer *dst, int
 }
 
 
-ipp::IPP::Status ipp::IPP::sin_64f_A26(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::sin_64f_A26(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_64F || dst->getType() != TYPE_64F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1045,7 +1051,7 @@ ipp::IPP::Status ipp::IPP::sin_64f_A26(const IppBuffer *src, IppBuffer *dst, int
 }
 
 
-ipp::IPP::Status ipp::IPP::sin_64f_A50(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::sin_64f_A50(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_64F || dst->getType() != TYPE_64F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1054,7 +1060,7 @@ ipp::IPP::Status ipp::IPP::sin_64f_A50(const IppBuffer *src, IppBuffer *dst, int
 }
 
 
-ipp::IPP::Status ipp::IPP::sin_64f_A53(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::sin_64f_A53(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_64F || dst->getType() != TYPE_64F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1063,7 +1069,7 @@ ipp::IPP::Status ipp::IPP::sin_64f_A53(const IppBuffer *src, IppBuffer *dst, int
 }
 
 
-ipp::IPP::Status ipp::IPP::sin_32fc_A11(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::sin_32fc_A11(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_32FC || dst->getType() != TYPE_32FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1072,7 +1078,7 @@ ipp::IPP::Status ipp::IPP::sin_32fc_A11(const IppBuffer *src, IppBuffer *dst, in
 }
 
 
-ipp::IPP::Status ipp::IPP::sin_32fc_A21(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::sin_32fc_A21(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_32FC || dst->getType() != TYPE_32FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1081,7 +1087,7 @@ ipp::IPP::Status ipp::IPP::sin_32fc_A21(const IppBuffer *src, IppBuffer *dst, in
 }
 
 
-ipp::IPP::Status ipp::IPP::sin_32fc_A24(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::sin_32fc_A24(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_32FC || dst->getType() != TYPE_32FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1090,7 +1096,7 @@ ipp::IPP::Status ipp::IPP::sin_32fc_A24(const IppBuffer *src, IppBuffer *dst, in
 }
 
 
-ipp::IPP::Status ipp::IPP::sin_64fc_A26(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::sin_64fc_A26(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_64FC || dst->getType() != TYPE_64FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1099,7 +1105,7 @@ ipp::IPP::Status ipp::IPP::sin_64fc_A26(const IppBuffer *src, IppBuffer *dst, in
 }
 
 
-ipp::IPP::Status ipp::IPP::sin_64fc_A50(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::sin_64fc_A50(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_64FC || dst->getType() != TYPE_64FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1108,7 +1114,7 @@ ipp::IPP::Status ipp::IPP::sin_64fc_A50(const IppBuffer *src, IppBuffer *dst, in
 }
 
 
-ipp::IPP::Status ipp::IPP::sin_64fc_A53(const IppBuffer *src, IppBuffer *dst, int len) {
+IPP::Status IPP::sin_64fc_A53(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_64FC || dst->getType() != TYPE_64FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1117,7 +1123,7 @@ ipp::IPP::Status ipp::IPP::sin_64fc_A53(const IppBuffer *src, IppBuffer *dst, in
 }
 
 
-ipp::IPP::Status ipp::IPP::sin_cos_32f_A11(const IppBuffer *src, IppBuffer *s, IppBuffer *c, int len) {
+IPP::Status IPP::sin_cos_32f_A11(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &s, const godot::Ref<IppBuffer> &c, int len) {
   if(src            == nullptr  || s            == nullptr  || c            == nullptr  ||
      src->getType() != TYPE_32F || s->getType() != TYPE_32F || c->getType() != TYPE_32F) {
     return STAT_BAD_ARG_ERR;
@@ -1127,7 +1133,7 @@ ipp::IPP::Status ipp::IPP::sin_cos_32f_A11(const IppBuffer *src, IppBuffer *s, I
 }
 
 
-ipp::IPP::Status ipp::IPP::sin_cos_32f_A21(const IppBuffer *src, IppBuffer *s, IppBuffer *c, int len) {
+IPP::Status IPP::sin_cos_32f_A21(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &s, const godot::Ref<IppBuffer> &c, int len) {
   if(src            == nullptr  || s            == nullptr  || c            == nullptr  ||
      src->getType() != TYPE_32F || s->getType() != TYPE_32F || c->getType() != TYPE_32F) {
     return STAT_BAD_ARG_ERR;
@@ -1137,7 +1143,7 @@ ipp::IPP::Status ipp::IPP::sin_cos_32f_A21(const IppBuffer *src, IppBuffer *s, I
 }
 
 
-ipp::IPP::Status ipp::IPP::sin_cos_32f_A24(const IppBuffer *src, IppBuffer *s, IppBuffer *c, int len) {
+IPP::Status IPP::sin_cos_32f_A24(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &s, const godot::Ref<IppBuffer> &c, int len) {
   if(src            == nullptr  || s            == nullptr  || c            == nullptr  ||
      src->getType() != TYPE_32F || s->getType() != TYPE_32F || c->getType() != TYPE_32F) {
     return STAT_BAD_ARG_ERR;
@@ -1147,7 +1153,7 @@ ipp::IPP::Status ipp::IPP::sin_cos_32f_A24(const IppBuffer *src, IppBuffer *s, I
 }
 
 
-ipp::IPP::Status ipp::IPP::sin_cos_64f_A26(const IppBuffer *src, IppBuffer *s, IppBuffer *c, int len) {
+IPP::Status IPP::sin_cos_64f_A26(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &s, const godot::Ref<IppBuffer> &c, int len) {
   if(src            == nullptr  || s            == nullptr  || c            == nullptr  ||
      src->getType() != TYPE_64F || s->getType() != TYPE_64F || c->getType() != TYPE_64F) {
     return STAT_BAD_ARG_ERR;
@@ -1157,7 +1163,7 @@ ipp::IPP::Status ipp::IPP::sin_cos_64f_A26(const IppBuffer *src, IppBuffer *s, I
 }
 
 
-ipp::IPP::Status ipp::IPP::sin_cos_64f_A50(const IppBuffer *src, IppBuffer *s, IppBuffer *c, int len) {
+IPP::Status IPP::sin_cos_64f_A50(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &s, const godot::Ref<IppBuffer> &c, int len) {
   if(src            == nullptr  || s            == nullptr  || c            == nullptr  ||
      src->getType() != TYPE_64F || s->getType() != TYPE_64F || c->getType() != TYPE_64F) {
     return STAT_BAD_ARG_ERR;
@@ -1167,7 +1173,7 @@ ipp::IPP::Status ipp::IPP::sin_cos_64f_A50(const IppBuffer *src, IppBuffer *s, I
 }
 
 
-ipp::IPP::Status ipp::IPP::sin_cos_64f_A53(const IppBuffer *src, IppBuffer *s, IppBuffer *c, int len) {
+IPP::Status IPP::sin_cos_64f_A53(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &s, const godot::Ref<IppBuffer> &c, int len) {
   if(src            == nullptr  || s            == nullptr  || c            == nullptr  ||
      src->getType() != TYPE_64F || s->getType() != TYPE_64F || c->getType() != TYPE_64F) {
     return STAT_BAD_ARG_ERR;
@@ -1177,7 +1183,7 @@ ipp::IPP::Status ipp::IPP::sin_cos_64f_A53(const IppBuffer *src, IppBuffer *s, I
 }
 
 
-ipp::IPP::Status ipp::IPP::addC_32f(const IppBuffer *src, float val, IppBuffer *dst, int len) {
+IPP::Status IPP::addC_32f(const godot::Ref<IppBuffer> &src, float val, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_32F || dst->getType() != TYPE_32F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1186,7 +1192,7 @@ ipp::IPP::Status ipp::IPP::addC_32f(const IppBuffer *src, float val, IppBuffer *
 }
 
 
-ipp::IPP::Status ipp::IPP::addC_64f(const IppBuffer *src, double val, IppBuffer *dst, int len) {
+IPP::Status IPP::addC_64f(const godot::Ref<IppBuffer> &src, double val, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_64F || dst->getType() != TYPE_64F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1195,7 +1201,7 @@ ipp::IPP::Status ipp::IPP::addC_64f(const IppBuffer *src, double val, IppBuffer 
 }
 
 
-ipp::IPP::Status ipp::IPP::addC_32fc(const IppBuffer *src, Vector2 v2, IppBuffer *dst, int len) {
+IPP::Status IPP::addC_32fc(const godot::Ref<IppBuffer> &src, Vector2 v2, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_32FC || dst->getType() != TYPE_32FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1205,7 +1211,7 @@ ipp::IPP::Status ipp::IPP::addC_32fc(const IppBuffer *src, Vector2 v2, IppBuffer
 }
 
 
-ipp::IPP::Status ipp::IPP::addC_64fc(const IppBuffer *src, Vector2 v2, IppBuffer *dst, int len) {
+IPP::Status IPP::addC_64fc(const godot::Ref<IppBuffer> &src, Vector2 v2, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_64FC || dst->getType() != TYPE_64FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1215,7 +1221,7 @@ ipp::IPP::Status ipp::IPP::addC_64fc(const IppBuffer *src, Vector2 v2, IppBuffer
 }
 
 
-ipp::IPP::Status ipp::IPP::addC_8u_Sfs(const IppBuffer *src, int val, IppBuffer *dst, int len, int scale){
+IPP::Status IPP::addC_8u_Sfs(const godot::Ref<IppBuffer> &src, int val, const godot::Ref<IppBuffer> &dst, int len, int scale){
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_8U || dst->getType() != TYPE_8U) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1224,7 +1230,7 @@ ipp::IPP::Status ipp::IPP::addC_8u_Sfs(const IppBuffer *src, int val, IppBuffer 
 }
 
 
-ipp::IPP::Status ipp::IPP::addC_16u_Sfs(const IppBuffer *src, int val, IppBuffer *dst, int len, int scale) {
+IPP::Status IPP::addC_16u_Sfs(const godot::Ref<IppBuffer> &src, int val, const godot::Ref<IppBuffer> &dst, int len, int scale) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_16U || dst->getType() != TYPE_16U) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1233,7 +1239,7 @@ ipp::IPP::Status ipp::IPP::addC_16u_Sfs(const IppBuffer *src, int val, IppBuffer
 }
 
 
-ipp::IPP::Status ipp::IPP::addC_16s_Sfs(const IppBuffer *src, int val, IppBuffer *dst, int len, int scale) {
+IPP::Status IPP::addC_16s_Sfs(const godot::Ref<IppBuffer> &src, int val, const godot::Ref<IppBuffer> &dst, int len, int scale) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_16S || dst->getType() != TYPE_16S) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1242,7 +1248,7 @@ ipp::IPP::Status ipp::IPP::addC_16s_Sfs(const IppBuffer *src, int val, IppBuffer
 }
 
 
-ipp::IPP::Status ipp::IPP::addC_32s_Sfs(const IppBuffer *src, int val, IppBuffer *dst, int len, int scale) {
+IPP::Status IPP::addC_32s_Sfs(const godot::Ref<IppBuffer> &src, int val, const godot::Ref<IppBuffer> &dst, int len, int scale) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_32S || dst->getType() != TYPE_32S) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1251,7 +1257,7 @@ ipp::IPP::Status ipp::IPP::addC_32s_Sfs(const IppBuffer *src, int val, IppBuffer
 }
 
 
-ipp::IPP::Status ipp::IPP::addC_64s_Sfs(const IppBuffer *src, int64_t val, IppBuffer *dst, int len, int scale) {
+IPP::Status IPP::addC_64s_Sfs(const godot::Ref<IppBuffer> &src, int64_t val, const godot::Ref<IppBuffer> &dst, int len, int scale) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_64S || dst->getType() != TYPE_64S) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1260,7 +1266,7 @@ ipp::IPP::Status ipp::IPP::addC_64s_Sfs(const IppBuffer *src, int64_t val, IppBu
 }
 
 
-ipp::IPP::Status ipp::IPP::addC_64u_Sfs(const IppBuffer *src, uint64_t val, IppBuffer *dst, int len, int scale) {
+IPP::Status IPP::addC_64u_Sfs(const godot::Ref<IppBuffer> &src, uint64_t val, const godot::Ref<IppBuffer> &dst, int len, int scale) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_64U || dst->getType() != TYPE_64U) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1269,7 +1275,7 @@ ipp::IPP::Status ipp::IPP::addC_64u_Sfs(const IppBuffer *src, uint64_t val, IppB
 }
 
 
-ipp::IPP::Status ipp::IPP::addC_16sc_Sfs(const IppBuffer *src, Vector2i v2i, IppBuffer *dst, int len, int scale) {
+IPP::Status IPP::addC_16sc_Sfs(const godot::Ref<IppBuffer> &src, Vector2i v2i, const godot::Ref<IppBuffer> &dst, int len, int scale) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_16SC || dst->getType() != TYPE_16SC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1279,7 +1285,7 @@ ipp::IPP::Status ipp::IPP::addC_16sc_Sfs(const IppBuffer *src, Vector2i v2i, Ipp
 }
 
 
-ipp::IPP::Status ipp::IPP::addC_32sc_Sfs(const IppBuffer *src, Vector2i v2i, IppBuffer *dst, int len, int scale) {
+IPP::Status IPP::addC_32sc_Sfs(const godot::Ref<IppBuffer> &src, Vector2i v2i, const godot::Ref<IppBuffer> &dst, int len, int scale) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_32SC || dst->getType() != TYPE_32SC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1289,7 +1295,7 @@ ipp::IPP::Status ipp::IPP::addC_32sc_Sfs(const IppBuffer *src, Vector2i v2i, Ipp
 }
 
 
-ipp::IPP::Status ipp::IPP::addC_32f_I(float val, IppBuffer *srcDst, int len) {
+IPP::Status IPP::addC_32f_I(float val, const godot::Ref<IppBuffer> &srcDst, int len) {
   if(srcDst == nullptr || srcDst->getType() != TYPE_32F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1298,7 +1304,7 @@ ipp::IPP::Status ipp::IPP::addC_32f_I(float val, IppBuffer *srcDst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::addC_64f_I(double val, IppBuffer *srcDst, int len) {
+IPP::Status IPP::addC_64f_I(double val, const godot::Ref<IppBuffer> &srcDst, int len) {
   if(srcDst == nullptr || srcDst->getType() != TYPE_64F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1307,7 +1313,7 @@ ipp::IPP::Status ipp::IPP::addC_64f_I(double val, IppBuffer *srcDst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::addC_32fc_I(Vector2 v2, IppBuffer *srcDst, int len) {
+IPP::Status IPP::addC_32fc_I(Vector2 v2, const godot::Ref<IppBuffer> &srcDst, int len) {
   if(srcDst == nullptr || srcDst->getType() != TYPE_32FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1317,7 +1323,7 @@ ipp::IPP::Status ipp::IPP::addC_32fc_I(Vector2 v2, IppBuffer *srcDst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::addC_64fc_I(Vector2 v2, IppBuffer *srcDst, int len) {
+IPP::Status IPP::addC_64fc_I(Vector2 v2, const godot::Ref<IppBuffer> &srcDst, int len) {
   if(srcDst == nullptr || srcDst->getType() != TYPE_64FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1327,7 +1333,7 @@ ipp::IPP::Status ipp::IPP::addC_64fc_I(Vector2 v2, IppBuffer *srcDst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::addC_8u_ISfs(int val, IppBuffer *srcDst, int len, int scale) {
+IPP::Status IPP::addC_8u_ISfs(int val, const godot::Ref<IppBuffer> &srcDst, int len, int scale) {
   if(srcDst == nullptr || srcDst->getType() != TYPE_8U) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1336,7 +1342,7 @@ ipp::IPP::Status ipp::IPP::addC_8u_ISfs(int val, IppBuffer *srcDst, int len, int
 }
 
 
-ipp::IPP::Status ipp::IPP::addC_16u_ISfs(int val, IppBuffer *srcDst, int len, int scale) {
+IPP::Status IPP::addC_16u_ISfs(int val, const godot::Ref<IppBuffer> &srcDst, int len, int scale) {
   if(srcDst == nullptr || srcDst->getType() != TYPE_16U) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1345,7 +1351,7 @@ ipp::IPP::Status ipp::IPP::addC_16u_ISfs(int val, IppBuffer *srcDst, int len, in
 }
 
 
-ipp::IPP::Status ipp::IPP::addC_16s_ISfs(int val, IppBuffer *srcDst, int len, int scale) {
+IPP::Status IPP::addC_16s_ISfs(int val, const godot::Ref<IppBuffer> &srcDst, int len, int scale) {
   if(srcDst == nullptr || srcDst->getType() != TYPE_16S) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1354,7 +1360,7 @@ ipp::IPP::Status ipp::IPP::addC_16s_ISfs(int val, IppBuffer *srcDst, int len, in
 }
 
 
-ipp::IPP::Status ipp::IPP::addC_32s_ISfs(int val, IppBuffer *srcDst, int len, int scale) {
+IPP::Status IPP::addC_32s_ISfs(int val, const godot::Ref<IppBuffer> &srcDst, int len, int scale) {
   if(srcDst == nullptr || srcDst->getType() != TYPE_32S) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1363,7 +1369,7 @@ ipp::IPP::Status ipp::IPP::addC_32s_ISfs(int val, IppBuffer *srcDst, int len, in
 }
 
 
-ipp::IPP::Status ipp::IPP::addC_16sc_ISfs(Vector2i v2i, IppBuffer *srcDst, int len, int scale) {
+IPP::Status IPP::addC_16sc_ISfs(Vector2i v2i, const godot::Ref<IppBuffer> &srcDst, int len, int scale) {
   if(srcDst == nullptr || srcDst->getType() != TYPE_16SC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1373,7 +1379,7 @@ ipp::IPP::Status ipp::IPP::addC_16sc_ISfs(Vector2i v2i, IppBuffer *srcDst, int l
 }
 
 
-ipp::IPP::Status ipp::IPP::addC_32sc_ISfs(Vector2i v2i, IppBuffer *srcDst, int len, int scale) {
+IPP::Status IPP::addC_32sc_ISfs(Vector2i v2i, const godot::Ref<IppBuffer> &srcDst, int len, int scale) {
   if(srcDst == nullptr || srcDst->getType() != TYPE_32SC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1383,7 +1389,7 @@ ipp::IPP::Status ipp::IPP::addC_32sc_ISfs(Vector2i v2i, IppBuffer *srcDst, int l
 }
 
 
-ipp::IPP::Status ipp::IPP::subC_32f(const IppBuffer *src, float val, IppBuffer *dst, int len) {
+IPP::Status IPP::subC_32f(const godot::Ref<IppBuffer> &src, float val, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_32F || dst->getType() != TYPE_32F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1392,7 +1398,7 @@ ipp::IPP::Status ipp::IPP::subC_32f(const IppBuffer *src, float val, IppBuffer *
 }
 
 
-ipp::IPP::Status ipp::IPP::subC_64f(const IppBuffer *src, double val, IppBuffer *dst, int len) {
+IPP::Status IPP::subC_64f(const godot::Ref<IppBuffer> &src, double val, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_64F || dst->getType() != TYPE_64F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1401,7 +1407,7 @@ ipp::IPP::Status ipp::IPP::subC_64f(const IppBuffer *src, double val, IppBuffer 
 }
 
 
-ipp::IPP::Status ipp::IPP::subC_32fc(const IppBuffer *src, Vector2 v2, IppBuffer *dst, int len) {
+IPP::Status IPP::subC_32fc(const godot::Ref<IppBuffer> &src, Vector2 v2, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_32FC || dst->getType() != TYPE_32FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1411,7 +1417,7 @@ ipp::IPP::Status ipp::IPP::subC_32fc(const IppBuffer *src, Vector2 v2, IppBuffer
 }
 
 
-ipp::IPP::Status ipp::IPP::subC_64fc(const IppBuffer *src, Vector2 v2, IppBuffer *dst, int len) {
+IPP::Status IPP::subC_64fc(const godot::Ref<IppBuffer> &src, Vector2 v2, const godot::Ref<IppBuffer> &dst, int len) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_64FC || dst->getType() != TYPE_64FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1421,7 +1427,7 @@ ipp::IPP::Status ipp::IPP::subC_64fc(const IppBuffer *src, Vector2 v2, IppBuffer
 }
 
 
-ipp::IPP::Status ipp::IPP::subC_8u_Sfs(const IppBuffer *src, int val, IppBuffer *dst, int len, int scale){
+IPP::Status IPP::subC_8u_Sfs(const godot::Ref<IppBuffer> &src, int val, const godot::Ref<IppBuffer> &dst, int len, int scale){
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_8U || dst->getType() != TYPE_8U) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1430,7 +1436,7 @@ ipp::IPP::Status ipp::IPP::subC_8u_Sfs(const IppBuffer *src, int val, IppBuffer 
 }
 
 
-ipp::IPP::Status ipp::IPP::subC_16u_Sfs(const IppBuffer *src, int val, IppBuffer *dst, int len, int scale) {
+IPP::Status IPP::subC_16u_Sfs(const godot::Ref<IppBuffer> &src, int val, const godot::Ref<IppBuffer> &dst, int len, int scale) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_16U || dst->getType() != TYPE_16U) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1439,7 +1445,7 @@ ipp::IPP::Status ipp::IPP::subC_16u_Sfs(const IppBuffer *src, int val, IppBuffer
 }
 
 
-ipp::IPP::Status ipp::IPP::subC_16s_Sfs(const IppBuffer *src, int val, IppBuffer *dst, int len, int scale) {
+IPP::Status IPP::subC_16s_Sfs(const godot::Ref<IppBuffer> &src, int val, const godot::Ref<IppBuffer> &dst, int len, int scale) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_16S || dst->getType() != TYPE_16S) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1448,7 +1454,7 @@ ipp::IPP::Status ipp::IPP::subC_16s_Sfs(const IppBuffer *src, int val, IppBuffer
 }
 
 
-ipp::IPP::Status ipp::IPP::subC_32s_Sfs(const IppBuffer *src, int val, IppBuffer *dst, int len, int scale) {
+IPP::Status IPP::subC_32s_Sfs(const godot::Ref<IppBuffer> &src, int val, const godot::Ref<IppBuffer> &dst, int len, int scale) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_32S || dst->getType() != TYPE_32S) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1457,7 +1463,7 @@ ipp::IPP::Status ipp::IPP::subC_32s_Sfs(const IppBuffer *src, int val, IppBuffer
 }
 
 
-ipp::IPP::Status ipp::IPP::subC_16sc_Sfs(const IppBuffer *src, Vector2i v2i, IppBuffer *dst, int len, int scale) {
+IPP::Status IPP::subC_16sc_Sfs(const godot::Ref<IppBuffer> &src, Vector2i v2i, const godot::Ref<IppBuffer> &dst, int len, int scale) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_16SC || dst->getType() != TYPE_16SC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1467,7 +1473,7 @@ ipp::IPP::Status ipp::IPP::subC_16sc_Sfs(const IppBuffer *src, Vector2i v2i, Ipp
 }
 
 
-ipp::IPP::Status ipp::IPP::subC_32sc_Sfs(const IppBuffer *src, Vector2i v2i, IppBuffer *dst, int len, int scale) {
+IPP::Status IPP::subC_32sc_Sfs(const godot::Ref<IppBuffer> &src, Vector2i v2i, const godot::Ref<IppBuffer> &dst, int len, int scale) {
   if(src == nullptr || dst == nullptr || src->getType() != TYPE_32SC || dst->getType() != TYPE_32SC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1477,7 +1483,7 @@ ipp::IPP::Status ipp::IPP::subC_32sc_Sfs(const IppBuffer *src, Vector2i v2i, Ipp
 }
 
 
-ipp::IPP::Status ipp::IPP::subC_32f_I(float val, IppBuffer *srcDst, int len) {
+IPP::Status IPP::subC_32f_I(float val, const godot::Ref<IppBuffer> &srcDst, int len) {
   if(srcDst == nullptr || srcDst->getType() != TYPE_32F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1486,7 +1492,7 @@ ipp::IPP::Status ipp::IPP::subC_32f_I(float val, IppBuffer *srcDst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::subC_64f_I(double val, IppBuffer *srcDst, int len) {
+IPP::Status IPP::subC_64f_I(double val, const godot::Ref<IppBuffer> &srcDst, int len) {
   if(srcDst == nullptr || srcDst->getType() != TYPE_64F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1495,7 +1501,7 @@ ipp::IPP::Status ipp::IPP::subC_64f_I(double val, IppBuffer *srcDst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::subC_32fc_I(Vector2 v2, IppBuffer *srcDst, int len) {
+IPP::Status IPP::subC_32fc_I(Vector2 v2, const godot::Ref<IppBuffer> &srcDst, int len) {
   if(srcDst == nullptr || srcDst->getType() != TYPE_32FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1505,7 +1511,7 @@ ipp::IPP::Status ipp::IPP::subC_32fc_I(Vector2 v2, IppBuffer *srcDst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::subC_64fc_I(Vector2 v2, IppBuffer *srcDst, int len) {
+IPP::Status IPP::subC_64fc_I(Vector2 v2, const godot::Ref<IppBuffer> &srcDst, int len) {
   if(srcDst == nullptr || srcDst->getType() != TYPE_64FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1515,7 +1521,7 @@ ipp::IPP::Status ipp::IPP::subC_64fc_I(Vector2 v2, IppBuffer *srcDst, int len) {
 }
 
 
-ipp::IPP::Status ipp::IPP::subC_8u_ISfs(int val, IppBuffer *srcDst, int len, int scale) {
+IPP::Status IPP::subC_8u_ISfs(int val, const godot::Ref<IppBuffer> &srcDst, int len, int scale) {
   if(srcDst == nullptr || srcDst->getType() != TYPE_8U) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1524,7 +1530,7 @@ ipp::IPP::Status ipp::IPP::subC_8u_ISfs(int val, IppBuffer *srcDst, int len, int
 }
 
 
-ipp::IPP::Status ipp::IPP::subC_16u_ISfs(int val, IppBuffer *srcDst, int len, int scale) {
+IPP::Status IPP::subC_16u_ISfs(int val, const godot::Ref<IppBuffer> &srcDst, int len, int scale) {
   if(srcDst == nullptr || srcDst->getType() != TYPE_16U) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1533,7 +1539,7 @@ ipp::IPP::Status ipp::IPP::subC_16u_ISfs(int val, IppBuffer *srcDst, int len, in
 }
 
 
-ipp::IPP::Status ipp::IPP::subC_16s_ISfs(int val, IppBuffer *srcDst, int len, int scale) {
+IPP::Status IPP::subC_16s_ISfs(int val, const godot::Ref<IppBuffer> &srcDst, int len, int scale) {
   if(srcDst == nullptr || srcDst->getType() != TYPE_16S) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1542,7 +1548,7 @@ ipp::IPP::Status ipp::IPP::subC_16s_ISfs(int val, IppBuffer *srcDst, int len, in
 }
 
 
-ipp::IPP::Status ipp::IPP::subC_32s_ISfs(int val, IppBuffer *srcDst, int len, int scale) {
+IPP::Status IPP::subC_32s_ISfs(int val, const godot::Ref<IppBuffer> &srcDst, int len, int scale) {
   if(srcDst == nullptr || srcDst->getType() != TYPE_32S) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1551,7 +1557,7 @@ ipp::IPP::Status ipp::IPP::subC_32s_ISfs(int val, IppBuffer *srcDst, int len, in
 }
 
 
-ipp::IPP::Status ipp::IPP::subC_16sc_ISfs(Vector2i v2i, IppBuffer *srcDst, int len, int scale) {
+IPP::Status IPP::subC_16sc_ISfs(Vector2i v2i, const godot::Ref<IppBuffer> &srcDst, int len, int scale) {
   if(srcDst == nullptr || srcDst->getType() != TYPE_16SC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1561,7 +1567,7 @@ ipp::IPP::Status ipp::IPP::subC_16sc_ISfs(Vector2i v2i, IppBuffer *srcDst, int l
 }
 
 
-ipp::IPP::Status ipp::IPP::subC_32sc_ISfs(Vector2i v2i, IppBuffer *srcDst, int len, int scale) {
+IPP::Status IPP::subC_32sc_ISfs(Vector2i v2i, const godot::Ref<IppBuffer> &srcDst, int len, int scale) {
   if(srcDst == nullptr || srcDst->getType() != TYPE_32SC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1571,7 +1577,7 @@ ipp::IPP::Status ipp::IPP::subC_32sc_ISfs(Vector2i v2i, IppBuffer *srcDst, int l
 }
 
 
-ipp::IPP::Status ipp::IPP::sum_32f(const IppBuffer *src, int len, Variant sum, Hint hint) {
+IPP::Status IPP::sum_32f(const godot::Ref<IppBuffer> &src, int len, Variant sum, Hint hint) {
   if(src == nullptr || src->getType() != TYPE_32F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1611,7 +1617,7 @@ ipp::IPP::Status ipp::IPP::sum_32f(const IppBuffer *src, int len, Variant sum, H
 }
 
 
-ipp::IPP::Status ipp::IPP::sum_32fc(const IppBuffer *src, int len, Variant sum, Hint hint) {
+IPP::Status IPP::sum_32fc(const godot::Ref<IppBuffer> &src, int len, Variant sum, Hint hint) {
   if(src == nullptr || src->getType() != TYPE_32FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1655,7 +1661,7 @@ ipp::IPP::Status ipp::IPP::sum_32fc(const IppBuffer *src, int len, Variant sum, 
 }
 
 
-ipp::IPP::Status ipp::IPP::sum_64f(const IppBuffer *src, int len, Variant sum) {
+IPP::Status IPP::sum_64f(const godot::Ref<IppBuffer> &src, int len, Variant sum) {
   if(src == nullptr || src->getType() != TYPE_64F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1710,7 +1716,7 @@ ipp::IPP::Status ipp::IPP::sum_64f(const IppBuffer *src, int len, Variant sum) {
 }
 
 
-ipp::IPP::Status ipp::IPP::sum_64fc(const IppBuffer *src, int len, Variant sum) {
+IPP::Status IPP::sum_64fc(const godot::Ref<IppBuffer> &src, int len, Variant sum) {
   if(src == nullptr || src->getType() != TYPE_64FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1754,7 +1760,7 @@ ipp::IPP::Status ipp::IPP::sum_64fc(const IppBuffer *src, int len, Variant sum) 
 }
 
 
-ipp::IPP::Status ipp::IPP::sum_16s_Sfs(const IppBuffer *src, int len, Variant sum, int scale) {
+IPP::Status IPP::sum_16s_Sfs(const godot::Ref<IppBuffer> &src, int len, Variant sum, int scale) {
   if(src == nullptr || src->getType() != TYPE_16S) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1794,7 +1800,7 @@ ipp::IPP::Status ipp::IPP::sum_16s_Sfs(const IppBuffer *src, int len, Variant su
 }
 
 
-ipp::IPP::Status ipp::IPP::sum_32s_Sfs(const IppBuffer *src, int len, Variant sum, int scale) {
+IPP::Status IPP::sum_32s_Sfs(const godot::Ref<IppBuffer> &src, int len, Variant sum, int scale) {
   if(src == nullptr || src->getType() != TYPE_32S) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1834,7 +1840,7 @@ ipp::IPP::Status ipp::IPP::sum_32s_Sfs(const IppBuffer *src, int len, Variant su
 }
 
 
-ipp::IPP::Status ipp::IPP::sum_16s32s_Sfs(const IppBuffer *src, int len, Variant sum, int scale) {
+IPP::Status IPP::sum_16s32s_Sfs(const godot::Ref<IppBuffer> &src, int len, Variant sum, int scale) {
   if(src == nullptr || src->getType() != TYPE_16S) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1874,7 +1880,7 @@ ipp::IPP::Status ipp::IPP::sum_16s32s_Sfs(const IppBuffer *src, int len, Variant
 }
 
 
-ipp::IPP::Status ipp::IPP::sum_16sc_Sfs(const IppBuffer *src, int len, Variant sum, int scale) {
+IPP::Status IPP::sum_16sc_Sfs(const godot::Ref<IppBuffer> &src, int len, Variant sum, int scale) {
   if(src == nullptr || src->getType() != TYPE_16SC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1901,7 +1907,7 @@ ipp::IPP::Status ipp::IPP::sum_16sc_Sfs(const IppBuffer *src, int len, Variant s
 }
 
 
-ipp::IPP::Status ipp::IPP::sum_16sc32sc_Sfs(const IppBuffer *src, int len, Variant sum, int scale) {
+IPP::Status IPP::sum_16sc32sc_Sfs(const godot::Ref<IppBuffer> &src, int len, Variant sum, int scale) {
   if(src == nullptr || src->getType() != TYPE_16SC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1928,7 +1934,7 @@ ipp::IPP::Status ipp::IPP::sum_16sc32sc_Sfs(const IppBuffer *src, int len, Varia
 }
 
 
-ipp::IPP::Status ipp::IPP::mean_32f(const IppBuffer *src, int len, Variant mean, Hint hint) {
+IPP::Status IPP::mean_32f(const godot::Ref<IppBuffer> &src, int len, Variant mean, Hint hint) {
   if(src == nullptr || src->getType() != TYPE_32F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -1968,7 +1974,7 @@ ipp::IPP::Status ipp::IPP::mean_32f(const IppBuffer *src, int len, Variant mean,
 }
 
 
-ipp::IPP::Status ipp::IPP::mean_32fc(const IppBuffer *src, int len, Variant mean, Hint hint) {
+IPP::Status IPP::mean_32fc(const godot::Ref<IppBuffer> &src, int len, Variant mean, Hint hint) {
   if(src == nullptr || src->getType() != TYPE_32FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -2012,7 +2018,7 @@ ipp::IPP::Status ipp::IPP::mean_32fc(const IppBuffer *src, int len, Variant mean
 }
 
 
-ipp::IPP::Status ipp::IPP::mean_64f(const IppBuffer *src, int len, Variant mean) {
+IPP::Status IPP::mean_64f(const godot::Ref<IppBuffer> &src, int len, Variant mean) {
   if(src == nullptr || src->getType() != TYPE_64F) {
     return STAT_BAD_ARG_ERR;
   }
@@ -2067,7 +2073,7 @@ ipp::IPP::Status ipp::IPP::mean_64f(const IppBuffer *src, int len, Variant mean)
 }
 
 
-ipp::IPP::Status ipp::IPP::mean_64fc(const IppBuffer *src, int len, Variant mean) {
+IPP::Status IPP::mean_64fc(const godot::Ref<IppBuffer> &src, int len, Variant mean) {
   if(src == nullptr || src->getType() != TYPE_64FC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -2111,7 +2117,7 @@ ipp::IPP::Status ipp::IPP::mean_64fc(const IppBuffer *src, int len, Variant mean
 }
 
 
-ipp::IPP::Status ipp::IPP::mean_16s_Sfs(const IppBuffer *src, int len, Variant mean, int scale) {
+IPP::Status IPP::mean_16s_Sfs(const godot::Ref<IppBuffer> &src, int len, Variant mean, int scale) {
   if(src == nullptr || src->getType() != TYPE_16S) {
     return STAT_BAD_ARG_ERR;
   }
@@ -2151,7 +2157,7 @@ ipp::IPP::Status ipp::IPP::mean_16s_Sfs(const IppBuffer *src, int len, Variant m
 }
 
 
-ipp::IPP::Status ipp::IPP::mean_32s_Sfs(const IppBuffer *src, int len, Variant mean, int scale) {
+IPP::Status IPP::mean_32s_Sfs(const godot::Ref<IppBuffer> &src, int len, Variant mean, int scale) {
   if(src == nullptr || src->getType() != TYPE_32S) {
     return STAT_BAD_ARG_ERR;
   }
@@ -2191,7 +2197,7 @@ ipp::IPP::Status ipp::IPP::mean_32s_Sfs(const IppBuffer *src, int len, Variant m
 }
 
 
-ipp::IPP::Status ipp::IPP::mean_16sc_Sfs(const IppBuffer *src, int len, Variant mean, int scale) {
+IPP::Status IPP::mean_16sc_Sfs(const godot::Ref<IppBuffer> &src, int len, Variant mean, int scale) {
   if(src == nullptr || src->getType() != TYPE_16SC) {
     return STAT_BAD_ARG_ERR;
   }
@@ -2218,73 +2224,74 @@ ipp::IPP::Status ipp::IPP::mean_16sc_Sfs(const IppBuffer *src, int len, Variant 
 }
 
 
-ipp::IppRandom *ipp::IPP::uniform_init_8u(int low, int high, int64_t seed) {
+Ref<IppRandom> IPP::uniform_init_8u(int low, int high, int64_t seed) {
   return new IppRandom(IPP::TYPE_8U, IppRandom::DIST_UNIFORM, low, high, static_cast<unsigned>(seed));
 }
 
 
-ipp::IppRandom *ipp::IPP::uniform_init_16s(int low, int high, int64_t seed) {
+Ref<IppRandom> IPP::uniform_init_16s(int low, int high, int64_t seed) {
   return new IppRandom(IPP::TYPE_16S, IppRandom::DIST_UNIFORM, low, high, static_cast<unsigned>(seed));
 }
 
 
-ipp::IppRandom *ipp::IPP::uniform_init_32f(float low, float high, int64_t seed) {
+Ref<IppRandom> IPP::uniform_init_32f(float low, float high, int64_t seed) {
   return new IppRandom(IPP::TYPE_32F, IppRandom::DIST_UNIFORM, low, high, static_cast<unsigned>(seed));
 }
 
 
-ipp::IppRandom *ipp::IPP::uniform_init_64f(double low, double high, int64_t seed) {
+Ref<IppRandom> IPP::uniform_init_64f(double low, double high, int64_t seed) {
   return new IppRandom(IPP::TYPE_64F, IppRandom::DIST_UNIFORM, low, high, static_cast<unsigned>(seed));
 }
 
 
-ipp::IppRandom *ipp::IPP::gauss_init_8u(int low, int high, int64_t seed) {
+Ref<IppRandom> IPP::gauss_init_8u(int low, int high, int64_t seed) {
   return new IppRandom(IPP::TYPE_8U, IppRandom::DIST_GAUSSIAN, low, high, static_cast<unsigned>(seed));
 }
 
 
-ipp::IppRandom *ipp::IPP::gauss_init_16s(int low, int high, int64_t seed) {
+Ref<IppRandom> IPP::gauss_init_16s(int low, int high, int64_t seed) {
   return new IppRandom(IPP::TYPE_16S, IppRandom::DIST_GAUSSIAN, low, high, static_cast<unsigned>(seed));
 }
 
 
-ipp::IppRandom *ipp::IPP::gauss_init_32f(float low, float high, int64_t seed) {
+Ref<IppRandom> IPP::gauss_init_32f(float low, float high, int64_t seed) {
   return new IppRandom(IPP::TYPE_32F, IppRandom::DIST_GAUSSIAN, low, high, static_cast<unsigned>(seed));
 }
 
 
-ipp::IppRandom *ipp::IPP::gauss_init_64f(double low, double high, int64_t seed) {
+Ref<IppRandom> IPP::gauss_init_64f(double low, double high, int64_t seed) {
   return new IppRandom(IPP::TYPE_64F, IppRandom::DIST_GAUSSIAN, low, high, static_cast<unsigned>(seed));
 }
 
 
-ipp::IppFft *ipp::IPP::fft_init_C_32f(int order, int flag) {
+Ref<IppFft> IPP::fft_init_C_32f(int order, int flag) {
   return order >= 2 ? new IppFft(IPP::TYPE_32F, order, flag) : nullptr;
 }
 
 
-ipp::IppFft *ipp::IPP::fft_init_C_64f(int order, int flag) {
+Ref<IppFft> IPP::fft_init_C_64f(int order, int flag) {
   return order >= 2 ? new IppFft(IPP::TYPE_64F, order, flag) : nullptr;
 }
 
 
-ipp::IppFft *ipp::IPP::fft_init_C_32fc(int order, int flag) {
+Ref<IppFft> IPP::fft_init_C_32fc(int order, int flag) {
   return order >= 2 ? new IppFft(IPP::TYPE_32FC, order, flag) : nullptr;
 }
 
 
-ipp::IppFft *ipp::IPP::fft_init_C_64fc(int order, int flag) {
+Ref<IppFft> IPP::fft_init_C_64fc(int order, int flag) {
   return order >= 2 ? new IppFft(IPP::TYPE_64FC, order, flag) : nullptr;
 }
 
 
-void ipp::IPP::_bind_methods() {
+void IPP::_bind_methods() {
   ClassDB::bind_static_method("IPP", D_METHOD("malloc_8u", "len"), &IPP::malloc_8u);
   ClassDB::bind_static_method("IPP", D_METHOD("malloc_8s", "len"), &IPP::malloc_8s);
   ClassDB::bind_static_method("IPP", D_METHOD("malloc_16u", "len"), &IPP::malloc_16u);
   ClassDB::bind_static_method("IPP", D_METHOD("malloc_16s", "len"), &IPP::malloc_16s);
   ClassDB::bind_static_method("IPP", D_METHOD("malloc_32u", "len"), &IPP::malloc_32u);
   ClassDB::bind_static_method("IPP", D_METHOD("malloc_32s", "len"), &IPP::malloc_32s);
+  ClassDB::bind_static_method("IPP", D_METHOD("malloc_64u", "len"), &IPP::malloc_64u);
   ClassDB::bind_static_method("IPP", D_METHOD("malloc_64s", "len"), &IPP::malloc_64s);
   ClassDB::bind_static_method("IPP", D_METHOD("malloc_32f", "len"), &IPP::malloc_32f);
   ClassDB::bind_static_method("IPP", D_METHOD("malloc_64f", "len"), &IPP::malloc_64f);

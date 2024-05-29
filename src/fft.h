@@ -8,6 +8,7 @@
 #include "buffer.h"
 
 #ifdef GDEXTENSION
+#include <godot_cpp/classes/ref.hpp>
 #include <godot_cpp/templates/vector.hpp>
 #include <godot_cpp/classes/ref_counted.hpp>
 #else
@@ -30,20 +31,22 @@ class IppFft: public godot::RefCounted {
       NODIV         = IPP_FFT_NODIV_BY_ANY
     };
 
-    static IppFft *createComplex32f(int order, int flag = NODIV);
-    static IppFft *createComplex64f(int order, int flag = NODIV);
-    static IppFft *createComplex32fc(int order, int flag = NODIV);
-    static IppFft *createComplex64fc(int order, int flag = NODIV);
+    static godot::Ref<IppFft> createComplex32f(int order, int flag = NODIV);
+    static godot::Ref<IppFft> createComplex64f(int order, int flag = NODIV);
+    static godot::Ref<IppFft> createComplex32fc(int order, int flag = NODIV);
+    static godot::Ref<IppFft> createComplex64fc(int order, int flag = NODIV);
 
     IppFft();
     IppFft(IPP::Type, int, int);
     ~IppFft();
 
-    bool fwd(const IppBuffer *, IppBuffer *);
-    bool inv(const IppBuffer *, IppBuffer *);
+    bool fwd(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &);
+    bool inv(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &);
 
-    bool fwdSplit(const IppBuffer *, const IppBuffer *, IppBuffer *, IppBuffer *);
-    bool invSplit(const IppBuffer *, const IppBuffer *, IppBuffer *, IppBuffer *);
+    bool fwdSplit(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &,
+                  const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &);
+    bool invSplit(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &,
+                  const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &);
 
     IPP::Type getType();
     int getOrder();

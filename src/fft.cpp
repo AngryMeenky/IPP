@@ -99,28 +99,28 @@ IppFft::~IppFft() {
 }
 
 
-IppFft *IppFft::createComplex32f(int order, int flag) {
+Ref<IppFft> IppFft::createComplex32f(int order, int flag) {
   return new IppFft(IPP::TYPE_32F, order, flag);
 }
 
 
-IppFft *IppFft::createComplex64f(int order, int flag) {
+Ref<IppFft> IppFft::createComplex64f(int order, int flag) {
   return new IppFft(IPP::TYPE_64F, order, flag);
 }
 
 
-IppFft *IppFft::createComplex32fc(int order, int flag) {
+Ref<IppFft> IppFft::createComplex32fc(int order, int flag) {
   return new IppFft(IPP::TYPE_32FC, order, flag);
 }
 
 
-IppFft *IppFft::createComplex64fc(int order, int flag) {
+Ref<IppFft> IppFft::createComplex64fc(int order, int flag) {
   return new IppFft(IPP::TYPE_64FC, order, flag);
 }
 
 
-bool IppFft::fwd(const IppBuffer *src, IppBuffer *dst) {
-  if(src              == nullptr  || dst              == nullptr ||
+bool IppFft::fwd(const Ref<IppBuffer> &src, const Ref<IppBuffer> &dst) {
+  if(src.is_null()                || dst.is_null()               ||
      src->getType()   != type     || dst->getType()   != type    ||
      src->getLength() <  elements || dst->getLength() <  elements) {
     return false;
@@ -149,8 +149,8 @@ bool IppFft::fwd(const IppBuffer *src, IppBuffer *dst) {
 }
 
 
-bool IppFft::inv(const IppBuffer *src, IppBuffer *dst) {
-  if(src              == nullptr  || dst              == nullptr ||
+bool IppFft::inv(const Ref<IppBuffer> &src, const Ref<IppBuffer> &dst) {
+  if(src.is_null()                || dst.is_null()               ||
      src->getType()   != type     || dst->getType()   != type    ||
      src->getLength() <  elements || dst->getLength() <  elements) {
     return false;
@@ -179,9 +179,9 @@ bool IppFft::inv(const IppBuffer *src, IppBuffer *dst) {
 }
 
 
-bool IppFft::fwdSplit(const IppBuffer *sre, const IppBuffer *sim, IppBuffer *dre, IppBuffer *dim) {
-  if(sre              == nullptr  || sim              == nullptr  ||
-     dre              == nullptr  || dim              == nullptr  ||
+bool IppFft::fwdSplit(const Ref<IppBuffer> &sre, const Ref<IppBuffer> &sim, const Ref<IppBuffer> &dre, const Ref<IppBuffer> &dim) {
+  if(sre.is_null()                || sim.is_null()                ||
+     dre.is_null()                || dim.is_null()                ||
      sre->getType()   != type     || sim->getType()   != type     ||
      sre->getLength() <  elements || sim->getLength() <  elements ||
      dre->getType()   != type     || dim->getType()   != type     ||
@@ -214,9 +214,9 @@ bool IppFft::fwdSplit(const IppBuffer *sre, const IppBuffer *sim, IppBuffer *dre
 }
 
 
-bool IppFft::invSplit(const IppBuffer *sre, const IppBuffer *sim, IppBuffer *dre, IppBuffer *dim) {
-  if(sre              == nullptr  || sim              == nullptr  ||
-     dre              == nullptr  || dim              == nullptr  ||
+bool IppFft::invSplit(const Ref<IppBuffer> &sre, const Ref<IppBuffer> &sim, const Ref<IppBuffer> &dre, const Ref<IppBuffer> &dim) {
+  if(sre.is_null()                || sim.is_null()                ||
+     dre.is_null()                || dim.is_null()                ||
      sre->getType()   != type     || sim->getType()   != type     ||
      sre->getLength() <  elements || sim->getLength() <  elements ||
      dre->getType()   != type     || dim->getType()   != type     ||
@@ -287,8 +287,8 @@ void IppFft::_bind_methods() {
   ClassDB::bind_method(D_METHOD("forward", "src", "dst"), &IppFft::fwd);
   ClassDB::bind_method(D_METHOD("inverse", "src", "dst"), &IppFft::inv);
   
-  ClassDB::bind_method(D_METHOD("split_forward", "srcRe", "srcIm", "dstRe", "dstIm"), &IppFft::fwd);
-  ClassDB::bind_method(D_METHOD("split_inverse", "srcRe", "srcIm", "dstRe", "dstIm"), &IppFft::inv);
+  ClassDB::bind_method(D_METHOD("split_forward", "srcRe", "srcIm", "dstRe", "dstIm"), &IppFft::fwdSplit);
+  ClassDB::bind_method(D_METHOD("split_inverse", "srcRe", "srcIm", "dstRe", "dstIm"), &IppFft::invSplit);
 
   BIND_ENUM_CONSTANT(DIV_FWD_BY_N);
   BIND_ENUM_CONSTANT(DIV_INV_BY_N);
