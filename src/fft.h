@@ -37,7 +37,6 @@ class IppFft: public godot::RefCounted {
     static godot::Ref<IppFft> createComplex64fc(int order, int flag = NODIV);
 
     IppFft();
-    IppFft(IPP::Type, int, int);
     ~IppFft();
 
     bool fwd(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &);
@@ -58,6 +57,8 @@ class IppFft: public godot::RefCounted {
     godot::String _to_string() const;
 
     static void _bind_methods();
+
+    bool initialize(IPP::Type, int, int);
 
   private:
     Ipp8u     *spec;

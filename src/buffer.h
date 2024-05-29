@@ -25,13 +25,15 @@ class IppBuffer: public godot::RefCounted {
   GDCLASS(IppBuffer, godot::RefCounted);
 
   public:
-    IppBuffer(int = 64, IPP::Type = IPP::TYPE_8U);
-    IppBuffer(const godot::PackedByteArray &, IPP::Type = IPP::TYPE_8S);
-    IppBuffer(const godot::PackedInt32Array &, IPP::Type = IPP::TYPE_32S);
-    IppBuffer(const godot::PackedInt64Array &, IPP::Type = IPP::TYPE_64S);
-    IppBuffer(const godot::PackedFloat32Array &, IPP::Type = IPP::TYPE_32F);
-    IppBuffer(const godot::PackedFloat64Array &, IPP::Type = IPP::TYPE_64F);
+    IppBuffer();
     ~IppBuffer();
+
+    static godot::Ref<IppBuffer> create_empty(int = 64, IPP::Type = IPP::TYPE_8U);
+    static godot::Ref<IppBuffer> create_byte(const godot::PackedByteArray &, IPP::Type = IPP::TYPE_8S);
+    static godot::Ref<IppBuffer> create_int32(const godot::PackedInt32Array &, IPP::Type = IPP::TYPE_32S);
+    static godot::Ref<IppBuffer> create_int64(const godot::PackedInt64Array &, IPP::Type = IPP::TYPE_64S);
+    static godot::Ref<IppBuffer> create_float32(const godot::PackedFloat32Array &, IPP::Type = IPP::TYPE_32F);
+    static godot::Ref<IppBuffer> create_float64(const godot::PackedFloat64Array &, IPP::Type = IPP::TYPE_64F);
 
     int load(const godot::Ref<godot::FileAccess> &);
     int store(const godot::Ref<godot::FileAccess> &) const;
@@ -138,6 +140,13 @@ class IppBuffer: public godot::RefCounted {
     bool copy_from(godot::Variant, int, int, int);
 
     static void _bind_methods();
+
+    bool initialize(int = 64, IPP::Type = IPP::TYPE_8U);
+    bool initialize(const godot::PackedByteArray &, IPP::Type = IPP::TYPE_8S);
+    bool initialize(const godot::PackedInt32Array &, IPP::Type = IPP::TYPE_32S);
+    bool initialize(const godot::PackedInt64Array &, IPP::Type = IPP::TYPE_64S);
+    bool initialize(const godot::PackedFloat32Array &, IPP::Type = IPP::TYPE_32F);
+    bool initialize(const godot::PackedFloat64Array &, IPP::Type = IPP::TYPE_64F);
 
   private:
     Ipp8u     *ptr;

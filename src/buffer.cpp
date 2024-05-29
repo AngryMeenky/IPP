@@ -94,44 +94,74 @@ static Ipp8u *allocate_buffer(IPP::Type type, int count) {
 }
 
 
-IppBuffer::IppBuffer(int count, IPP::Type kind):
-  ptr(allocate_buffer(kind, count)),
-  type(kind),
-  len(count) {
-  if(!ptr) {
-    type = IPP::TYPE_NONE;
-    len = 0;
+IppBuffer::IppBuffer(): ptr(nullptr), type(IPP::TYPE_NONE), len(0) { }
+
+
+bool IppBuffer::initialize(int count, IPP::Type kind) {
+  auto prevPtr = ptr;
+
+  if((ptr = allocate_buffer(kind, count))) {
+    type = kind;
+    len = count;
+    if(prevPtr) {
+      ippsFree(prevPtr);
+    }
+
+    return true;
   }
+
+  ptr = prevPtr;
+  return false;
 }
 
 
-IppBuffer::IppBuffer(const PackedByteArray &arr, IPP::Type kind):
-  IppBuffer(arr.size(), kind) {
-  copyFrom(arr, 0, arr.size(), 0);
+bool IppBuffer::initialize(const PackedByteArray &arr, IPP::Type kind) {
+  if(initialize(arr.size(), kind)) {
+    copyFrom(arr, 0, arr.size(), 0);
+    return true;
+  }
+
+  return false;
 }
 
 
-IppBuffer::IppBuffer(const PackedInt32Array &arr, IPP::Type kind):
-  IppBuffer(arr.size(), kind) {
-  copyFrom(arr, 0, arr.size(), 0);
+bool IppBuffer::initialize(const PackedInt32Array &arr, IPP::Type kind) {
+  if(initialize(arr.size(), kind)) {
+    copyFrom(arr, 0, arr.size(), 0);
+    return true;
+  }
+
+  return false;
 }
 
 
-IppBuffer::IppBuffer(const PackedInt64Array &arr, IPP::Type kind):
-  IppBuffer(arr.size(), kind) {
-  copyFrom(arr, 0, arr.size(), 0);
+bool IppBuffer::initialize(const PackedInt64Array &arr, IPP::Type kind) {
+  if(initialize(arr.size(), kind)) {
+    copyFrom(arr, 0, arr.size(), 0);
+    return true;
+  }
+
+  return false;
 }
 
 
-IppBuffer::IppBuffer(const PackedFloat32Array &arr, IPP::Type kind):
-  IppBuffer(arr.size(), kind) {
-  copyFrom(arr, 0, arr.size(), 0);
+bool IppBuffer::initialize(const PackedFloat32Array &arr, IPP::Type kind) {
+  if(initialize(arr.size(), kind)) {
+    copyFrom(arr, 0, arr.size(), 0);
+    return true;
+  }
+
+  return false;
 }
 
 
-IppBuffer::IppBuffer(const PackedFloat64Array &arr, IPP::Type kind):
-  IppBuffer(arr.size(), kind) {
-  copyFrom(arr, 0, arr.size(), 0);
+bool IppBuffer::initialize(const PackedFloat64Array &arr, IPP::Type kind) {
+  if(initialize(arr.size(), kind)) {
+    copyFrom(arr, 0, arr.size(), 0);
+    return true;
+  }
+
+  return false;
 }
 
 
@@ -2025,43 +2055,85 @@ Variant IppBuffer::mean(int len, int scale) {
 }
 
 
-static Ref<IppBuffer> create_empty(int count, IPP::Type type) {
-  return new IppBuffer(count, type);
+Ref<IppBuffer> IppBuffer::create_empty(int count, IPP::Type type) {
+  Ref<IppBuffer> retVal;
+
+  retVal.instantiate();
+  if(retVal.is_valid() && !retVal->initialize(count, type)) {
+    retVal.unref();
+  }
+
+  return retVal;
 }
 
 
-static Ref<IppBuffer> create_byte(const PackedByteArray &arr, IPP::Type type) {
-  return new IppBuffer(arr, type);
+Ref<IppBuffer> IppBuffer::create_byte(const PackedByteArray &arr, IPP::Type type) {
+  Ref<IppBuffer> retVal;
+
+  retVal.instantiate();
+  if(retVal.is_valid() && !retVal->initialize(arr, type)) {
+    retVal.unref();
+  }
+
+  return retVal;
 }
 
 
-static Ref<IppBuffer> create_int32(const PackedInt32Array &arr, IPP::Type type) {
-  return new IppBuffer(arr, type);
+Ref<IppBuffer> IppBuffer::create_int32(const PackedInt32Array &arr, IPP::Type type) {
+  Ref<IppBuffer> retVal;
+
+  retVal.instantiate();
+  if(retVal.is_valid() && !retVal->initialize(arr, type)) {
+    retVal.unref();
+  }
+
+  return retVal;
 }
 
 
-static Ref<IppBuffer> create_int64(const PackedInt64Array &arr, IPP::Type type) {
-  return new IppBuffer(arr, type);
+Ref<IppBuffer> IppBuffer::create_int64(const PackedInt64Array &arr, IPP::Type type) {
+  Ref<IppBuffer> retVal;
+
+  retVal.instantiate();
+  if(retVal.is_valid() && !retVal->initialize(arr, type)) {
+    retVal.unref();
+  }
+
+  return retVal;
 }
 
 
-static Ref<IppBuffer> create_float32(const PackedFloat32Array &arr, IPP::Type type) {
-  return new IppBuffer(arr, type);
+Ref<IppBuffer> IppBuffer::create_float32(const PackedFloat32Array &arr, IPP::Type type) {
+  Ref<IppBuffer> retVal;
+
+  retVal.instantiate();
+  if(retVal.is_valid() && !retVal->initialize(arr, type)) {
+    retVal.unref();
+  }
+
+  return retVal;
 }
 
 
-static Ref<IppBuffer> create_float64(const PackedFloat64Array &arr, IPP::Type type) {
-  return new IppBuffer(arr, type);
+Ref<IppBuffer> IppBuffer::create_float64(const PackedFloat64Array &arr, IPP::Type type) {
+  Ref<IppBuffer> retVal;
+
+  retVal.instantiate();
+  if(retVal.is_valid() && !retVal->initialize(arr, type)) {
+    retVal.unref();
+  }
+
+  return retVal;
 }
 
 
 void IppBuffer::_bind_methods() {
-  ClassDB::bind_static_method("IppBuffer", D_METHOD("create", "count", "kind"), create_empty, DEFVAL(IPP::TYPE_8U));
-  ClassDB::bind_static_method("IppBuffer", D_METHOD("create_from_bytes", "array", "kind"), create_byte, DEFVAL(IPP::TYPE_8U));
-  ClassDB::bind_static_method("IppBuffer", D_METHOD("create_from_int32s", "array", "kind"), create_int32, DEFVAL(IPP::TYPE_32S));
-  ClassDB::bind_static_method("IppBuffer", D_METHOD("create_from_int64s", "array", "kind"), create_int64, DEFVAL(IPP::TYPE_64S));
-  ClassDB::bind_static_method("IppBuffer", D_METHOD("create_from_float32s", "array", "kind"), create_float32, DEFVAL(IPP::TYPE_32F));
-  ClassDB::bind_static_method("IppBuffer", D_METHOD("create_from_float64s", "array", "kind"), create_float64, DEFVAL(IPP::TYPE_64F));
+  ClassDB::bind_static_method("IppBuffer", D_METHOD("create", "count", "kind"), &IppBuffer::create_empty, DEFVAL(IPP::TYPE_8U));
+  ClassDB::bind_static_method("IppBuffer", D_METHOD("create_from_bytes", "array", "kind"), &IppBuffer::create_byte, DEFVAL(IPP::TYPE_8U));
+  ClassDB::bind_static_method("IppBuffer", D_METHOD("create_from_int32s", "array", "kind"), &IppBuffer::create_int32, DEFVAL(IPP::TYPE_32S));
+  ClassDB::bind_static_method("IppBuffer", D_METHOD("create_from_int64s", "array", "kind"), &IppBuffer::create_int64, DEFVAL(IPP::TYPE_64S));
+  ClassDB::bind_static_method("IppBuffer", D_METHOD("create_from_float32s", "array", "kind"), &IppBuffer::create_float32, DEFVAL(IPP::TYPE_32F));
+  ClassDB::bind_static_method("IppBuffer", D_METHOD("create_from_float64s", "array", "kind"), &IppBuffer::create_float64, DEFVAL(IPP::TYPE_64F));
 
   ClassDB::bind_method(D_METHOD("load", "file"), &IppBuffer::load);
   ClassDB::bind_method(D_METHOD("store", "file"), &IppBuffer::store);

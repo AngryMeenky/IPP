@@ -15,80 +15,109 @@ using namespace ipp;
 using namespace godot;
 
 
-IppFft::IppFft(): IppFft(IPP::TYPE_32FC, 0, NODIV) {}
-
-
-IppFft::IppFft(IPP::Type t, int o, int flag):
+IppFft::IppFft():
   spec(nullptr),
   buffer(nullptr),
   fftSpec(nullptr),
-  order(abs(o)),
-  elements(static_cast<int>(pow(2.0, order))),
-  type(t) {
+  order(0),
+  elements(0),
+  type(IPP::TYPE_NONE) {
+}
+
+
+
+bool IppFft::initialize(IPP::Type t, int o, int flag) {
   if(order < 1) {
-    return; // bail on bad orders
+    return false; // bail on bad orders
   }
 
+  IppStatus stat;
   Ipp8u *init = nullptr;
   int sizeSpec = 0, sizeInit = 0, sizeBuffer = 0;
 
   // get size of buffers
   switch(t) {
     case IPP::TYPE_32F:
-      ippsFFTGetSize_C_32f(order, flag, ippAlgHintNone, &sizeSpec, &sizeInit, &sizeBuffer);
+      stat = ippsFFTGetSize_C_32f(order, flag, ippAlgHintNone, &sizeSpec, &sizeInit, &sizeBuffer);
     break;
 
     case IPP::TYPE_64F:
-      ippsFFTGetSize_C_64f(order, flag, ippAlgHintNone, &sizeSpec, &sizeInit, &sizeBuffer);
+      stat = ippsFFTGetSize_C_64f(order, flag, ippAlgHintNone, &sizeSpec, &sizeInit, &sizeBuffer);
     break;
 
     default:
       type = IPP::TYPE_32FC;
       // fallthrough
     case IPP::TYPE_32FC:
-      ippsFFTGetSize_C_32fc(order, flag, ippAlgHintNone, &sizeSpec, &sizeInit, &sizeBuffer);
+      stat = ippsFFTGetSize_C_32fc(order, flag, ippAlgHintNone, &sizeSpec, &sizeInit, &sizeBuffer);
     break;
 
     case IPP::TYPE_64FC:
-      ippsFFTGetSize_C_64fc(order, flag, ippAlgHintNone, &sizeSpec, &sizeInit, &sizeBuffer);
+      stat = ippsFFTGetSize_C_64fc(order, flag, ippAlgHintNone, &sizeSpec, &sizeInit, &sizeBuffer);
     break;
   }
 
+  if(stat != ippStsNoErr) {
+    return false;
+  }
+
   // allocate memory for the required buffers
-  spec = (Ipp8u*) ippMalloc(sizeSpec);
-  buffer = (Ipp8u*) (sizeBuffer > 0 ? ippMalloc(sizeBuffer) : nullptr);
-  init = (Ipp8u*) (sizeInit > 0 ? ippMalloc(sizeInit) : nullptr);
+  auto oldFft = fftSpec;
+  auto tmpSpec = static_cast<Ipp8u *>(ippMalloc(sizeSpec));
+  auto tmpBuffer = static_cast<Ipp8u *>(sizeBuffer > 0 ? ippMalloc(sizeBuffer) : nullptr);
+  init = static_cast<Ipp8u *>(sizeInit > 0 ? ippMalloc(sizeInit) : nullptr);
 
   // initialize FFT specification structure
   switch(t) {
     case IPP::TYPE_32F:
-      ippsFFTInit_C_32f(
-          reinterpret_cast<IppsFFTSpec_C_32f **>(&fftSpec), order, flag, ippAlgHintNone, spec, init
+      stat = ippsFFTInit_C_32f(
+          reinterpret_cast<IppsFFTSpec_C_32f **>(&fftSpec), abs(o), flag, ippAlgHintNone, spec, init
       );
     break;
 
     case IPP::TYPE_64F:
-      ippsFFTInit_C_64f(
-          reinterpret_cast<IppsFFTSpec_C_64f **>(&fftSpec), order, flag, ippAlgHintNone, spec, init
+      stat = ippsFFTInit_C_64f(
+          reinterpret_cast<IppsFFTSpec_C_64f **>(&fftSpec), abs(o), flag, ippAlgHintNone, spec, init
       );
     break;
 
     default:
     case IPP::TYPE_32FC:
-      ippsFFTInit_C_32fc(
-          reinterpret_cast<IppsFFTSpec_C_32fc **>(&fftSpec), order, flag, ippAlgHintNone, spec, init
+      stat = ippsFFTInit_C_32fc(
+          reinterpret_cast<IppsFFTSpec_C_32fc **>(&fftSpec), abs(o), flag, ippAlgHintNone, spec, init
       );
     break;
 
     case IPP::TYPE_64FC:
-      ippsFFTInit_C_64fc(
-          reinterpret_cast<IppsFFTSpec_C_64fc **>(&fftSpec), order, flag, ippAlgHintNone, spec, init
+      stat = ippsFFTInit_C_64fc(
+          reinterpret_cast<IppsFFTSpec_C_64fc **>(&fftSpec), abs(o), flag, ippAlgHintNone, spec, init
       );
     break;
   }
 
   // free initialization buffer
   if(sizeInit > 0) { ippFree(init); }
+
+  if(stat != ippStsNoErr) {
+    // free anything allocated on this attempt
+    if(tmpSpec)   { ippFree(tmpSpec); }
+    if(tmpBuffer) { ippFree(tmpBuffer); }
+    fftSpec = oldFft;
+    return false;
+  }
+
+  // finish the swap
+  if(spec)   { ippFree(spec); }
+  if(buffer) { ippFree(buffer); }
+
+  spec   = tmpSpec;
+  buffer = tmpBuffer;
+
+  order = abs(o);
+  elements = static_cast<int>(pow(2.0, order));
+  type = t;
+
+  return true;
 }
 
 
@@ -100,22 +129,50 @@ IppFft::~IppFft() {
 
 
 Ref<IppFft> IppFft::createComplex32f(int order, int flag) {
-  return new IppFft(IPP::TYPE_32F, order, flag);
+  Ref<IppFft> fft;
+
+  fft.instantiate();
+  if(fft.is_valid() && !fft->initialize(IPP::TYPE_32F, order, flag)) {
+     fft.unref();
+  }
+
+  return fft;
 }
 
 
 Ref<IppFft> IppFft::createComplex64f(int order, int flag) {
-  return new IppFft(IPP::TYPE_64F, order, flag);
+  Ref<IppFft> fft;
+
+  fft.instantiate();
+  if(fft.is_valid() && !fft->initialize(IPP::TYPE_64F, order, flag)) {
+     fft.unref();
+  }
+
+  return fft;
 }
 
 
 Ref<IppFft> IppFft::createComplex32fc(int order, int flag) {
-  return new IppFft(IPP::TYPE_32FC, order, flag);
+  Ref<IppFft> fft;
+
+  fft.instantiate();
+  if(fft.is_valid() && !fft->initialize(IPP::TYPE_32FC, order, flag)) {
+     fft.unref();
+  }
+
+  return fft;
 }
 
 
 Ref<IppFft> IppFft::createComplex64fc(int order, int flag) {
-  return new IppFft(IPP::TYPE_64FC, order, flag);
+  Ref<IppFft> fft;
+
+  fft.instantiate();
+  if(fft.is_valid() && !fft->initialize(IPP::TYPE_64FC, order, flag)) {
+     fft.unref();
+  }
+
+  return fft;
 }
 
 
