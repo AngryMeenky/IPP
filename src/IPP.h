@@ -198,6 +198,10 @@ class IPP: public godot::Object {
       STAT_ALG_TYPE_ERR = ippStsAlgTypeErr
     };
 
+
+    static godot::String statusString(Status);
+
+
     static godot::Ref<IppBuffer> malloc_8u(int);
     static godot::Ref<IppBuffer> malloc_16u(int);
     static godot::Ref<IppBuffer> malloc_32u(int);
