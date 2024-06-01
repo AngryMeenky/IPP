@@ -55,6 +55,16 @@ class IPP: public godot::Object {
     static const char *hintString(Hint);
 
 
+    enum Round {
+      RND_ZERO      = ippRndZero,
+      RND_NEAR      = ippRndNear,
+      RND_FINANCIAL = ippRndFinancial,
+    };
+
+
+    static const char *roundString(Round);
+
+
     enum Status {
       STAT_CPU_NOT_SUPPORTED = ippStsCpuNotSupportedErr,
 //      STAT_POINT_AT_INIFINTY = ippStsPointAtInfinity,
@@ -198,6 +208,10 @@ class IPP: public godot::Object {
       STAT_ALG_TYPE_ERR = ippStsAlgTypeErr
     };
 
+
+    static godot::String statusString(Status);
+
+
     static godot::Ref<IppBuffer> malloc_8u(int);
     static godot::Ref<IppBuffer> malloc_16u(int);
     static godot::Ref<IppBuffer> malloc_32u(int);
@@ -277,6 +291,511 @@ class IPP: public godot::Object {
     static Status triangle_32fc(const godot::Ref<IppBuffer> &, int, float, float, float, godot::Variant);
     static Status triangle_64fc(const godot::Ref<IppBuffer> &, int, double, double, double, godot::Variant);
 
+    static godot::Ref<IppRandom> uniform_init_8u(int, int, int64_t);
+    static godot::Ref<IppRandom> uniform_init_16s(int, int, int64_t);
+    static godot::Ref<IppRandom> uniform_init_32f(float, float, int64_t);
+    static godot::Ref<IppRandom> uniform_init_64f(double, double, int64_t);
+
+    static godot::Ref<IppRandom> gauss_init_8u(int, int, int64_t);
+    static godot::Ref<IppRandom> gauss_init_16s(int, int, int64_t);
+    static godot::Ref<IppRandom> gauss_init_32f(float, float, int64_t);
+    static godot::Ref<IppRandom> gauss_init_64f(double, double, int64_t);
+
+    static Status andC_8u(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int);
+    static Status andC_16u(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int);
+    static Status andC_32u(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int);
+    static Status andC_8u_I(int val, const godot::Ref<IppBuffer> &, int);
+    static Status andC_16u_I(int val, const godot::Ref<IppBuffer> &, int);
+    static Status andC_32u_I(int val, const godot::Ref<IppBuffer> &, int);
+
+    static Status and_8u(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status and_16u(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status and_32u(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status and_8u_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status and_16u_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status and_32u_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+
+    static Status orC_8u(const Ipp8u* pSrc, int, const godot::Ref<IppBuffer> &, int);
+    static Status orC_16u(const Ipp16u* pSrc, int, const godot::Ref<IppBuffer> &, int);
+    static Status orC_32u(const Ipp32u* pSrc, int, const godot::Ref<IppBuffer> &, int);
+    static Status orC_8u_I(int val, const godot::Ref<IppBuffer> &, int);
+    static Status orC_16u_I(int val, const godot::Ref<IppBuffer> &, int);
+    static Status orC_32u_I(int val, const godot::Ref<IppBuffer> &, int);
+
+    static Status or_8u(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status or_16u(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status or_32u(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status or_8u_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status or_16u_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status or_32u_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+
+    static Status xorC_8u(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int);
+    static Status xorC_16u(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int);
+    static Status xorC_32u(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int);
+    static Status xorC_8u_I(int val, const godot::Ref<IppBuffer> &, int);
+    static Status xorC_16u_I(int val, const godot::Ref<IppBuffer> &, int);
+    static Status xorC_32u_I(int val, const godot::Ref<IppBuffer> &, int);
+
+    static Status xor_8u(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status xor_16u(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status xor_32u(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status xor_8u_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status xor_16u_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status xor_32u_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+
+    static Status not_8u(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status not_16u(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status not_32u(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status not_8u_I(const godot::Ref<IppBuffer> &, int);
+    static Status not_16u_I(const godot::Ref<IppBuffer> &, int);
+    static Status not_32u_I(const godot::Ref<IppBuffer> &, int);
+
+    static Status l_shiftC_8u(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int);
+    static Status l_shiftC_16s(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int);
+    static Status l_shiftC_16u(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int);
+    static Status l_shiftC_32s(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int);
+    static Status l_shiftC_8u_I(int, const godot::Ref<IppBuffer> &, int);
+    static Status l_shiftC_16u_I(int, const godot::Ref<IppBuffer> &, int);
+    static Status l_shiftC_16s_I(int, const godot::Ref<IppBuffer> &, int);
+    static Status l_shiftC_32s_I(int, const godot::Ref<IppBuffer> &, int);
+
+    static Status r_shiftC_8u(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int);
+    static Status r_shiftC_16s(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int);
+    static Status r_shiftC_16u(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int);
+    static Status r_shiftC_32s(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int);
+    static Status r_shiftC_8u_I(int, const godot::Ref<IppBuffer> &, int);
+    static Status r_shiftC_16u_I(int, const godot::Ref<IppBuffer> &, int);
+    static Status r_shiftC_16s_I(int, const godot::Ref<IppBuffer> &, int);
+    static Status r_shiftC_32s_I(int, const godot::Ref<IppBuffer> &, int);
+
+    static Status addC_32f(const godot::Ref<IppBuffer> &, float, const godot::Ref<IppBuffer> &, int);
+    static Status addC_64f(const godot::Ref<IppBuffer> &, double, const godot::Ref<IppBuffer> &, int);
+    static Status addC_32fc(const godot::Ref<IppBuffer> &, godot::Vector2, const godot::Ref<IppBuffer> &, int);
+    static Status addC_64fc(const godot::Ref<IppBuffer> &, godot::Vector2, const godot::Ref<IppBuffer> &, int);
+
+    static Status addC_8u_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
+    static Status addC_16u_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
+    static Status addC_16s_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
+    static Status addC_32s_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
+    static Status addC_64s_Sfs(const godot::Ref<IppBuffer> &, int64_t, const godot::Ref<IppBuffer> &, int, int);
+    static Status addC_64u_Sfs(const godot::Ref<IppBuffer> &, uint64_t, const godot::Ref<IppBuffer> &, int, int);
+    static Status addC_16sc_Sfs(const godot::Ref<IppBuffer> &, godot::Vector2i, const godot::Ref<IppBuffer> &, int, int);
+    static Status addC_32sc_Sfs(const godot::Ref<IppBuffer> &, godot::Vector2i, const godot::Ref<IppBuffer> &, int, int);
+
+    static Status addC_32f_I(float, const godot::Ref<IppBuffer> &, int);
+    static Status addC_64f_I(double, const godot::Ref<IppBuffer> &, int);
+    static Status addC_32fc_I(godot::Vector2, const godot::Ref<IppBuffer> &, int);
+    static Status addC_64fc_I(godot::Vector2, const godot::Ref<IppBuffer> &, int);
+
+    static Status addC_8u_ISfs(int, const godot::Ref<IppBuffer> &, int, int);
+    static Status addC_16u_ISfs(int, const godot::Ref<IppBuffer> &, int, int);
+    static Status addC_16s_ISfs(int, const godot::Ref<IppBuffer> &, int, int);
+    static Status addC_32s_ISfs(int, const godot::Ref<IppBuffer> &, int, int);
+    static Status addC_16sc_ISfs(godot::Vector2i, const godot::Ref<IppBuffer> &, int, int);
+    static Status addC_32sc_ISfs(godot::Vector2i, const godot::Ref<IppBuffer> &, int, int);
+
+    static Status add_16s(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status add_32f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status add_64f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status add_32fc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status add_64fc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status add_8u16u(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status add_16u(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status add_32u(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status add_16s32f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+
+    static Status add_8u_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status add_16u_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status add_16s_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status add_32s_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status add_16sc_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status add_32sc_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status add_64s_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+
+    static Status add_16s_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status add_32f_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status add_64f_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status add_32fc_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status add_64fc_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status add_16s32s_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status add_32u_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+
+    static Status add_8u_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status add_16u_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status add_16s_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status add_32s_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status add_16sc_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status add_32sc_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+
+    static Status addProductC_32f(const godot::Ref<IppBuffer> &, float, const godot::Ref<IppBuffer> &, int);
+    static Status addProductC_64f(const godot::Ref<IppBuffer> &, double, const godot::Ref<IppBuffer> &, int);
+
+    static Status addProduct_32f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status addProduct_64f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status addProduct_32fc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status addProduct_64fc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+
+    static Status addProduct_16s_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status addProduct_32s_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status addProduct_16s32s_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+
+    static Status mulC_32f(const godot::Ref<IppBuffer> &, float, const godot::Ref<IppBuffer> &, int);
+    static Status mulC_64f(const godot::Ref<IppBuffer> &, double, const godot::Ref<IppBuffer> &, int);
+    static Status mulC_32fc(const godot::Ref<IppBuffer> &, godot::Vector2, const godot::Ref<IppBuffer> &, int);
+    static Status mulC_64fc(const godot::Ref<IppBuffer> &, godot::Vector2, const godot::Ref<IppBuffer> &, int);
+    static Status mulC_Low_32f16s(const godot::Ref<IppBuffer> &, float, const godot::Ref<IppBuffer> &, int);
+
+    static Status mulC_8u_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
+    static Status mulC_16s_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
+    static Status mulC_16u_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
+    static Status mulC_32s_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
+    static Status mulC_16sc_Sfs(const godot::Ref<IppBuffer> &, godot::Vector2i, const godot::Ref<IppBuffer> &, int, int);
+    static Status mulC_32sc_Sfs(const godot::Ref<IppBuffer> &, godot::Vector2i, const godot::Ref<IppBuffer> &, int, int);
+    static Status mulC_32f16s_Sfs(const godot::Ref<IppBuffer> &, float, const godot::Ref<IppBuffer> &, int, int);
+
+    static Status mulC_16s_I(int, const godot::Ref<IppBuffer> &, int);
+    static Status mulC_32f_I(float, const godot::Ref<IppBuffer> &, int);
+    static Status mulC_64f_I(double, const godot::Ref<IppBuffer> &, int);
+    static Status mulC_32fc_I(godot::Vector2, const godot::Ref<IppBuffer> &, int);
+    static Status mulC_64fc_I(godot::Vector2, const godot::Ref<IppBuffer> &, int);
+
+    static Status mulC_8u_ISfs(int, const godot::Ref<IppBuffer> &, int, int);
+    static Status mulC_16u_ISfs(int, const godot::Ref<IppBuffer> &, int, int);
+    static Status mulC_16s_ISfs(int, const godot::Ref<IppBuffer> &, int, int);
+    static Status mulC_32s_ISfs(int, const godot::Ref<IppBuffer> &, int, int);
+    static Status mulC_64f64s_ISfs(double, const godot::Ref<IppBuffer> &, int, int);
+    static Status mulC_16sc_ISfs(godot::Vector2i, const godot::Ref<IppBuffer> &, int, int);
+    static Status mulC_32sc_ISfs(godot::Vector2i, const godot::Ref<IppBuffer> &, int, int);
+    static Status mulC_64s_ISfs(int64_t, const godot::Ref<IppBuffer> &, int, int);
+
+    static Status mul_16s(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status mul_32f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status mul_64f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status mul_32fc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status mul_64fc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status mul_8u16u(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status mul_32f32fc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status mul_16s32f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+
+    static Status mul_8u_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status mul_16u_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status mul_16s_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status mul_32s_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status mul_16sc_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status mul_32sc_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status mul_16s32s_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status mul_16u16s_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+
+    static Status mul_16s_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status mul_32f_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status mul_64f_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status mul_32fc_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status mul_64fc_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status mul_32f32fc_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+
+    static Status mul_8u_ISfs(const Ipp8u* pSrc, Ipp8u* pSrcDst, int len, int scaleFactor);
+    static Status mul_16u_ISfs(const Ipp16u* pSrc, Ipp16u* pSrcDst, int len, int scaleFactor);
+    static Status mul_16s_ISfs(const Ipp16s* pSrc, Ipp16s* pSrcDst, int len, int scaleFactor);
+    static Status mul_32s_ISfs(const Ipp32s* pSrc, Ipp32s* pSrcDst, int len, int scaleFactor);
+    static Status mul_16sc_ISfs(const Ipp16sc* pSrc, Ipp16sc* pSrcDst, int len, int scaleFactor);
+    static Status mul_32sc_ISfs(const Ipp32sc* pSrc, Ipp32sc* pSrcDst, int len, int scaleFactor);
+
+    static Status subC_32f(const godot::Ref<IppBuffer> &, float, const godot::Ref<IppBuffer> &, int);
+    static Status subC_64f(const godot::Ref<IppBuffer> &, double, const godot::Ref<IppBuffer> &, int);
+    static Status subC_32fc(const godot::Ref<IppBuffer> &, godot::Vector2, const godot::Ref<IppBuffer> &, int);
+    static Status subC_64fc(const godot::Ref<IppBuffer> &, godot::Vector2, const godot::Ref<IppBuffer> &, int);
+
+    static Status subC_8u_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
+    static Status subC_16u_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
+    static Status subC_16s_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
+    static Status subC_32s_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
+    static Status subC_64s_Sfs(const godot::Ref<IppBuffer> &, int64_t, const godot::Ref<IppBuffer> &, int, int);
+    static Status subC_64u_Sfs(const godot::Ref<IppBuffer> &, uint64_t, const godot::Ref<IppBuffer> &, int, int);
+    static Status subC_16sc_Sfs(const godot::Ref<IppBuffer> &, godot::Vector2i, const godot::Ref<IppBuffer> &, int, int);
+    static Status subC_32sc_Sfs(const godot::Ref<IppBuffer> &, godot::Vector2i, const godot::Ref<IppBuffer> &, int, int);
+
+    static Status subC_32f_I(float, const godot::Ref<IppBuffer> &, int);
+    static Status subC_64f_I(double, const godot::Ref<IppBuffer> &, int);
+    static Status subC_32fc_I(godot::Vector2, const godot::Ref<IppBuffer> &, int);
+    static Status subC_64fc_I(godot::Vector2, const godot::Ref<IppBuffer> &, int);
+
+    static Status subC_8u_ISfs(int, const godot::Ref<IppBuffer> &, int, int);
+    static Status subC_16u_ISfs(int, const godot::Ref<IppBuffer> &, int, int);
+    static Status subC_16s_ISfs(int, const godot::Ref<IppBuffer> &, int, int);
+    static Status subC_32s_ISfs(int, const godot::Ref<IppBuffer> &, int, int);
+    static Status subC_16sc_ISfs(godot::Vector2i, const godot::Ref<IppBuffer> &, int, int);
+    static Status subC_32sc_ISfs(godot::Vector2i, const godot::Ref<IppBuffer> &, int, int);
+
+    static Status subCRev_32f(const godot::Ref<IppBuffer> &, float val, const godot::Ref<IppBuffer> &, int len);
+    static Status subCRev_64f(const godot::Ref<IppBuffer> &, double val, const godot::Ref<IppBuffer> &, int len);
+    static Status subCRev_32fc(const godot::Ref<IppBuffer> &, godot::Vector2 val, const godot::Ref<IppBuffer> &, int len);
+    static Status subCRev_64fc(const godot::Ref<IppBuffer> &, godot::Vector2 val, const godot::Ref<IppBuffer> &, int len);
+
+    static Status subCRev_8u_Sfs(const godot::Ref<IppBuffer> &, int val, const godot::Ref<IppBuffer> &, int, int);
+    static Status subCRev_16u_Sfs(const godot::Ref<IppBuffer> &, int val, const godot::Ref<IppBuffer> &, int, int);
+    static Status subCRev_16s_Sfs(const godot::Ref<IppBuffer> &, int val, const godot::Ref<IppBuffer> &, int, int);
+    static Status subCRev_32s_Sfs(const godot::Ref<IppBuffer> &, int val, const godot::Ref<IppBuffer> &, int, int);
+    static Status subCRev_16sc_Sfs(const godot::Ref<IppBuffer> &, godot::Vector2i val, const godot::Ref<IppBuffer> &, int, int);
+    static Status subCRev_32sc_Sfs(const godot::Ref<IppBuffer> &, godot::Vector2i val, const godot::Ref<IppBuffer> &, int, int);
+
+    static Status subCRev_32f_I(float val, const godot::Ref<IppBuffer> &, int);
+    static Status subCRev_64f_I(double val, const godot::Ref<IppBuffer> &, int);
+    static Status subCRev_32fc_I(godot::Vector2 val, const godot::Ref<IppBuffer> &, int);
+    static Status subCRev_64fc_I(godot::Vector2 val, const godot::Ref<IppBuffer> &, int);
+
+    static Status subCRev_8u_ISfs(int, const godot::Ref<IppBuffer> &, int, int);
+    static Status subCRev_16u_ISfs(int, const godot::Ref<IppBuffer> &, int, int);
+    static Status subCRev_16s_ISfs(int, const godot::Ref<IppBuffer> &, int, int);
+    static Status subCRev_32s_ISfs(int, const godot::Ref<IppBuffer> &, int, int);
+    static Status subCRev_16sc_ISfs(godot::Vector2i val, const godot::Ref<IppBuffer> , int, int);
+    static Status subCRev_32sc_ISfs(godot::Vector2i val, const godot::Ref<IppBuffer> , int, int);
+
+    static Status sub_16s(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status sub_32f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status sub_64f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status sub_32fc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status sub_64fc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status sub_16s32f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+
+    static Status sub_8u_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status sub_16u_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status sub_16s_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status sub_32s_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status sub_16sc_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status sub_32sc_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+
+    static Status sub_16s_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status sub_32f_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status sub_64f_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status sub_32fc_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status sub_64fc_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+
+    static Status sub_8u_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status sub_16u_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status sub_16s_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status sub_32s_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status sub_16sc_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status sub_32sc_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+
+    static Status divC_32f(const godot::Ref<IppBuffer> &, float, const godot::Ref<IppBuffer> &, int);
+    static Status divC_64f(const godot::Ref<IppBuffer> &, double, const godot::Ref<IppBuffer> &, int);
+    static Status divC_32fc(const godot::Ref<IppBuffer> &, godot::Vector2, const godot::Ref<IppBuffer> &, int);
+    static Status divC_64fc(const godot::Ref<IppBuffer> &, godot::Vector2, const godot::Ref<IppBuffer> &, int);
+
+    static Status divC_8u_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
+    static Status divC_16u_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
+    static Status divC_16s_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
+    static Status divC_16sc_Sfs(const godot::Ref<IppBuffer> &, godot::Vector2i, const godot::Ref<IppBuffer> &, int, int);
+
+    static Status divC_32f_I(float, const godot::Ref<IppBuffer> &, int);
+    static Status divC_64f_I(double, const godot::Ref<IppBuffer> &, int);
+    static Status divC_32fc_I(godot::Vector2, const godot::Ref<IppBuffer> &, int);
+    static Status divC_64fc_I(godot::Vector2, const godot::Ref<IppBuffer> &, int);
+
+    static Status divC_8u_ISfs(int, const godot::Ref<IppBuffer> &, int, int);
+    static Status divC_16u_ISfs(int, const godot::Ref<IppBuffer> &, int, int);
+    static Status divC_16s_ISfs(int, const godot::Ref<IppBuffer> &, int, int);
+    static Status divC_64s_ISfs(int64_t, const godot::Ref<IppBuffer> &, int, int);
+    static Status divC_16sc_ISfs(godot::Vector2i, const godot::Ref<IppBuffer> &, int, int);
+
+    static Status divCRev_16u(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int);
+    static Status divCRev_32f(const godot::Ref<IppBuffer> &, float, const godot::Ref<IppBuffer> &, int);
+    static Status divCRev_16u_I(int, const godot::Ref<IppBuffer> &, int);
+    static Status divCRev_32f_I(float, const godot::Ref<IppBuffer> &, int);
+
+    static Status div_8u_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status div_16u_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status div_16s_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status div_32s_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status div_16sc_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status div_32s16s_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+
+    static Status div_32f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status div_64f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status div_32fc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status div_64fc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+
+    static Status div_8u_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status div_16u_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status div_16s_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status div_16sc_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status div_32s_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+
+    static Status div_32f_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status div_64f_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status div_32fc_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status div_64fc_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+
+    static Status div_round_8u_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, Round, int);
+    static Status div_round_16u_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, Round, int);
+    static Status div_round_16s_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, Round, int);
+
+    static Status div_round_8u_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, Round, int);
+    static Status div_round_16u_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, Round, int);
+    static Status div_round_16s_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, Round, int);
+
+    static Status abs_16s(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status abs_32s(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status abs_32f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status abs_64f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status abs_16s_I(const godot::Ref<IppBuffer> &, int);
+    static Status abs_32s_I(const godot::Ref<IppBuffer> &, int);
+    static Status abs_32f_I(const godot::Ref<IppBuffer> &, int);
+    static Status abs_64f_I(const godot::Ref<IppBuffer> &, int);
+
+    static Status sqr_32f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status sqr_64f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status sqr_32fc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status sqr_64fc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status sqr_8u_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status sqr_16s_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status sqr_16u_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status sqr_16sc_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status sqr_32f_I(const godot::Ref<IppBuffer> &, int);
+    static Status sqr_64f_I(const godot::Ref<IppBuffer> &, int);
+    static Status sqr_32fc_I(const godot::Ref<IppBuffer> &, int);
+    static Status sqr_64fc_I(const godot::Ref<IppBuffer> &, int);
+    static Status sqr_8u_ISfs(const godot::Ref<IppBuffer> &, int, int);
+    static Status sqr_16s_ISfs(const godot::Ref<IppBuffer> &, int, int);
+    static Status sqr_16u_ISfs(const godot::Ref<IppBuffer> &, int, int);
+    static Status sqr_16sc_ISfs(const godot::Ref<IppBuffer> &, int, int);
+
+    static Status sqrt_32f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status sqrt_64f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status sqrt_32fc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status sqrt_64fc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status sqrt_8u_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status sqrt_16s_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status sqrt_16u_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status sqrt_16sc_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status sqrt_32s16s_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+
+    static Status sqrt_32f_I(const godot::Ref<IppBuffer> &, int);
+    static Status sqrt_64f_I(const godot::Ref<IppBuffer> &, int);
+    static Status sqrt_32fc_I(const godot::Ref<IppBuffer> &, int);
+    static Status sqrt_64fc_I(const godot::Ref<IppBuffer> &, int);
+    static Status sqrt_8u_ISfs(const godot::Ref<IppBuffer> &, int, int);
+    static Status sqrt_16s_ISfs(const godot::Ref<IppBuffer> &, int, int);
+    static Status sqrt_16u_ISfs(const godot::Ref<IppBuffer> &, int, int);
+    static Status sqrt_16sc_ISfs(const godot::Ref<IppBuffer> &, int, int);
+
+    static Status cubrt_32f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status cubrt_32s16s_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+
+    static Status exp_32f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status exp_64f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status exp_32f_I(const godot::Ref<IppBuffer> &, int len);
+    static Status exp_64f_I(const godot::Ref<IppBuffer> &, int len);
+    static Status exp_16s_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status exp_32s_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status exp_16s_ISfs(const godot::Ref<IppBuffer> &, int len, int);
+    static Status exp_32s_ISfs(const godot::Ref<IppBuffer> &, int len, int);
+
+    static Status ln_32f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status ln_64f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status ln_16s_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status ln_32s_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int);
+    static Status ln_16s_ISfs(const godot::Ref<IppBuffer> &, int, int);
+    static Status ln_32s_ISfs(const godot::Ref<IppBuffer> &, int, int);
+    static Status ln_32f_I(const godot::Ref<IppBuffer> &, int);
+    static Status ln_64f_I(const godot::Ref<IppBuffer> &, int);
+
+    static Status sumLn_32f(const godot::Ref<IppBuffer> &, int, godot::Variant);
+    static Status sumLn_64f(const godot::Ref<IppBuffer> &, int, godot::Variant);
+    static Status sumLn_32f64f(const godot::Ref<IppBuffer> &, int, godot::Variant);
+    static Status sumLn_16s32f(const godot::Ref<IppBuffer> &, int, godot::Variant);
+
+    static Status arctan_32f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status arctan_64f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status arctan_32f_I(const godot::Ref<IppBuffer> &, int);
+    static Status arctan_64f_I(const godot::Ref<IppBuffer> &, int);
+
+    static Status normalize_32f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, float, float);
+    static Status normalize_64f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, double, double);
+    static Status normalize_32fc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, godot::Vector2, float);
+    static Status normalize_64fc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, godot::Vector2, double);
+    static Status normalize_16s_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, int, int, int);
+    static Status normalize_16sc_Sfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int, godot::Vector2i, int, int);
+
+    static Status normalize_32f_I(const godot::Ref<IppBuffer> &, int, float, float);
+    static Status normalize_64f_I(const godot::Ref<IppBuffer> &, int, double, double);
+    static Status normalize_32fc_I(const godot::Ref<IppBuffer> &, int, godot::Vector2, float);
+    static Status normalize_64fc_I(const godot::Ref<IppBuffer> &, int, godot::Vector2, double);
+    static Status normalize_16s_ISfs(const godot::Ref<IppBuffer> &, int, int, int, int);
+    static Status normalize_16sc_ISfs(const godot::Ref<IppBuffer> &, int, godot::Vector2i, int, int);
+
+    static Status sum_32f(const godot::Ref<IppBuffer> &, int, godot::Variant, Hint);
+    static Status sum_32fc(const godot::Ref<IppBuffer> &, int, godot::Variant, Hint);
+    static Status sum_64f(const godot::Ref<IppBuffer> &, int, godot::Variant);
+    static Status sum_64fc(const godot::Ref<IppBuffer> &, int, godot::Variant);
+    static Status sum_16s_Sfs(const godot::Ref<IppBuffer> &, int, godot::Variant, int);
+    static Status sum_32s_Sfs(const godot::Ref<IppBuffer> &, int, godot::Variant, int);
+    static Status sum_16s32s_Sfs(const godot::Ref<IppBuffer> &, int, godot::Variant, int);
+    static Status sum_16sc_Sfs(const godot::Ref<IppBuffer> &, int, godot::Variant, int);
+    static Status sum_16sc32sc_Sfs(const godot::Ref<IppBuffer> &, int, godot::Variant, int);
+
+    static Status max_16s(const godot::Ref<IppBuffer> &, int, godot::Variant);
+    static Status max_32s(const godot::Ref<IppBuffer> &, int, godot::Variant);
+    static Status max_32f(const godot::Ref<IppBuffer> &, int, godot::Variant);
+    static Status max_64f(const godot::Ref<IppBuffer> &, int, godot::Variant);
+
+    static Status maxIndx_16s(const godot::Ref<IppBuffer> &, int, godot::Variant, godot::Variant);
+    static Status maxIndx_32s(const godot::Ref<IppBuffer> &, int, godot::Variant, godot::Variant);
+    static Status maxIndx_32f(const godot::Ref<IppBuffer> &, int, godot::Variant, godot::Variant);
+    static Status maxIndx_64f(const godot::Ref<IppBuffer> &, int, godot::Variant, godot::Variant);
+
+    static Status maxAbs_16s(const godot::Ref<IppBuffer> &, int, godot::Variant);
+    static Status maxAbs_32s(const godot::Ref<IppBuffer> &, int, godot::Variant);
+    static Status maxAbs_32f(const godot::Ref<IppBuffer> &, int, godot::Variant);
+    static Status maxAbs_64f(const godot::Ref<IppBuffer> &, int, godot::Variant);
+
+    static Status maxAbsIndx_16s(const godot::Ref<IppBuffer> &, int, godot::Variant, godot::Variant);
+    static Status maxAbsIndx_32s(const godot::Ref<IppBuffer> &, int, godot::Variant, godot::Variant);
+    static Status maxAbsIndx_32f(const godot::Ref<IppBuffer> &, int, godot::Variant, godot::Variant);
+    static Status maxAbsIndx_64f(const godot::Ref<IppBuffer> &, int, godot::Variant, godot::Variant);
+
+    static Status min_16s(const godot::Ref<IppBuffer> &, int, godot::Variant);
+    static Status min_32s(const godot::Ref<IppBuffer> &, int, godot::Variant);
+    static Status min_32f(const godot::Ref<IppBuffer> &, int, godot::Variant);
+    static Status min_64f(const godot::Ref<IppBuffer> &, int, godot::Variant);
+
+    static Status minIndx_16s(const godot::Ref<IppBuffer> &, int, godot::Variant, godot::Variant);
+    static Status minIndx_32s(const godot::Ref<IppBuffer> &, int, godot::Variant, godot::Variant);
+    static Status minIndx_32f(const godot::Ref<IppBuffer> &, int, godot::Variant, godot::Variant);
+    static Status minIndx_64f(const godot::Ref<IppBuffer> &, int, godot::Variant, godot::Variant);
+
+    static Status minAbs_16s(const godot::Ref<IppBuffer> &, int, godot::Variant);
+    static Status minAbs_32s(const godot::Ref<IppBuffer> &, int, godot::Variant);
+    static Status minAbs_32f(const godot::Ref<IppBuffer> &, int, godot::Variant);
+    static Status minAbs_64f(const godot::Ref<IppBuffer> &, int, godot::Variant);
+
+    static Status minAbsIndx_16s(const godot::Ref<IppBuffer> &, int, godot::Variant, godot::Variant);
+    static Status minAbsIndx_32s(const godot::Ref<IppBuffer> &, int, godot::Variant, godot::Variant);
+    static Status minAbsIndx_32f(const godot::Ref<IppBuffer> &, int, godot::Variant, godot::Variant);
+    static Status minAbsIndx_64f(const godot::Ref<IppBuffer> &, int, godot::Variant, godot::Variant);
+
+    static Status minMax_8u(const godot::Ref<IppBuffer> &, int, godot::Variant, godot::Variant);
+    static Status minMax_16u(const godot::Ref<IppBuffer> &, int, godot::Variant, godot::Variant);
+
+    static Status minMaxIndx_8u(const godot::Ref<IppBuffer> &, int, godot::Variant, godot::Variant, godot::Variant, godot::Variant);
+    static Status minMaxIndx_16u(const godot::Ref<IppBuffer> &, int, godot::Variant, godot::Variant, godot::Variant, godot::Variant);
+    static Status minMaxIndx_16s(const godot::Ref<IppBuffer> &, int, godot::Variant, godot::Variant, godot::Variant, godot::Variant);
+    static Status minMaxIndx_32u(const godot::Ref<IppBuffer> &, int, godot::Variant, godot::Variant, godot::Variant, godot::Variant);
+    static Status minMaxIndx_32s(const godot::Ref<IppBuffer> &, int, godot::Variant, godot::Variant, godot::Variant, godot::Variant);
+    static Status minMaxIndx_32f(const godot::Ref<IppBuffer> &, int, godot::Variant, godot::Variant, godot::Variant, godot::Variant);
+    static Status minMaxIndx_64f(const godot::Ref<IppBuffer> &, int, godot::Variant, godot::Variant, godot::Variant, godot::Variant);
+
+    static Status replaceNAN_32f_I(const godot::Ref<IppBuffer> &, int, float);
+    static Status replaceNAN_64f_I(const godot::Ref<IppBuffer> &, int, double);
+
+    static Status mean_32f(const godot::Ref<IppBuffer> &, int, godot::Variant, Hint);
+    static Status mean_32fc(const godot::Ref<IppBuffer> &, int, godot::Variant, Hint);
+    static Status mean_64f(const godot::Ref<IppBuffer> &, int, godot::Variant);
+    static Status mean_64fc(const godot::Ref<IppBuffer> &, int, godot::Variant);
+    static Status mean_16s_Sfs(const godot::Ref<IppBuffer> &, int, godot::Variant, int);
+    static Status mean_32s_Sfs(const godot::Ref<IppBuffer> &, int, godot::Variant, int);
+    static Status mean_16sc_Sfs(const godot::Ref<IppBuffer> &, int, godot::Variant, int);
+
     static Status cos_32f_A11(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
     static Status cos_32f_A21(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
     static Status cos_32f_A24(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
@@ -309,86 +828,6 @@ class IPP: public godot::Object {
     static Status sin_cos_64f_A26(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
     static Status sin_cos_64f_A50(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
     static Status sin_cos_64f_A53(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
-
-    static Status addC_32f(const godot::Ref<IppBuffer> &, float, const godot::Ref<IppBuffer> &, int);
-    static Status addC_64f(const godot::Ref<IppBuffer> &, double, const godot::Ref<IppBuffer> &, int);
-    static Status addC_32fc(const godot::Ref<IppBuffer> &, godot::Vector2, const godot::Ref<IppBuffer> &, int);
-    static Status addC_64fc(const godot::Ref<IppBuffer> &, godot::Vector2, const godot::Ref<IppBuffer> &, int);
-
-    static Status addC_8u_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
-    static Status addC_16u_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
-    static Status addC_16s_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
-    static Status addC_32s_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
-    static Status addC_64s_Sfs(const godot::Ref<IppBuffer> &, int64_t, const godot::Ref<IppBuffer> &, int, int);
-    static Status addC_64u_Sfs(const godot::Ref<IppBuffer> &, uint64_t, const godot::Ref<IppBuffer> &, int, int);
-    static Status addC_16sc_Sfs(const godot::Ref<IppBuffer> &, godot::Vector2i, const godot::Ref<IppBuffer> &, int, int);
-    static Status addC_32sc_Sfs(const godot::Ref<IppBuffer> &, godot::Vector2i, const godot::Ref<IppBuffer> &, int, int);
-
-    static Status addC_32f_I(float, const godot::Ref<IppBuffer> &, int);
-    static Status addC_64f_I(double, const godot::Ref<IppBuffer> &, int);
-    static Status addC_32fc_I(godot::Vector2, const godot::Ref<IppBuffer> &, int);
-    static Status addC_64fc_I(godot::Vector2, const godot::Ref<IppBuffer> &, int);
-
-    static Status addC_8u_ISfs(int, const godot::Ref<IppBuffer> &, int, int);
-    static Status addC_16u_ISfs(int, const godot::Ref<IppBuffer> &, int, int);
-    static Status addC_16s_ISfs(int, const godot::Ref<IppBuffer> &, int, int);
-    static Status addC_32s_ISfs(int, const godot::Ref<IppBuffer> &, int, int);
-    static Status addC_16sc_ISfs(godot::Vector2i, const godot::Ref<IppBuffer> &, int, int);
-    static Status addC_32sc_ISfs(godot::Vector2i, const godot::Ref<IppBuffer> &, int, int);
-
-    static Status subC_32f(const godot::Ref<IppBuffer> &, float, const godot::Ref<IppBuffer> &, int);
-    static Status subC_64f(const godot::Ref<IppBuffer> &, double, const godot::Ref<IppBuffer> &, int);
-    static Status subC_32fc(const godot::Ref<IppBuffer> &, godot::Vector2, const godot::Ref<IppBuffer> &, int);
-    static Status subC_64fc(const godot::Ref<IppBuffer> &, godot::Vector2, const godot::Ref<IppBuffer> &, int);
-
-    static Status subC_8u_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
-    static Status subC_16u_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
-    static Status subC_16s_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
-    static Status subC_32s_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
-    static Status subC_64s_Sfs(const godot::Ref<IppBuffer> &, int64_t, const godot::Ref<IppBuffer> &, int, int);
-    static Status subC_64u_Sfs(const godot::Ref<IppBuffer> &, uint64_t, const godot::Ref<IppBuffer> &, int, int);
-    static Status subC_16sc_Sfs(const godot::Ref<IppBuffer> &, godot::Vector2i, const godot::Ref<IppBuffer> &, int, int);
-    static Status subC_32sc_Sfs(const godot::Ref<IppBuffer> &, godot::Vector2i, const godot::Ref<IppBuffer> &, int, int);
-
-    static Status subC_32f_I(float, const godot::Ref<IppBuffer> &, int);
-    static Status subC_64f_I(double, const godot::Ref<IppBuffer> &, int);
-    static Status subC_32fc_I(godot::Vector2, const godot::Ref<IppBuffer> &, int);
-    static Status subC_64fc_I(godot::Vector2, const godot::Ref<IppBuffer> &, int);
-
-    static Status subC_8u_ISfs(int, const godot::Ref<IppBuffer> &, int, int);
-    static Status subC_16u_ISfs(int, const godot::Ref<IppBuffer> &, int, int);
-    static Status subC_16s_ISfs(int, const godot::Ref<IppBuffer> &, int, int);
-    static Status subC_32s_ISfs(int, const godot::Ref<IppBuffer> &, int, int);
-    static Status subC_16sc_ISfs(godot::Vector2i, const godot::Ref<IppBuffer> &, int, int);
-    static Status subC_32sc_ISfs(godot::Vector2i, const godot::Ref<IppBuffer> &, int, int);
-
-    static Status sum_32f(const godot::Ref<IppBuffer> &, int, godot::Variant, Hint);
-    static Status sum_32fc(const godot::Ref<IppBuffer> &, int, godot::Variant, Hint);
-    static Status sum_64f(const godot::Ref<IppBuffer> &, int, godot::Variant);
-    static Status sum_64fc(const godot::Ref<IppBuffer> &, int, godot::Variant);
-    static Status sum_16s_Sfs(const godot::Ref<IppBuffer> &, int, godot::Variant, int);
-    static Status sum_32s_Sfs(const godot::Ref<IppBuffer> &, int, godot::Variant, int);
-    static Status sum_16s32s_Sfs(const godot::Ref<IppBuffer> &, int, godot::Variant, int);
-    static Status sum_16sc_Sfs(const godot::Ref<IppBuffer> &, int, godot::Variant, int);
-    static Status sum_16sc32sc_Sfs(const godot::Ref<IppBuffer> &, int, godot::Variant, int);
-
-    static Status mean_32f(const godot::Ref<IppBuffer> &, int, godot::Variant, Hint);
-    static Status mean_32fc(const godot::Ref<IppBuffer> &, int, godot::Variant, Hint);
-    static Status mean_64f(const godot::Ref<IppBuffer> &, int, godot::Variant);
-    static Status mean_64fc(const godot::Ref<IppBuffer> &, int, godot::Variant);
-    static Status mean_16s_Sfs(const godot::Ref<IppBuffer> &, int, godot::Variant, int);
-    static Status mean_32s_Sfs(const godot::Ref<IppBuffer> &, int, godot::Variant, int);
-    static Status mean_16sc_Sfs(const godot::Ref<IppBuffer> &, int, godot::Variant, int);
-
-    static godot::Ref<IppRandom> uniform_init_8u(int, int, int64_t);
-    static godot::Ref<IppRandom> uniform_init_16s(int, int, int64_t);
-    static godot::Ref<IppRandom> uniform_init_32f(float, float, int64_t);
-    static godot::Ref<IppRandom> uniform_init_64f(double, double, int64_t);
-
-    static godot::Ref<IppRandom> gauss_init_8u(int, int, int64_t);
-    static godot::Ref<IppRandom> gauss_init_16s(int, int, int64_t);
-    static godot::Ref<IppRandom> gauss_init_32f(float, float, int64_t);
-    static godot::Ref<IppRandom> gauss_init_64f(double, double, int64_t);
 
     static godot::Ref<IppFft> fft_init_C_32f(int, int);
     static godot::Ref<IppFft> fft_init_C_64f(int, int);

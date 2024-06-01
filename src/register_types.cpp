@@ -40,6 +40,7 @@ void initialize_ipp_module(ModuleInitializationLevel p_level) {
     return;
   }
 
+  (void) ippInit();
   GDREGISTER_CLASS(ipp::IppBuffer);
   GDREGISTER_CLASS(ipp::IppFft);
   GDREGISTER_CLASS(ipp::IPP);
