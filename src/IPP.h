@@ -971,6 +971,17 @@ IPP::Status IPP::_NAME_(const Ref<IppBuffer> &lhs, const Ref<IppBuffer> &rhs, co
 }
 
 
+#  define IPP_OP_SFS_R(_NAME_, _IMPL_, _LTYPE_, _LAS_, _RTYPE_, _RAS_, _DTYPE_, _DAS_) \
+IPP::Status IPP::_NAME_(const Ref<IppBuffer> &lhs, const Ref<IppBuffer> &rhs, const Ref<IppBuffer> &dst, int len, Round round, int scale) { \
+  if(lhs.is_null() || lhs->getType() != TYPE_##_LTYPE_ || lhs->getLength() < len || \
+     rhs.is_null() || rhs->getType() != TYPE_##_RTYPE_ || rhs->getLength() < len || \
+     dst.is_null() || dst->getType() != TYPE_##_DTYPE_ || dst->getLength() < len) { \
+    return STAT_BAD_ARG_ERR; \
+  } \
+  return static_cast<Status>(_IMPL_(lhs->as##_LAS_(), rhs->as##_RAS_(), dst->as##_DAS_(), len, static_cast<IppRoundMode>(round), scale)); \
+}
+
+
 #  define IPP_OP_ISFS(_NAME_, _IMPL_, _STYPE_, _SAS_, _SDTYPE_, _SDAS_) \
 IPP::Status IPP::_NAME_(const Ref<IppBuffer> &src, const Ref<IppBuffer> &srcDst, int len, int scale) { \
   if(src.is_null()    || src->getType()    != TYPE_##_STYPE_  || src->getLength()    < len || \
@@ -978,6 +989,16 @@ IPP::Status IPP::_NAME_(const Ref<IppBuffer> &src, const Ref<IppBuffer> &srcDst,
     return STAT_BAD_ARG_ERR; \
   } \
   return static_cast<Status>(_IMPL_(src->as##_SAS_(), srcDst->as##_SDAS_(), len, scale)); \
+}
+
+
+#  define IPP_OP_ISFS_R(_NAME_, _IMPL_, _STYPE_, _SAS_, _SDTYPE_, _SDAS_) \
+IPP::Status IPP::_NAME_(const Ref<IppBuffer> &src, const Ref<IppBuffer> &srcDst, int len, Round round, int scale) { \
+  if(src.is_null()    || src->getType()    != TYPE_##_STYPE_  || src->getLength()    < len || \
+     srcDst.is_null() || srcDst->getType() != TYPE_##_SDTYPE_ || srcDst->getLength() < len) { \
+    return STAT_BAD_ARG_ERR; \
+  } \
+  return static_cast<Status>(_IMPL_(src->as##_SAS_(), srcDst->as##_SDAS_(), len, static_cast<IppRoundMode>(round), scale)); \
 }
 
 #endif
