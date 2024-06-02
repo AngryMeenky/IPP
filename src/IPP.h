@@ -377,8 +377,8 @@ class IPP: public godot::Object {
     static Status addC_16u_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
     static Status addC_16s_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
     static Status addC_32s_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
-    static Status addC_64s_Sfs(const godot::Ref<IppBuffer> &, int64_t, const godot::Ref<IppBuffer> &, int, int);
-    static Status addC_64u_Sfs(const godot::Ref<IppBuffer> &, uint64_t, const godot::Ref<IppBuffer> &, int, int);
+    static Status addC_64s_Sfs(const godot::Ref<IppBuffer> &, int64_t, const godot::Ref<IppBuffer> &, int, int, Round round);
+    static Status addC_64u_Sfs(const godot::Ref<IppBuffer> &, uint64_t, const godot::Ref<IppBuffer> &, int, int, Round round);
     static Status addC_16sc_Sfs(const godot::Ref<IppBuffer> &, godot::Vector2i, const godot::Ref<IppBuffer> &, int, int);
     static Status addC_32sc_Sfs(const godot::Ref<IppBuffer> &, godot::Vector2i, const godot::Ref<IppBuffer> &, int, int);
 
@@ -443,7 +443,7 @@ class IPP: public godot::Object {
     static Status mulC_64f(const godot::Ref<IppBuffer> &, double, const godot::Ref<IppBuffer> &, int);
     static Status mulC_32fc(const godot::Ref<IppBuffer> &, godot::Vector2, const godot::Ref<IppBuffer> &, int);
     static Status mulC_64fc(const godot::Ref<IppBuffer> &, godot::Vector2, const godot::Ref<IppBuffer> &, int);
-    static Status mulC_Low_32f16s(const godot::Ref<IppBuffer> &, float, const godot::Ref<IppBuffer> &, int);
+    static Status mulC_low_32f16s(const godot::Ref<IppBuffer> &, float, const godot::Ref<IppBuffer> &, int);
 
     static Status mulC_8u_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
     static Status mulC_16s_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
@@ -493,12 +493,12 @@ class IPP: public godot::Object {
     static Status mul_64fc_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
     static Status mul_32f32fc_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
 
-    static Status mul_8u_ISfs(const Ipp8u* pSrc, Ipp8u* pSrcDst, int len, int scaleFactor);
-    static Status mul_16u_ISfs(const Ipp16u* pSrc, Ipp16u* pSrcDst, int len, int scaleFactor);
-    static Status mul_16s_ISfs(const Ipp16s* pSrc, Ipp16s* pSrcDst, int len, int scaleFactor);
-    static Status mul_32s_ISfs(const Ipp32s* pSrc, Ipp32s* pSrcDst, int len, int scaleFactor);
-    static Status mul_16sc_ISfs(const Ipp16sc* pSrc, Ipp16sc* pSrcDst, int len, int scaleFactor);
-    static Status mul_32sc_ISfs(const Ipp32sc* pSrc, Ipp32sc* pSrcDst, int len, int scaleFactor);
+    static Status mul_8u_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int len, int scaleFactor);
+    static Status mul_16u_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int len, int scaleFactor);
+    static Status mul_16s_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int len, int scaleFactor);
+    static Status mul_32s_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int len, int scaleFactor);
+    static Status mul_16sc_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int len, int scaleFactor);
+    static Status mul_32sc_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int len, int scaleFactor);
 
     static Status subC_32f(const godot::Ref<IppBuffer> &, float, const godot::Ref<IppBuffer> &, int);
     static Status subC_64f(const godot::Ref<IppBuffer> &, double, const godot::Ref<IppBuffer> &, int);
@@ -843,8 +843,144 @@ class IPP: public godot::Object {
 
 VARIANT_ENUM_CAST(ipp::IPP::Hint);
 VARIANT_ENUM_CAST(ipp::IPP::Type);
+VARIANT_ENUM_CAST(ipp::IPP::Round);
 VARIANT_ENUM_CAST(ipp::IPP::Status);
 
+
+#ifdef IPP_IMPL
+
+#  define IPP_OP_C(_NAME_, _IMPL_, _STYPE_, _SAS_, _DTYPE_, _DAS_, _CTYPE_) \
+IPP::Status IPP::_NAME_(const godot::Ref<IppBuffer> &src, _CTYPE_ val, const godot::Ref<IppBuffer> &dst, int len) { \
+  if(src.is_null() || src->getType() != TYPE_##_STYPE_ || src->getLength() < len || \
+     dst.is_null() || dst->getType() != TYPE_##_DTYPE_ || dst->getLength() < len) { \
+    return STAT_BAD_ARG_ERR; \
+  } \
+  return static_cast<Status>(_IMPL_(src->as##_SAS_(), val, dst->as##_DAS_(), len)); \
+}
+
+
+#  define IPP_OP_C_I(_NAME_, _IMPL_, _SDTYPE_, _SDAS_, _CTYPE_) \
+IPP::Status IPP::_NAME_(_CTYPE_ val, const godot::Ref<IppBuffer> &srcDst, int len) { \
+  if(srcDst.is_null() || srcDst->getType() != TYPE_##_SDTYPE_ || srcDst->getLength() < len) { \
+    return STAT_BAD_ARG_ERR; \
+  } \
+  return static_cast<Status>(_IMPL_(val, srcDst->as##_SDAS_(), len)); \
+}
+
+
+#  define IPP_OP_C_SFS(_NAME_, _IMPL_, _STYPE_, _SAS_, _DTYPE_, _DAS_, _CTYPE_) \
+IPP::Status IPP::_NAME_(const Ref<IppBuffer> &src, _CTYPE_ val, const Ref<IppBuffer> &dst, int len, int scale) { \
+  if(src.is_null() || src->getType() != TYPE_##_STYPE_ || src->getLength() < len || \
+     dst.is_null() || dst->getType() != TYPE_##_DTYPE_ || dst->getLength() < len) { \
+    return STAT_BAD_ARG_ERR; \
+  } \
+  return static_cast<Status>(_IMPL_(src->as##_SAS_(), val, dst->as##_DAS_(), len, scale)); \
+}
+
+
+#  define IPP_OP_C_ISFS(_NAME_, _IMPL_, _SDTYPE_, _SDAS_, _CTYPE_) \
+IPP::Status IPP::_NAME_(_CTYPE_ val, const Ref<IppBuffer> &srcDst, int len, int scale) { \
+  if(srcDst.is_null() || srcDst->getType() != TYPE_##_SDTYPE_ || srcDst->getLength() < len) { \
+    return STAT_BAD_ARG_ERR; \
+  } \
+  return static_cast<Status>(_IMPL_(val, srcDst->as##_SDAS_(), len, scale)); \
+}
+
+
+#  define IPP_OP_C_SFS_R(_NAME_, _IMPL_, _STYPE_, _SAS_, _DTYPE_, _DAS_, _CTYPE_) \
+IPP::Status IPP::_NAME_(const Ref<IppBuffer> &src, _CTYPE_ val, const Ref<IppBuffer> &dst, int len, int scale, Round round) { \
+  if(src.is_null() || src->getType() != TYPE_##_STYPE_ || src->getLength() < len || \
+     dst.is_null() || dst->getType() != TYPE_##_DTYPE_ || dst->getLength() < len) { \
+    return STAT_BAD_ARG_ERR; \
+  } \
+  return static_cast<Status>(_IMPL_(src->as##_SAS_(), val, dst->as##_DAS_(), len, scale, static_cast<IppRoundMode>(round))); \
+}
+
+
+#  define IPP_OP_CV(_NAME_, _IMPL_, _STYPE_, _SAS_, _DTYPE_, _DAS_, _VTYPE_, _VCAST_) \
+IPP::Status IPP::_NAME_(const Ref<IppBuffer> &src, _VTYPE_ vec, const Ref<IppBuffer> &dst, int len) { \
+  if(src.is_null() || src->getType() != TYPE_##_STYPE_ || src->getLength() < len || \
+     dst.is_null() || dst->getType() != TYPE_##_DTYPE_ || dst->getLength() < len) { \
+    return STAT_BAD_ARG_ERR; \
+  } \
+  Ipp##_VCAST_##c val{ static_cast<Ipp##_VCAST_>(vec.x), static_cast<Ipp##_VCAST_>(vec.y) }; \
+  return static_cast<Status>(_IMPL_(src->as##_SAS_(), val, dst->as##_DAS_(), len)); \
+}
+
+
+#  define IPP_OP_CV_I(_NAME_, _IMPL_, _SDTYPE_, _SDAS_, _VTYPE_, _VCAST_) \
+IPP::Status IPP::_NAME_(_VTYPE_ vec, const Ref<IppBuffer> &srcDst, int len) { \
+  if(srcDst.is_null() || srcDst->getType() != TYPE_##_SDTYPE_ || srcDst->getLength() < len) { \
+    return STAT_BAD_ARG_ERR; \
+  } \
+  Ipp##_VCAST_##c val{ static_cast<Ipp##_VCAST_>(vec.x), static_cast<Ipp##_VCAST_>(vec.y) }; \
+  return static_cast<Status>(_IMPL_(val, srcDst->as##_SDAS_(), len)); \
+}
+
+
+#  define IPP_OP_CV_SFS(_NAME_, _IMPL_, _STYPE_, _SAS_, _DTYPE_, _DAS_, _VTYPE_, _VCAST_) \
+IPP::Status IPP::_NAME_(const Ref<IppBuffer> &src, _VTYPE_ vec, const Ref<IppBuffer> &dst, int len, int scale) { \
+  if(src.is_null() || src->getType() != TYPE_##_STYPE_ || src->getLength() < len || \
+     dst.is_null() || dst->getType() != TYPE_##_DTYPE_ || dst->getLength() < len) { \
+    return STAT_BAD_ARG_ERR; \
+  } \
+  Ipp##_VCAST_##c val{ static_cast<Ipp##_VCAST_>(vec.x), static_cast<Ipp##_VCAST_>(vec.y) }; \
+  return static_cast<Status>(_IMPL_(src->as##_SAS_(), val, dst->as##_DAS_(), len, scale)); \
+}
+
+
+#  define IPP_OP_CV_ISFS(_NAME_, _IMPL_, _SDTYPE_, _SDAS_, _VTYPE_, _VCAST_) \
+IPP::Status IPP::_NAME_(_VTYPE_ vec, const Ref<IppBuffer> &srcDst, int len, int scale) { \
+  if(srcDst.is_null() || srcDst->getType() != TYPE_##_SDTYPE_ || srcDst->getLength() < len) { \
+    return STAT_BAD_ARG_ERR; \
+  } \
+  Ipp##_VCAST_##c val{ static_cast<Ipp##_VCAST_>(vec.x), static_cast<Ipp##_VCAST_>(vec.y) }; \
+  return static_cast<Status>(_IMPL_(val, srcDst->as##_SDAS_(), len, scale)); \
+}
+
+
+#  define IPP_OP(_NAME_, _IMPL_, _LTYPE_, _LAS_, _RTYPE_, _RAS_, _DTYPE_, _DAS_) \
+IPP::Status IPP::_NAME_(const Ref<IppBuffer> &lhs, const Ref<IppBuffer> &rhs, const godot::Ref<IppBuffer> &dst, int len) { \
+  if(lhs.is_null() || lhs->getType() != TYPE_##_LTYPE_ || lhs->getLength() < len || \
+     rhs.is_null() || rhs->getType() != TYPE_##_RTYPE_ || rhs->getLength() < len || \
+     dst.is_null() || dst->getType() != TYPE_##_DTYPE_ || dst->getLength() < len) { \
+    return STAT_BAD_ARG_ERR; \
+  } \
+  return static_cast<Status>(_IMPL_(lhs->as##_LAS_(), rhs->as##_RAS_(), dst->as##_DAS_(), len)); \
+}
+
+
+#  define IPP_OP_I(_NAME_, _IMPL_, _STYPE_, _SAS_, _SDTYPE_, _SDAS_) \
+IPP::Status IPP::_NAME_(const Ref<IppBuffer> &src, const Ref<IppBuffer> &srcDst, int len) { \
+  if(src.is_null()    || src->getType()    != TYPE_##_STYPE_  || src->getLength()    < len || \
+     srcDst.is_null() || srcDst->getType() != TYPE_##_SDTYPE_ || srcDst->getLength() < len) { \
+    return STAT_BAD_ARG_ERR; \
+  } \
+  return static_cast<Status>(_IMPL_(src->as##_SAS_(), srcDst->as##_SDAS_(), len)); \
+}
+
+
+#  define IPP_OP_SFS(_NAME_, _IMPL_, _LTYPE_, _LAS_, _RTYPE_, _RAS_, _DTYPE_, _DAS_) \
+IPP::Status IPP::_NAME_(const Ref<IppBuffer> &lhs, const Ref<IppBuffer> &rhs, const Ref<IppBuffer> &dst, int len, int scale) { \
+  if(lhs.is_null() || lhs->getType() != TYPE_##_LTYPE_ || lhs->getLength() < len || \
+     rhs.is_null() || rhs->getType() != TYPE_##_RTYPE_ || rhs->getLength() < len || \
+     dst.is_null() || dst->getType() != TYPE_##_DTYPE_ || dst->getLength() < len) { \
+    return STAT_BAD_ARG_ERR; \
+  } \
+  return static_cast<Status>(_IMPL_(lhs->as##_LAS_(), rhs->as##_RAS_(), dst->as##_DAS_(), len, scale)); \
+}
+
+
+#  define IPP_OP_ISFS(_NAME_, _IMPL_, _STYPE_, _SAS_, _SDTYPE_, _SDAS_) \
+IPP::Status IPP::_NAME_(const Ref<IppBuffer> &src, const Ref<IppBuffer> &srcDst, int len, int scale) { \
+  if(src.is_null()    || src->getType()    != TYPE_##_STYPE_  || src->getLength()    < len || \
+     srcDst.is_null() || srcDst->getType() != TYPE_##_SDTYPE_ || srcDst->getLength() < len) { \
+    return STAT_BAD_ARG_ERR; \
+  } \
+  return static_cast<Status>(_IMPL_(src->as##_SAS_(), srcDst->as##_SDAS_(), len, scale)); \
+}
+
+#endif
 
 
 #endif /* IPP_GDEXT_H */
