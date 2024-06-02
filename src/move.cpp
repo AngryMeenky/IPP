@@ -1,3 +1,4 @@
+#define IPP_IMPL
 #include "IPP.h"
 #include "buffer.h"
 
@@ -7,7 +8,7 @@ using namespace godot;
 
 
 IPP::Status IPP::move_8u(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
-  if(src == nullptr || dst == nullptr) {
+  if(src.is_null() || dst.is_null()) {
     return STAT_BAD_ARG_ERR;
   }
   else if(auto st = src->getType(), dt = dst->getType();
@@ -20,7 +21,7 @@ IPP::Status IPP::move_8u(const godot::Ref<IppBuffer> &src, const godot::Ref<IppB
 
 
 IPP::Status IPP::move_16s(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
-  if(src == nullptr || dst == nullptr) {
+  if(src.is_null() || dst.is_null()) {
     return STAT_BAD_ARG_ERR;
   }
   else if(auto st = src->getType(), dt = dst->getType();
@@ -33,7 +34,7 @@ IPP::Status IPP::move_16s(const godot::Ref<IppBuffer> &src, const godot::Ref<Ipp
 
 
 IPP::Status IPP::move_32s(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
-  if(src == nullptr || dst == nullptr) {
+  if(src.is_null() || dst.is_null()) {
     return STAT_BAD_ARG_ERR;
   }
   else if(auto st = src->getType(), dt = dst->getType();
@@ -46,7 +47,11 @@ IPP::Status IPP::move_32s(const godot::Ref<IppBuffer> &src, const godot::Ref<Ipp
 
 
 IPP::Status IPP::move_64s(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
-  if(src == nullptr || dst == nullptr || dst->getType() != TYPE_64S || dst->getType() != TYPE_64S) {
+  if(src.is_null() || dst.is_null()) {
+    return STAT_BAD_ARG_ERR;
+  }
+  else if(auto st = src->getType(), dt = dst->getType();
+          (st != TYPE_64S && st != TYPE_64U) || (dt != TYPE_64S && dt != TYPE_64U)) {
     return STAT_BAD_ARG_ERR;
   }
 
@@ -54,65 +59,11 @@ IPP::Status IPP::move_64s(const godot::Ref<IppBuffer> &src, const godot::Ref<Ipp
 }
 
 
-IPP::Status IPP::move_32f(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
-  if(src == nullptr || dst == nullptr || src->getType() != TYPE_32F || dst->getType() != TYPE_32F) {
-    return STAT_BAD_ARG_ERR;
-  }
-
-  return static_cast<Status>(ippsMove_32f(src->as32f(), dst->as32f(), len));
-}
-
-
-IPP::Status IPP::move_64f(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
-  if(src == nullptr || dst == nullptr || src->getType() != TYPE_64F || dst->getType() != TYPE_64F) {
-    return STAT_BAD_ARG_ERR;
-  }
-
-  return static_cast<Status>(ippsMove_64f(src->as64f(), dst->as64f(), len));
-}
-
-
-IPP::Status IPP::move_16sc(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
-  if(src == nullptr || dst == nullptr || src->getType() != TYPE_16SC || dst->getType() != TYPE_16SC) {
-    return STAT_BAD_ARG_ERR;
-  }
-
-  return static_cast<Status>(ippsMove_16sc(src->as16sc(), dst->as16sc(), len));
-}
-
-
-IPP::Status IPP::move_32sc(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
-  if(src == nullptr || dst == nullptr || src->getType() != TYPE_32SC || dst->getType() != TYPE_32SC) {
-    return STAT_BAD_ARG_ERR;
-  }
-
-  return static_cast<Status>(ippsMove_32sc(src->as32sc(), dst->as32sc(), len));
-}
-
-
-IPP::Status IPP::move_64sc(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
-  if(src == nullptr || dst == nullptr || src->getType() != TYPE_64SC || dst->getType() != TYPE_64SC) {
-    return STAT_BAD_ARG_ERR;
-  }
-
-  return static_cast<Status>(ippsMove_64sc(src->as64sc(), dst->as64sc(), len));
-}
-
-
-IPP::Status IPP::move_32fc(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
-  if(src == nullptr || dst == nullptr || src->getType() != TYPE_32FC || dst->getType() != TYPE_32FC) {
-    return STAT_BAD_ARG_ERR;
-  }
-
-  return static_cast<Status>(ippsMove_32fc(src->as32fc(), dst->as32fc(), len));
-}
-
-
-IPP::Status IPP::move_64fc(const godot::Ref<IppBuffer> &src, const godot::Ref<IppBuffer> &dst, int len) {
-  if(src == nullptr || dst == nullptr || src->getType() != TYPE_64FC || dst->getType() != TYPE_64FC) {
-    return STAT_BAD_ARG_ERR;
-  }
-
-  return static_cast<Status>(ippsMove_64fc(src->as64fc(), dst->as64fc(), len));
-}
+IPP_OP_I(move_32f, ippsMove_32f, 32F, 32f, 32F, 32f)
+IPP_OP_I(move_64f, ippsMove_64f, 64F, 64f, 64F, 64f)
+IPP_OP_I(move_16sc, ippsMove_16sc, 16SC, 16sc, 16SC, 16sc)
+IPP_OP_I(move_32sc, ippsMove_32sc, 32SC, 32sc, 32SC, 32sc)
+IPP_OP_I(move_64sc, ippsMove_64sc, 64SC, 64sc, 64SC, 64sc)
+IPP_OP_I(move_32fc, ippsMove_32fc, 32FC, 32fc, 32FC, 32fc)
+IPP_OP_I(move_64fc, ippsMove_64fc, 64FC, 64fc, 64FC, 64fc)
 
