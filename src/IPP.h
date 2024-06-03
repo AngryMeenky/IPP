@@ -493,12 +493,12 @@ class IPP: public godot::Object {
     static Status mul_64fc_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
     static Status mul_32f32fc_I(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
 
-    static Status mul_8u_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int len, int scaleFactor);
-    static Status mul_16u_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int len, int scaleFactor);
-    static Status mul_16s_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int len, int scaleFactor);
-    static Status mul_32s_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int len, int scaleFactor);
-    static Status mul_16sc_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int len, int scaleFactor);
-    static Status mul_32sc_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int len, int scaleFactor);
+    static Status mul_8u_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int len, int);
+    static Status mul_16u_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int len, int);
+    static Status mul_16s_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int len, int);
+    static Status mul_32s_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int len, int);
+    static Status mul_16sc_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int len, int);
+    static Status mul_32sc_ISfs(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int len, int);
 
     static Status subC_32f(const godot::Ref<IppBuffer> &, float, const godot::Ref<IppBuffer> &, int);
     static Status subC_64f(const godot::Ref<IppBuffer> &, double, const godot::Ref<IppBuffer> &, int);
