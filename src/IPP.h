@@ -829,6 +829,19 @@ class IPP: public godot::Object {
     static Status sin_cos_64f_A50(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
     static Status sin_cos_64f_A53(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
 
+    static Status real_16sc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status real_32fc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status real_64fc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status imag_16sc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status imag_32fc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status imag_64fc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status realToCplx_16s(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status realToCplx_32f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status realToCplx_64f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status cplxToReal_16sc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status cplxToReal_32fc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status cplxToReal_64fc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+
     static godot::Ref<IppFft> fft_init_C_32f(int, int);
     static godot::Ref<IppFft> fft_init_C_64f(int, int);
     static godot::Ref<IppFft> fft_init_C_32fc(int, int);
@@ -1000,6 +1013,53 @@ IPP::Status IPP::_NAME_(const Ref<IppBuffer> &src, const Ref<IppBuffer> &srcDst,
   } \
   return static_cast<Status>(_IMPL_(src->as##_SAS_(), srcDst->as##_SDAS_(), len, static_cast<IppRoundMode>(round), scale)); \
 }
+
+
+#  define IPP_UOP(_NAME_, _IMPL_, _STYPE_, _SAS_, _DTYPE_, _DAS_) IPP_OP_I(_NAME_, _IMPL_, _STYPE_, _SAS_, _DTYPE_, _DAS_)
+
+
+#  define IPP_UOP_SFS(_NAME_, _IMPL_, _STYPE_, _SAS_, _DTYPE_, _DAS_) IPP_OP_ISFS(_NAME_, _IMPL_, _STYPE_, _SAS_, _DTYPE_, _DAS_)
+
+
+#  define IPP_UOP_I(_NAME_, _IMPL_,  _SDTYPE_, _SDAS_) \
+IPP::Status IPP::_NAME_(const Ref<IppBuffer> &srcDst, int len) { \
+  if(srcDst.is_null() || srcDst->getType() != TYPE_##_SDTYPE_ || srcDst->getLength() < len) { \
+    return STAT_BAD_ARG_ERR; \
+  } \
+  return static_cast<Status>(_IMPL_(srcDst->as##_SDAS_(), len)); \
+}
+
+
+#  define IPP_UOP_ISFS(_NAME_, _IMPL_,  _SDTYPE_, _SDAS_) \
+IPP::Status IPP::_NAME_(const Ref<IppBuffer> &srcDst, int len, int scale) { \
+  if(srcDst.is_null() || srcDst->getType() != TYPE_##_SDTYPE_ || srcDst->getLength() < len) { \
+    return STAT_BAD_ARG_ERR; \
+  } \
+  return static_cast<Status>(_IMPL_(srcDst->as##_SDAS_(), len, scale)); \
+}
+
+
+#  define IPP_UOP_S(_NAME_, _IMPL_, _SWIDTH_, _SAS_, _DWIDTH_, _DAS_) \
+IPP::Status IPP::_NAME_(const Ref<IppBuffer> &src, const Ref<IppBuffer> &dst, int len) { \
+  if(src.is_null()                        || src->getLength() <  len                || \
+     src->getType() != TYPE_##_SWIDTH_##S || src->getType()   != TYPE_##_SWIDTH_##U || \
+     dst.is_null()                        || dst->getLength() <  len                || \
+     dst->getType() != TYPE_##_DWIDTH_##S || dst->getType()   != TYPE_##_DWIDTH_##U) { \
+    return STAT_BAD_ARG_ERR; \
+  } \
+  return static_cast<Status>(_IMPL_(src->as##_SAS_(), dst->as##_DAS_(), len)); \
+}
+
+
+#  define IPP_UOP_SI(_NAME_, _IMPL_, _SDWIDTH_, _SDAS_) \
+IPP::Status IPP::_NAME_(const Ref<IppBuffer> &srcDst, int len) { \
+  if(srcDst.is_null()                         || srcDst->getLength() <  len                 || \
+     srcDst->getType() != TYPE_##_SDWIDTH_##S || srcDst->getType()   != TYPE_##_SDWIDTH_##U) { \
+    return STAT_BAD_ARG_ERR; \
+  } \
+  return static_cast<Status>(_IMPL_(srcDst->as##_SDAS_(), len)); \
+}
+
 
 #endif
 
