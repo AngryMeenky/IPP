@@ -193,6 +193,69 @@ void IPP::_bind_methods() {
   ClassDB::bind_static_method("IPP", D_METHOD("zero_32fc", "dst", "len"), &IPP::zero_32fc);
   ClassDB::bind_static_method("IPP", D_METHOD("zero_64fc", "dst", "len"), &IPP::zero_64fc);
 
+  ClassDB::bind_static_method("IPP", D_METHOD("andC_8u", "src", "val", "dst", "len"), &IPP::andC_8u);
+  ClassDB::bind_static_method("IPP", D_METHOD("andC_16u", "src", "val", "dst", "len"), &IPP::andC_16u);
+  ClassDB::bind_static_method("IPP", D_METHOD("andC_32u", "src", "val", "dst", "len"), &IPP::andC_32u);
+  ClassDB::bind_static_method("IPP", D_METHOD("andC_8u_I", "val", "src_dst", "len"), &IPP::andC_8u_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("andC_16u_I", "val", "src_dst", "len"), &IPP::andC_16u_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("andC_32u_I", "val", "src_dst", "len"), &IPP::andC_32u_I);
+
+  ClassDB::bind_static_method("IPP", D_METHOD("and_8u", "lhs", "rhs", "dst", "len"), &IPP::and_8u);
+  ClassDB::bind_static_method("IPP", D_METHOD("and_16u", "lhs", "rhs", "dst", "len"), &IPP::and_16u);
+  ClassDB::bind_static_method("IPP", D_METHOD("and_32u", "lhs", "rhs", "dst", "len"), &IPP::and_32u);
+  ClassDB::bind_static_method("IPP", D_METHOD("and_8u_I", "src", "src_dst", "len"), &IPP::and_8u_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("and_16u_I", "src", "src_dst", "len"), &IPP::and_16u_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("and_32u_I", "src", "src_dst", "len"), &IPP::and_32u_I);
+
+  ClassDB::bind_static_method("IPP", D_METHOD("orC_8u", "src", "val", "dst", "len"), &IPP::orC_8u);
+  ClassDB::bind_static_method("IPP", D_METHOD("orC_16u", "src", "val", "dst", "len"), &IPP::orC_16u);
+  ClassDB::bind_static_method("IPP", D_METHOD("orC_32u", "src", "val", "dst", "len"), &IPP::orC_32u);
+  ClassDB::bind_static_method("IPP", D_METHOD("orC_8u_I", "val", "src_dst", "len"), &IPP::orC_8u_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("orC_16u_I", "val", "src_dst", "len"), &IPP::orC_16u_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("orC_32u_I", "val", "src_dst", "len"), &IPP::orC_32u_I);
+
+  ClassDB::bind_static_method("IPP", D_METHOD("or_8u", "lhs", "rhs", "dst", "len"), &IPP::or_8u);
+  ClassDB::bind_static_method("IPP", D_METHOD("or_16u", "lhs", "rhs", "dst", "len"), &IPP::or_16u);
+  ClassDB::bind_static_method("IPP", D_METHOD("or_32u", "lhs", "rhs", "dst", "len"), &IPP::or_32u);
+  ClassDB::bind_static_method("IPP", D_METHOD("or_8u_I", "src", "src_dst", "len"), &IPP::or_8u_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("or_16u_I", "src", "src_dst", "len"), &IPP::or_16u_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("or_32u_I", "src", "src_dst", "len"), &IPP::or_32u_I);
+
+  ClassDB::bind_static_method("IPP", D_METHOD("xorC_8u", "src", "val", "dst", "len"), &IPP::xorC_8u);
+  ClassDB::bind_static_method("IPP", D_METHOD("xorC_16u", "src", "val", "dst", "len"), &IPP::xorC_16u);
+  ClassDB::bind_static_method("IPP", D_METHOD("xorC_32u", "src", "val", "dst", "len"), &IPP::xorC_32u);
+  ClassDB::bind_static_method("IPP", D_METHOD("xorC_8u_I", "val", "src_dst", "len"), &IPP::xorC_8u_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("xorC_16u_I", "val", "src_dst", "len"), &IPP::xorC_16u_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("xorC_32u_I", "val", "src_dst", "len"), &IPP::xorC_32u_I);
+
+  ClassDB::bind_static_method("IPP", D_METHOD("xor_8u", "lhs", "rhs", "dst", "len"), &IPP::xor_8u);
+  ClassDB::bind_static_method("IPP", D_METHOD("xor_16u", "lhs", "rhs", "dst", "len"), &IPP::xor_16u);
+  ClassDB::bind_static_method("IPP", D_METHOD("xor_32u", "lhs", "rhs", "dst", "len"), &IPP::xor_32u);
+  ClassDB::bind_static_method("IPP", D_METHOD("xor_8u_I", "src", "src_dst", "len"), &IPP::xor_8u_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("xor_16u_I", "src", "src_dst", "len"), &IPP::xor_16u_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("xor_32u_I", "src", "src_dst", "len"), &IPP::xor_32u_I);
+
+  ClassDB::bind_static_method("IPP", D_METHOD("not_8u", "src", "dst", "len"), &IPP::not_8u);
+  ClassDB::bind_static_method("IPP", D_METHOD("not_16u", "src", "dst", "len"), &IPP::not_16u);
+  ClassDB::bind_static_method("IPP", D_METHOD("not_32u", "src", "dst", "len"), &IPP::not_32u);
+  ClassDB::bind_static_method("IPP", D_METHOD("not_8u_I", "src_dst", "len"), &IPP::not_8u_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("not_16u_I", "src_dst", "len"), &IPP::not_16u_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("not_32u_I", "src_dst", "len"), &IPP::not_32u_I);
+
+  ClassDB::bind_static_method("IPP", D_METHOD("l_shiftC_8u", "src", "val", "dst", "len"), &IPP::l_shiftC_8u);
+  ClassDB::bind_static_method("IPP", D_METHOD("l_shiftC_16u", "src", "val", "dst", "len"), &IPP::l_shiftC_16u);
+  ClassDB::bind_static_method("IPP", D_METHOD("l_shiftC_32s", "src", "val", "dst", "len"), &IPP::l_shiftC_32s);
+  ClassDB::bind_static_method("IPP", D_METHOD("l_shiftC_8u_I", "val", "src_dst", "len"), &IPP::l_shiftC_8u_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("l_shiftC_16u_I", "val", "src_dst", "len"), &IPP::l_shiftC_16u_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("l_shiftC_32s_I", "val", "src_dst", "len"), &IPP::l_shiftC_32s_I);
+
+  ClassDB::bind_static_method("IPP", D_METHOD("r_shiftC_8u", "src", "val", "dst", "len"), &IPP::r_shiftC_8u);
+  ClassDB::bind_static_method("IPP", D_METHOD("r_shiftC_16u", "src", "val", "dst", "len"), &IPP::r_shiftC_16u);
+  ClassDB::bind_static_method("IPP", D_METHOD("r_shiftC_32s", "src", "val", "dst", "len"), &IPP::r_shiftC_32s);
+  ClassDB::bind_static_method("IPP", D_METHOD("r_shiftC_8u_I", "val", "src_dst", "len"), &IPP::r_shiftC_8u_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("r_shiftC_16u_I", "val", "src_dst", "len"), &IPP::r_shiftC_16u_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("r_shiftC_32s_I", "val", "src_dst", "len"), &IPP::r_shiftC_32s_I);
+
   ClassDB::bind_static_method("IPP", D_METHOD("tone_16s", "len", "mag", "freq", "phase", "hint"), &IPP::tone_16s, DEFVAL(HINT_NONE));
   ClassDB::bind_static_method("IPP", D_METHOD("tone_32f", "len", "mag", "freq", "phase", "hint"), &IPP::tone_32f, DEFVAL(HINT_NONE));
   ClassDB::bind_static_method("IPP", D_METHOD("tone_64f", "len", "mag", "freq", "phase", "hint"), &IPP::tone_64f, DEFVAL(HINT_NONE));
@@ -245,27 +308,133 @@ void IPP::_bind_methods() {
   ClassDB::bind_static_method("IPP", D_METHOD("addC_32fc", "src", "val", "dst", "len"), &IPP::addC_32fc);
   ClassDB::bind_static_method("IPP", D_METHOD("addC_64fc", "src", "val", "dst", "len"), &IPP::addC_64fc);
   
-  ClassDB::bind_static_method("IPP", D_METHOD("addC_8u_Sfs", "src", "val", "dst", "len"), &IPP::addC_8u_Sfs);
-  ClassDB::bind_static_method("IPP", D_METHOD("addC_16u_Sfs", "src", "val", "dst", "len"), &IPP::addC_16u_Sfs);
-  ClassDB::bind_static_method("IPP", D_METHOD("addC_16s_Sfs", "src", "val", "dst", "len"), &IPP::addC_16s_Sfs);
-  ClassDB::bind_static_method("IPP", D_METHOD("addC_32s_Sfs", "src", "val", "dst", "len"), &IPP::addC_32s_Sfs);
-  ClassDB::bind_static_method("IPP", D_METHOD("addC_64u_Sfs", "src", "val", "dst", "len"), &IPP::addC_64u_Sfs);
-  ClassDB::bind_static_method("IPP", D_METHOD("addC_64s_Sfs", "src", "val", "dst", "len"), &IPP::addC_64s_Sfs);
-  ClassDB::bind_static_method("IPP", D_METHOD("addC_16sc_Sfs", "src", "val", "dst", "len"), &IPP::addC_16sc_Sfs);
-  ClassDB::bind_static_method("IPP", D_METHOD("addC_32sc_Sfs", "src", "val", "dst", "len"), &IPP::addC_32sc_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_8u_Sfs", "src", "val", "dst", "len", "scale"), &IPP::addC_8u_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_16u_Sfs", "src", "val", "dst", "len", "scale"), &IPP::addC_16u_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_16s_Sfs", "src", "val", "dst", "len", "scale"), &IPP::addC_16s_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_32s_Sfs", "src", "val", "dst", "len", "scale"), &IPP::addC_32s_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_64u_Sfs", "src", "val", "dst", "len", "scale"), &IPP::addC_64u_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_64s_Sfs", "src", "val", "dst", "len", "scale"), &IPP::addC_64s_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_16sc_Sfs", "src", "val", "dst", "len", "scale"), &IPP::addC_16sc_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_32sc_Sfs", "src", "val", "dst", "len", "scale"), &IPP::addC_32sc_Sfs);
 
   ClassDB::bind_static_method("IPP", D_METHOD("addC_32f_I", "val", "src_dst", "len"), &IPP::addC_32f_I);
   ClassDB::bind_static_method("IPP", D_METHOD("addC_64f_I", "val", "src_dst", "len"), &IPP::addC_64f_I);
   ClassDB::bind_static_method("IPP", D_METHOD("addC_32fc_I", "val", "src_dst", "len"), &IPP::addC_32fc_I);
   ClassDB::bind_static_method("IPP", D_METHOD("addC_64fc_I", "val", "src_dst", "len"), &IPP::addC_64fc_I);
   
-  ClassDB::bind_static_method("IPP", D_METHOD("addC_8u_ISfs", "val", "src_dst", "len"), &IPP::addC_8u_ISfs);
-  ClassDB::bind_static_method("IPP", D_METHOD("addC_16u_ISfs", "val", "src_dst", "len"), &IPP::addC_16u_ISfs);
-  ClassDB::bind_static_method("IPP", D_METHOD("addC_16s_ISfs", "val", "src_dst", "len"), &IPP::addC_16s_ISfs);
-  ClassDB::bind_static_method("IPP", D_METHOD("addC_32s_ISfs", "val", "src_dst", "len"), &IPP::addC_32s_ISfs);
-  ClassDB::bind_static_method("IPP", D_METHOD("addC_16sc_ISfs", "val", "src_dst", "len"), &IPP::addC_16sc_ISfs);
-  ClassDB::bind_static_method("IPP", D_METHOD("addC_32sc_ISfs", "val", "src_dst", "len"), &IPP::addC_32sc_ISfs);
-  
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_8u_ISfs", "val", "src_dst", "len", "scale"), &IPP::addC_8u_ISfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_16u_ISfs", "val", "src_dst", "len", "scale"), &IPP::addC_16u_ISfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_16s_ISfs", "val", "src_dst", "len", "scale"), &IPP::addC_16s_ISfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_32s_ISfs", "val", "src_dst", "len", "scale"), &IPP::addC_32s_ISfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_16sc_ISfs", "val", "src_dst", "len", "scale"), &IPP::addC_16sc_ISfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("addC_32sc_ISfs", "val", "src_dst", "len", "scale"), &IPP::addC_32sc_ISfs);
+
+  ClassDB::bind_static_method("IPP", D_METHOD("add_16s", "lhs", "rhs", "dst", "len"), &IPP::add_16s);
+  ClassDB::bind_static_method("IPP", D_METHOD("add_32f", "lhs", "rhs", "dst", "len"), &IPP::add_32f);
+  ClassDB::bind_static_method("IPP", D_METHOD("add_64f", "lhs", "rhs", "dst", "len"), &IPP::add_64f);
+  ClassDB::bind_static_method("IPP", D_METHOD("add_32fc", "lhs", "rhs", "dst", "len"), &IPP::add_32fc);
+  ClassDB::bind_static_method("IPP", D_METHOD("add_64fc", "lhs", "rhs", "dst", "len"), &IPP::add_64fc);
+  ClassDB::bind_static_method("IPP", D_METHOD("add_8u16u", "lhs", "rhs", "dst", "len"), &IPP::add_8u16u);
+  ClassDB::bind_static_method("IPP", D_METHOD("add_16u", "lhs", "rhs", "dst", "len"), &IPP::add_16u);
+  ClassDB::bind_static_method("IPP", D_METHOD("add_32u", "lhs", "rhs", "dst", "len"), &IPP::add_32u);
+  ClassDB::bind_static_method("IPP", D_METHOD("add_16s32f", "lhs", "rhs", "dst", "len"), &IPP::add_16s32f);
+
+  ClassDB::bind_static_method("IPP", D_METHOD("add_8u_Sfs", "lhs", "rhs", "dst", "len", "scale"), &IPP::add_8u_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("add_16u_Sfs", "lhs", "rhs", "dst", "len", "scale"), &IPP::add_16u_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("add_16s_Sfs", "lhs", "rhs", "dst", "len", "scale"), &IPP::add_16s_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("add_32s_Sfs", "lhs", "rhs", "dst", "len", "scale"), &IPP::add_32s_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("add_16sc_Sfs", "lhs", "rhs", "dst", "len", "scale"), &IPP::add_16sc_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("add_32sc_Sfs", "lhs", "rhs", "dst", "len", "scale"), &IPP::add_32sc_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("add_64s_Sfs", "lhs", "rhs", "dst", "len", "scale"), &IPP::add_64s_Sfs);
+
+  ClassDB::bind_static_method("IPP", D_METHOD("add_16s_I", "src", "src_dst", "len"), &IPP::add_16s_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("add_32f_I", "src", "src_dst", "len"), &IPP::add_32f_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("add_64f_I", "src", "src_dst", "len"), &IPP::add_64f_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("add_32fc_I", "src", "src_dst", "len"), &IPP::add_32fc_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("add_64fc_I", "src", "src_dst", "len"), &IPP::add_64fc_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("add_16s32s_I", "src", "src_dst", "len"), &IPP::add_16s32s_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("add_32u_I", "src", "src_dst", "len"), &IPP::add_32u_I);
+
+  ClassDB::bind_static_method("IPP", D_METHOD("add_8u_ISfs", "src", "src_dst", "len", "scale"), &IPP::add_8u_ISfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("add_16u_ISfs", "src", "src_dst", "len", "scale"), &IPP::add_16u_ISfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("add_16s_ISfs", "src", "src_dst", "len", "scale"), &IPP::add_16s_ISfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("add_32s_ISfs", "src", "src_dst", "len", "scale"), &IPP::add_32s_ISfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("add_16sc_ISfs", "src", "src_dst", "len", "scale"), &IPP::add_16sc_ISfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("add_32sc_ISfs", "src", "src_dst", "len", "scale"), &IPP::add_32sc_ISfs);
+
+  ClassDB::bind_static_method("IPP", D_METHOD("addProductC_32f", "src", "val", "dst", "len"), &IPP::addProductC_32f);
+  ClassDB::bind_static_method("IPP", D_METHOD("addProductC_64f", "src", "val", "dst", "len"), &IPP::addProductC_64f);
+
+  ClassDB::bind_static_method("IPP", D_METHOD("addProduct_32f", "lhs", "rhs", "dst", "len"), &IPP::addProduct_32f);
+  ClassDB::bind_static_method("IPP", D_METHOD("addProduct_64f", "lhs", "rhs", "dst", "len"), &IPP::addProduct_64f);
+  ClassDB::bind_static_method("IPP", D_METHOD("addProduct_32fc", "lhs", "rhs", "dst", "len"), &IPP::addProduct_32fc);
+  ClassDB::bind_static_method("IPP", D_METHOD("addProduct_64fc", "lhs", "rhs", "dst", "len"), &IPP::addProduct_64fc);
+
+  ClassDB::bind_static_method("IPP", D_METHOD("addProduct_16s_Sfs", "lhs", "rhs", "dst", "len", "scale"), &IPP::addProduct_16s_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("addProduct_32s_Sfs", "lhs", "rhs", "dst", "len", "scale"), &IPP::addProduct_32s_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("addProduct_16s32s_Sfs", "lhs", "rhs", "dst", "len", "scale"), &IPP::addProduct_16s32s_Sfs);
+
+  ClassDB::bind_static_method("IPP", D_METHOD("mulC_32f", "src", "val", "dst", "len"), &IPP::mulC_32f);
+  ClassDB::bind_static_method("IPP", D_METHOD("mulC_64f", "src", "val", "dst", "len"), &IPP::mulC_64f);
+  ClassDB::bind_static_method("IPP", D_METHOD("mulC_32fc", "src", "val", "dst", "len"), &IPP::mulC_32fc);
+  ClassDB::bind_static_method("IPP", D_METHOD("mulC_64fc", "src", "val", "dst", "len"), &IPP::mulC_64fc);
+  ClassDB::bind_static_method("IPP", D_METHOD("mulC_low_32f16s", "src", "val", "dst", "len"), &IPP::mulC_low_32f16s);
+
+  ClassDB::bind_static_method("IPP", D_METHOD("mulC_8u_Sfs", "src", "val", "dst", "len", "scale"), &IPP::mulC_8u_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("mulC_16u_Sfs", "src", "val", "dst", "len", "scale"), &IPP::mulC_16u_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("mulC_16s_Sfs", "src", "val", "dst", "len", "scale"), &IPP::mulC_16s_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("mulC_32s_Sfs", "src", "val", "dst", "len", "scale"), &IPP::mulC_32s_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("mulC_16sc_Sfs", "src", "val", "dst", "len", "scale"), &IPP::mulC_16sc_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("mulC_32sc_Sfs", "src", "val", "dst", "len", "scale"), &IPP::mulC_32sc_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("mulC_32f16s_Sfs", "src", "val", "dst", "len", "scale"), &IPP::mulC_32f16s_Sfs);
+
+  ClassDB::bind_static_method("IPP", D_METHOD("mulC_16s_I", "val", "src_dst", "len"), &IPP::mulC_16s_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("mulC_32f_I", "val", "src_dst", "len"), &IPP::mulC_32f_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("mulC_64f_I", "val", "src_dst", "len"), &IPP::mulC_64f_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("mulC_32fc_I", "val", "src_dst", "len"), &IPP::mulC_32fc_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("mulC_64fc_I", "val", "src_dst", "len"), &IPP::mulC_64fc_I);
+
+  ClassDB::bind_static_method("IPP", D_METHOD("mulC_8u_ISfs", "val", "src_dst", "len", "scale"), &IPP::mulC_8u_ISfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("mulC_16u_ISfs", "val", "src_dst", "len", "scale"), &IPP::mulC_16u_ISfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("mulC_16s_ISfs", "val", "src_dst", "len", "scale"), &IPP::mulC_16s_ISfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("mulC_32s_ISfs", "val", "src_dst", "len", "scale"), &IPP::mulC_32s_ISfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("mulC_64f64s_ISfs", "val", "src_dst", "len", "scale"), &IPP::mulC_64f64s_ISfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("mulC_16sc_ISfs", "val", "src_dst", "len", "scale"), &IPP::mulC_16sc_ISfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("mulC_32sc_ISfs", "val", "src_dst", "len", "scale"), &IPP::mulC_32sc_ISfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("mulC_64s_ISfs", "val", "src_dst", "len", "scale"), &IPP::mulC_64s_ISfs);
+
+  ClassDB::bind_static_method("IPP", D_METHOD("mul_16s", "lhs", "rhs", "dst", "len"), &IPP::mul_16s);
+  ClassDB::bind_static_method("IPP", D_METHOD("mul_32f", "lhs", "rhs", "dst", "len"), &IPP::mul_32f);
+  ClassDB::bind_static_method("IPP", D_METHOD("mul_64f", "lhs", "rhs", "dst", "len"), &IPP::mul_64f);
+  ClassDB::bind_static_method("IPP", D_METHOD("mul_32fc", "lhs", "rhs", "dst", "len"), &IPP::mul_32fc);
+  ClassDB::bind_static_method("IPP", D_METHOD("mul_64fc", "lhs", "rhs", "dst", "len"), &IPP::mul_64fc);
+  ClassDB::bind_static_method("IPP", D_METHOD("mul_8u16u", "lhs", "rhs", "dst", "len"), &IPP::mul_8u16u);
+  ClassDB::bind_static_method("IPP", D_METHOD("mul_32f32fc", "lhs", "rhs", "dst", "len"), &IPP::mul_32f32fc);
+  ClassDB::bind_static_method("IPP", D_METHOD("mul_16s32f", "lhs", "rhs", "dst", "len"), &IPP::mul_16s32f);
+
+  ClassDB::bind_static_method("IPP", D_METHOD("mul_8u_Sfs", "lhs", "rhs", "dst", "len", "scale"), &IPP::mul_8u_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("mul_16u_Sfs", "lhs", "rhs", "dst", "len", "scale"), &IPP::mul_16u_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("mul_16s_Sfs", "lhs", "rhs", "dst", "len", "scale"), &IPP::mul_16s_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("mul_32s_Sfs", "lhs", "rhs", "dst", "len", "scale"), &IPP::mul_32s_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("mul_16sc_Sfs", "lhs", "rhs", "dst", "len", "scale"), &IPP::mul_16sc_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("mul_32sc_Sfs", "lhs", "rhs", "dst", "len", "scale"), &IPP::mul_32sc_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("mul_16s32s_Sfs", "lhs", "rhs", "dst", "len", "scale"), &IPP::mul_16s32s_Sfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("mul_16u16s_Sfs", "lhs", "rhs", "dst", "len", "scale"), &IPP::mul_16u16s_Sfs);
+
+  ClassDB::bind_static_method("IPP", D_METHOD("mul_16s_I", "src", "src_dst", "len"), &IPP::mul_16s_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("mul_32f_I", "src", "src_dst", "len"), &IPP::mul_32f_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("mul_64f_I", "src", "src_dst", "len"), &IPP::mul_64f_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("mul_32fc_I", "src", "src_dst", "len"), &IPP::mul_32fc_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("mul_64fc_I", "src", "src_dst", "len"), &IPP::mul_64fc_I);
+  ClassDB::bind_static_method("IPP", D_METHOD("mul_32f32fc_I", "src", "src_dst", "len"), &IPP::mul_32f32fc_I);
+
+  ClassDB::bind_static_method("IPP", D_METHOD("mul_8u_ISfs", "src", "src_dst", "len", "scale"), &IPP::mul_8u_ISfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("mul_16u_ISfs", "src", "src_dst", "len", "scale"), &IPP::mul_16u_ISfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("mul_16s_ISfs", "src", "src_dst", "len", "scale"), &IPP::mul_16s_ISfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("mul_32s_ISfs", "src", "src_dst", "len", "scale"), &IPP::mul_32s_ISfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("mul_16sc_ISfs", "src", "src_dst", "len", "scale"), &IPP::mul_16sc_ISfs);
+  ClassDB::bind_static_method("IPP", D_METHOD("mul_32sc_ISfs", "src", "src_dst", "len", "scale"), &IPP::mul_32sc_ISfs);
+
   ClassDB::bind_static_method("IPP", D_METHOD("uniform_init_8u", "low", "high", "seed"), &IPP::uniform_init_8u);
   ClassDB::bind_static_method("IPP", D_METHOD("uniform_init_16s", "low", "high", "seed"), &IPP::uniform_init_16s);
   ClassDB::bind_static_method("IPP", D_METHOD("uniform_init_32f", "low", "high", "seed"), &IPP::uniform_init_32f);
