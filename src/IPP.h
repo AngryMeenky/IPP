@@ -828,16 +828,25 @@ class IPP: public godot::Object {
     static Status sin_cos_64f_A53(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
 
     static Status real_16sc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status real_32sc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
     static Status real_32fc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status real_64sc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
     static Status real_64fc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
     static Status imag_16sc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status imag_32sc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
     static Status imag_32fc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status imag_64sc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
     static Status imag_64fc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+
     static Status realToCplx_16s(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status realToCplx_32s(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
     static Status realToCplx_32f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status realToCplx_64s(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
     static Status realToCplx_64f(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
     static Status cplxToReal_16sc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status cplxToReal_32sc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
     static Status cplxToReal_32fc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
+    static Status cplxToReal_64sc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
     static Status cplxToReal_64fc(const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, const godot::Ref<IppBuffer> &, int);
 
     static godot::Ref<IppFft> fft_init_C_32f(int, int);
