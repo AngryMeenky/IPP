@@ -31,6 +31,7 @@
 
 #include "IPP.h"
 #include "fft.h"
+#include "rand.h"
 #include "buffer.h"
 #include "register_types.h"
 
@@ -42,6 +43,7 @@ void initialize_ipp_module(ModuleInitializationLevel p_level) {
 
   (void) ippInit();
   GDREGISTER_CLASS(ipp::IppBuffer);
+  GDREGISTER_CLASS(ipp::IppRandom);
   GDREGISTER_CLASS(ipp::IppFft);
   GDREGISTER_CLASS(ipp::IPP);
 }

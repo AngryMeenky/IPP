@@ -15,15 +15,63 @@ using namespace ipp;
 using namespace godot;
 
 
-IppRandom::IppRandom(): IppRandom(IPP::TYPE_32F, DIST_NONE, 0.0, 0.0, 0xFFFFFFFFU) {}
-
-
-IppRandom::IppRandom(IPP::Type t, Distribution d, int low, int high, unsigned seed):
+IppRandom::IppRandom():
   state(nullptr),
-  dist(d),
-  type(t),
-  lo(low),
-  hi(high) {
+  range(),
+  dist(DIST_NONE),
+  type(IPP::TYPE_NONE) {
+}
+
+
+Ref<IppRandom> IppRandom::create_random_8u(Distribution d, int l, int h, int64_t s) {
+  Ref<IppRandom> rand;
+
+  rand.instantiate();
+  if(rand.is_valid() && !rand->initialize(IPP::TYPE_8U, d, l, h, static_cast<unsigned>(s))) {
+    rand.unref();
+  }
+
+  return rand;
+}
+
+
+Ref<IppRandom> IppRandom::create_random_16s(Distribution d, int l, int h, int64_t s) {
+  Ref<IppRandom> rand;
+
+  rand.instantiate();
+  if(rand.is_valid() && !rand->initialize(IPP::TYPE_16S, d, l, h, static_cast<unsigned>(s))) {
+    rand.unref();
+  }
+
+  return rand;
+}
+
+
+Ref<IppRandom> IppRandom::create_random_32f(Distribution d, double l, double h, int64_t s) {
+  Ref<IppRandom> rand;
+
+  rand.instantiate();
+  if(rand.is_valid() && !rand->initialize(IPP::TYPE_32F, d, l, h, static_cast<unsigned>(s))) {
+    rand.unref();
+  }
+
+  return rand;
+}
+
+
+Ref<IppRandom> IppRandom::create_random_64f(Distribution d, double l, double h, int64_t s) {
+  Ref<IppRandom> rand;
+
+  rand.instantiate();
+  if(rand.is_valid() && !rand->initialize(IPP::TYPE_64F, d, l, h, static_cast<unsigned>(s))) {
+    rand.unref();
+  }
+
+  return rand;
+}
+
+
+bool IppRandom::initialize(IPP::Type t, Distribution d, int low, int high, unsigned seed) {
   IppStatus result = ippStsErr;
 
   if(t == IPP::TYPE_8U) {
@@ -70,16 +118,19 @@ IppRandom::IppRandom(IPP::Type t, Distribution d, int low, int high, unsigned se
     }
 
     dist = DIST_NONE;
+    type = IPP::TYPE_NONE;
+    range.clear();
+    return false;
   }
+
+  dist = d;
+  type = t;
+  range = Vector2i(low, high);
+  return true;
 }
 
 
-IppRandom::IppRandom(IPP::Type t, Distribution d, double low, double high, unsigned seed):
-  state(nullptr),
-  dist(d),
-  type(t),
-  lo(low),
-  hi(high) {
+bool IppRandom::initialize(IPP::Type t, Distribution d, double low, double high, unsigned seed) {
   IppStatus result = ippStsErr;
 
   if(t == IPP::TYPE_32F) {
@@ -126,7 +177,15 @@ IppRandom::IppRandom(IPP::Type t, Distribution d, double low, double high, unsig
     }
 
     dist = DIST_NONE;
+    type = IPP::TYPE_NONE;
+    range.clear();
+    return false;
   }
+
+  dist = d;
+  type = t;
+  range = Vector2(low, high);
+  return true;
 }
 
 
@@ -135,21 +194,30 @@ IppRandom::~IppRandom() {
     ippsFree(state);
     state = nullptr;
   }
+
+  dist = DIST_NONE;
+  type = IPP::TYPE_NONE;
+  range.clear();
 }
 
 
-IPP::Type IppRandom::getType() {
+IPP::Type IppRandom::getType() const {
   return type;
 }
 
 
-IppRandom::Distribution IppRandom::getDistribution() {
+IppRandom::Distribution IppRandom::getDistribution() const {
   return dist;
 }
 
 
-bool IppRandom::generate(IppBuffer *dst, int len) {
-  if(dst == nullptr || dst->getType() != type) {
+Variant IppRandom::getRange() const {
+  return range;
+}
+
+
+bool IppRandom::generate(const Ref<IppBuffer> &dst, int len) {
+  if(dst.is_null() || dst->getType() != type) {
     return false;
   }
 
@@ -202,51 +270,50 @@ static const char *distString(IppRandom::Distribution dist) {
 
 String IppRandom::_to_string() const {
   Dictionary bits;
-  bits["low"] = lo;
-  bits["high"] = hi;
+  bits["range"] = range;
   bits["type"] = IPP::typeString(type);
   bits["distribution"] = distString(dist);
   return String("[IppRandom: {_}]").format(bits);
 }
 
 
-static IppRandom *createUniform8u(int low, int high, int64_t seed) {
-  return new IppRandom(IPP::TYPE_8U, IppRandom::DIST_UNIFORM, low, high, static_cast<unsigned>(seed));
+static Ref<IppRandom> createUniform8u(int low, int high, int64_t seed) {
+  return IppRandom::create_random_8u(IppRandom::DIST_UNIFORM, low, high, seed);
 }
 
 
-static IppRandom *createUniform16s(int low, int high, int64_t seed) {
-  return new IppRandom(IPP::TYPE_16S, IppRandom::DIST_UNIFORM, low, high, static_cast<unsigned>(seed));
+static Ref<IppRandom> createUniform16s(int low, int high, int64_t seed) {
+  return IppRandom::create_random_16s(IppRandom::DIST_UNIFORM, low, high, seed);
 }
 
 
-static IppRandom *createUniform32f(double low, double high, int64_t seed) {
-  return new IppRandom(IPP::TYPE_32F, IppRandom::DIST_UNIFORM, low, high, static_cast<unsigned>(seed));
+static Ref<IppRandom> createUniform32f(double low, double high, int64_t seed) {
+  return IppRandom::create_random_32f(IppRandom::DIST_UNIFORM, low, high, seed);
 }
 
 
-static IppRandom *createUniform64f(double low, double high, int64_t seed) {
-  return new IppRandom(IPP::TYPE_64F, IppRandom::DIST_UNIFORM, low, high, static_cast<unsigned>(seed));
+static Ref<IppRandom> createUniform64f(double low, double high, int64_t seed) {
+  return IppRandom::create_random_64f(IppRandom::DIST_UNIFORM, low, high, seed);
 }
 
 
-static IppRandom *createGaussian8u(int low, int high, int64_t seed) {
-  return new IppRandom(IPP::TYPE_8U, IppRandom::DIST_GAUSSIAN, low, high, static_cast<unsigned>(seed));
+static Ref<IppRandom> createGaussian8u(int low, int high, int64_t seed) {
+  return IppRandom::create_random_8u(IppRandom::DIST_GAUSSIAN, low, high, seed);
 }
 
 
-static IppRandom *createGaussian16s(int low, int high, int64_t seed) {
-  return new IppRandom(IPP::TYPE_16S, IppRandom::DIST_GAUSSIAN, low, high, static_cast<unsigned>(seed));
+static Ref<IppRandom> createGaussian16s(int low, int high, int64_t seed) {
+  return IppRandom::create_random_16s(IppRandom::DIST_GAUSSIAN, low, high, seed);
 }
 
 
-static IppRandom *createGaussian32f(double low, double high, int64_t seed) {
-  return new IppRandom(IPP::TYPE_32F, IppRandom::DIST_GAUSSIAN, low, high, static_cast<unsigned>(seed));
+static Ref<IppRandom> createGaussian32f(double low, double high, int64_t seed) {
+  return IppRandom::create_random_32f(IppRandom::DIST_GAUSSIAN, low, high, seed);
 }
 
 
-static IppRandom *createGaussian64f(double low, double high, int64_t seed) {
-  return new IppRandom(IPP::TYPE_64F, IppRandom::DIST_GAUSSIAN, low, high, static_cast<unsigned>(seed));
+static Ref<IppRandom> createGaussian64f(double low, double high, int64_t seed) {
+  return IppRandom::create_random_64f(IppRandom::DIST_GAUSSIAN, low, high, seed);
 }
 
 
@@ -262,6 +329,7 @@ void IppRandom::_bind_methods() {
   ClassDB::bind_static_method("IppRandom", D_METHOD("create_gaussian_64f", "low", "high", "seed"), &createGaussian64f);
 
   ClassDB::bind_method(D_METHOD("get_type"), &IppRandom::getType);
+  ClassDB::bind_method(D_METHOD("get_range"), &IppRandom::getRange);
   ClassDB::bind_method(D_METHOD("get_distribution"), &IppRandom::getDistribution);
   ClassDB::bind_method(D_METHOD("generate", "dst", "len"), &IppRandom::generate);
 

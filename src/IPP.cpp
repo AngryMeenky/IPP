@@ -53,42 +53,42 @@ String IPP::statusString(Status code) {
 
 
 Ref<IppRandom> IPP::uniform_init_8u(int low, int high, int64_t seed) {
-  return new IppRandom(IPP::TYPE_8U, IppRandom::DIST_UNIFORM, low, high, static_cast<unsigned>(seed));
+  return IppRandom::create_random_8u(IppRandom::DIST_UNIFORM, low, high, seed);
 }
 
 
 Ref<IppRandom> IPP::uniform_init_16s(int low, int high, int64_t seed) {
-  return new IppRandom(IPP::TYPE_16S, IppRandom::DIST_UNIFORM, low, high, static_cast<unsigned>(seed));
+  return IppRandom::create_random_16s(IppRandom::DIST_UNIFORM, low, high, seed);
 }
 
 
 Ref<IppRandom> IPP::uniform_init_32f(float low, float high, int64_t seed) {
-  return new IppRandom(IPP::TYPE_32F, IppRandom::DIST_UNIFORM, low, high, static_cast<unsigned>(seed));
+  return IppRandom::create_random_32f(IppRandom::DIST_UNIFORM, low, high, seed);
 }
 
 
 Ref<IppRandom> IPP::uniform_init_64f(double low, double high, int64_t seed) {
-  return new IppRandom(IPP::TYPE_64F, IppRandom::DIST_UNIFORM, low, high, static_cast<unsigned>(seed));
+  return IppRandom::create_random_64f(IppRandom::DIST_UNIFORM, low, high, seed);
 }
 
 
 Ref<IppRandom> IPP::gauss_init_8u(int low, int high, int64_t seed) {
-  return new IppRandom(IPP::TYPE_8U, IppRandom::DIST_GAUSSIAN, low, high, static_cast<unsigned>(seed));
+  return IppRandom::create_random_8u(IppRandom::DIST_GAUSSIAN, low, high, seed);
 }
 
 
 Ref<IppRandom> IPP::gauss_init_16s(int low, int high, int64_t seed) {
-  return new IppRandom(IPP::TYPE_16S, IppRandom::DIST_GAUSSIAN, low, high, static_cast<unsigned>(seed));
+  return IppRandom::create_random_16s(IppRandom::DIST_GAUSSIAN, low, high, seed);
 }
 
 
 Ref<IppRandom> IPP::gauss_init_32f(float low, float high, int64_t seed) {
-  return new IppRandom(IPP::TYPE_32F, IppRandom::DIST_GAUSSIAN, low, high, static_cast<unsigned>(seed));
+  return IppRandom::create_random_32f(IppRandom::DIST_GAUSSIAN, low, high, seed);
 }
 
 
 Ref<IppRandom> IPP::gauss_init_64f(double low, double high, int64_t seed) {
-  return new IppRandom(IPP::TYPE_64F, IppRandom::DIST_GAUSSIAN, low, high, static_cast<unsigned>(seed));
+  return IppRandom::create_random_64f(IppRandom::DIST_GAUSSIAN, low, high, seed);
 }
 
 
