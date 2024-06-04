@@ -509,8 +509,6 @@ class IPP: public godot::Object {
     static Status subC_16u_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
     static Status subC_16s_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
     static Status subC_32s_Sfs(const godot::Ref<IppBuffer> &, int, const godot::Ref<IppBuffer> &, int, int);
-    static Status subC_64s_Sfs(const godot::Ref<IppBuffer> &, int64_t, const godot::Ref<IppBuffer> &, int, int);
-    static Status subC_64u_Sfs(const godot::Ref<IppBuffer> &, uint64_t, const godot::Ref<IppBuffer> &, int, int);
     static Status subC_16sc_Sfs(const godot::Ref<IppBuffer> &, godot::Vector2i, const godot::Ref<IppBuffer> &, int, int);
     static Status subC_32sc_Sfs(const godot::Ref<IppBuffer> &, godot::Vector2i, const godot::Ref<IppBuffer> &, int, int);
 
