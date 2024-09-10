@@ -632,9 +632,9 @@ void IPP::_bind_methods() {
   ClassDB::bind_static_method("IPP", D_METHOD("ln_32s_ISfs", "src_dst", "len", "scale"), &IPP::ln_32s_ISfs);
 
   ClassDB::bind_static_method("IPP", D_METHOD("mean_32f", "src", "len", "result", "hint"), &IPP::mean_32f);
-  ClassDB::bind_static_method("IPP", D_METHOD("mean_64f", "src", "len", "result", "hint"), &IPP::mean_64f);
+  ClassDB::bind_static_method("IPP", D_METHOD("mean_64f", "src", "len", "result"), &IPP::mean_64f);
 
-  ClassDB::bind_static_method("IPP", D_METHOD("mean_32fc", "src", "len", "result"), &IPP::mean_32fc);
+  ClassDB::bind_static_method("IPP", D_METHOD("mean_32fc", "src", "len", "result", "hint"), &IPP::mean_32fc);
   ClassDB::bind_static_method("IPP", D_METHOD("mean_64fc", "src", "len", "result"), &IPP::mean_64fc);
 
   ClassDB::bind_static_method("IPP", D_METHOD("mean_16s_Sfs", "src", "len", "result", "scale"), &IPP::mean_16s_Sfs);
